@@ -32,8 +32,8 @@ The % is the approximate relative duration.
 ### Game played many rounds consecutively (e.g. 200)
 ### Final score per player is the sum of all scores
 
-- **Player A**: Guaranteed to win each game**
-- **Player B**: Guaranteed to tie or loose each game
+- **Player A**: Guaranteed to win** each individual round of games
+- **Player B**: Guaranteed to tie or loose  each individual round of games
 - **Q2:** How condifent are you A will win* the tournament?
 - **Q3:** How condifent are you B will win* the tournament?
 
@@ -99,8 +99,8 @@ It doesn't matter which player you are. It's symmetrical
 ### 2. Determine move for gN-1.
 ### 3. We repeat this reasoning until we reach the g1
 
-- **Player A**: Guaranteed to win each game**
-- **Player B**: Guaranteed to tie or loose each game
+- **Player A**: Guaranteed to win** each individual round of games
+- **Player B**: Guaranteed to tie or loose  each individual round of games
 - **Q7:** How condifent are you A will win* the tournament?
 - **Q8:** How condifent are you B will win* the tournament?
 
@@ -201,12 +201,12 @@ Prepare the props about political prisoners
 ### Any more suggestions?
 
 ???
-**Reputation** You don't know each other. But even it you don't you may infer something through their reputation, or even their age, or name if you have prejudices. Is P2 rational? etc. If you don't know, you probably imagine you do or can infer (e.g. x% of population know game theory). Is the same if is a guy you don't know, a coworker, a friend, or a close relative?
-**Consequences** You won't ever see each other again. You may get bad reputation, P2 may get revenge outside the system to you, etc.
-**Payoffs** If known, payoffs will certainly not be neatly presented in a 2x2 matrix. Best case scenario just estimates/guesses
-**Uncertainty** No guarantee a specific action will trigger a specific payoff, even if they are known. Who enforces it?
-**Collusion** You can't comunicate. Even if isolated, you may plan actions beforehand in event of getting caught
-**External influences** It is likely parties will try to influence you to cooperate. You are not making the decision isolated on your own. Also time pressure, advantages on defecting first, etc.
+- **Reputation** You don't know each other. But even it you don't you may infer something through their reputation, or even their age, or name if you have prejudices. Is P2 rational? etc. If you don't know, you probably imagine you do or can infer (e.g. x% of population know game theory). Is the same if is a guy you don't know, a coworker, a friend, or a close relative?
+- **Consequences** You won't ever see each other again. You may get bad reputation, P2 may get revenge outside the system to you, etc.
+- **Payoffs** If known, payoffs will certainly not be neatly presented in a 2x2 matrix. Best case scenario just estimates/guesses
+- **Uncertainty** No guarantee a specific action will trigger a specific payoff, even if they are known. Who enforces it?
+- **Collusion** You can't comunicate. Even if isolated, you may plan actions beforehand in event of getting caught
+- **External influences** It is likely parties will try to influence you to cooperate. You are not making the decision isolated on your own. Also time pressure, advantages on defecting first, etc.
 
 ---
 
@@ -250,9 +250,9 @@ Prepare the props about political prisoners
 
 *Q9* Please rate this talk. I won't judge :)
 ???
-An online course with youtube video explanations. I based most of my theory from here.
-An incredible tool built in python to simulate/visualise PD tournaments. It has >200 strategies and allows Moran processes and population evolution.
-I got my bias and BE ideas from many places, but if I had to recomend only one it would be this one. It's >500 pag, but one is left wanting more.
+- An online course with youtube video explanations. I based most of my theory from here.
+- An incredible tool built in python to simulate/visualise PD tournaments. It has >200 strategies and allows Moran processes and population evolution.
+- I got my bias and BE ideas from many places, but if I had to recomend only one it would be this one. It's >500 pag, but one is left wanting more.
 
 ---
 
