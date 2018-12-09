@@ -1,7 +1,4 @@
-# Prisoner's Dilemma
-
-## Feedback
-Feel free to give feedback here https://docs.google.com/forms/d/e/1FAIpQLSeZZoDQlD3QMT1DPdfBw59Na48sXl-UXCmT4FbaYiewRn0PSQ/viewform?usp=sf_link
+# Prisoner's behaviour, an economic dilemma
 
 ## How to run the presentation
 ### If you don't care too much about the format

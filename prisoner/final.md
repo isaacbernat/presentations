@@ -1,6 +1,7 @@
 # Prisoner's behaviour, an economic dilemma
 
 <img src="./dt_recidivism.png" width="100%" />
+
 ### Is that the only reasonable explanation?
 ### Q1. How much do you know about the Prisoner's Dilemma? (0-10)
 
@@ -54,6 +55,7 @@ The % is the approximate relative duration.
 # 1.2 Generalised PD
 
 <div style="text-align:center"><img src="./briefcase_exchange.png" width="50%" /></div>
+
 ### Q4/Q5. You are the Buyer/Seller. What do you do?
 
 ???
@@ -65,6 +67,7 @@ The % is the approximate relative duration.
 # 1.3 PD Payoff matrix
 
 <div style="text-align:center"><img src="./payoff_matrix.png" width="60%" /></div>
+
 - You can't comunicate
 - You don't know each other
 - You won't ever see each other again
@@ -79,6 +82,7 @@ It doesn't matter which player you are. It's symmetrical
 # 1.4 PD Payoff properties
 
 <div style="text-align:center"><img src="./payoff_matrix.png" width="60%" /></div>
+
 ### Nash equilibrium: Defect/Defect
 ### Pareto efficient: all but Defect/Defect
 ### Superrational: Cooperate/Cooperate
@@ -94,9 +98,13 @@ It doesn't matter which player you are. It's symmetrical
 # 1.5 PD Repeated game (finite, N iterations)
 
 ### Same theoretical reasoning as single case.
+
 ### Backwards induction g1, g2, g3... gN-1, gN
+
 ### 1. Determine move for gN.
+
 ### 2. Determine move for gN-1.
+
 ### 3. We repeat this reasoning until we reach the g1
 
 - **Player A**: Guaranteed to win** each individual round of games
@@ -244,6 +252,7 @@ Prepare the props about political prisoners
 
 # 3.2 Further reading:
 <img src="./dt_performance.gif" width="100%" />
+
 ### PD: http://gametheory101.com/courses/game-theory-101/
 ### PD: https://github.com/Axelrod-Python/Axelrod
 ### BE: Thinking, Fast and Slow - 2011 Daniel Kahneman
