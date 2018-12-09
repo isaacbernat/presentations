@@ -9,3 +9,14 @@
 - Then open in a browser `http://localhost:8000`.
 - Use shift+F for full screen, shift+P for presentation mode. Up and Down to go through slides.
 - For more info https://github.com/gnab/remark
+
+## Survey results
+If you were not during the presentation and want to contribute, you may fill this survey. Please, don't cheat and answer the questions as they are presented on the slides. [Here is the link](https://docs.google.com/forms/d/1AJ6Bk7S_8F4-Dco6-AWgMVS5s7kgQ0IT-VnYhUQtKvo/edit).
+
+I had such a great audience :D! I got 12 responses from the public, more than I expected! (Even if many have missing fields).
+You may [find them here](https://docs.google.com/spreadsheets/d/1ylxYlNx40GHQhrzJtuCVKZPco-h94ivhUgvlFFI9pao/edit#gid=0) . On the second sheet there is a short explanation on why I added that question, and what I intended to demonstrate or refute (I acknowledge the questionnaire design wouldn't resist serious scrutiny, and the sample is very small, but it's mainly just for fun, OK?).
+
+- Overall the feedback was very positive (avg 8.2/10), but more overly so for people who said that they knew little or nothing about PD at the beginning (avg 9.1/10) the big majority). I think this reinforces my idea that it was a good to introduce the topic on PD slowly and not go into the mathematical proofs.
+- **Spoiler alert!** Even people who said that were familiar with PD had very strong opinions on Q2 and Q3 that proved to be wrong. I am very happy because it means I taught everybody a valuable lesson :)
+- **Spoiler alert!** People were totally consistent between questions 4-6. I expected somebody might change their mind. This might mean that I was already quite clear when I presented/explained the first case.
+- **Spoiler alert!** Everybody who claimed some prior knowledge to PD (above or equal 2/10) chose defect while those who claimed no knowledge at all (1/10 or less) chose cooperate. I think this nicely illustrates the point on slide 2.3 (PD on real people). Hopefully after being presented with conclusions (3.1) people will be more friendly with strangers and make a better and more cohesive society.

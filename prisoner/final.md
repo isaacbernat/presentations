@@ -10,6 +10,7 @@
 - *Open question:* e.g. punishment is not a deterrent (too soft?), people overvalue short-term vs future gains/payoffs, overconfidence in not getting caught, etc.
 - *Q1:* During the presentation I'll ask you a few quick questions to be answered with a number from 0 to 10.
 - *Q1 bis:* I think it will make the experience more fun and memorable if you do. You can complain at the end if you disagree :). Not going to A/B test this time.
+- You may fill the quesionnaire online as well. [Here is the link](https://docs.google.com/forms/d/1AJ6Bk7S_8F4-Dco6-AWgMVS5s7kgQ0IT-VnYhUQtKvo/).
 
 ---
 
@@ -30,7 +31,7 @@ The % is the approximate relative duration.
 # 1.1 Generic game tournament
 ### For each game: Win > Tie > Loose (e.g. 1 > 0.5 > 0)
 ### Many players tested 1 vs 1 (e.g. 14)
-### Game played many rounds consecutively (e.g. 200)
+### Game played many times consecutively (e.g. 200)
 ### Final score per player is the sum of all scores
 
 - **Player A**: Guaranteed to win** each individual round of games
@@ -47,6 +48,8 @@ The % is the approximate relative duration.
 - **Played against an equivalent strategy will tie ^_^U
 
 - Vote goes like this: 5 means you are neither in favour nor against. 0 you are quite convinced P will loose. 10 P that P will win. If confidence is too abstract think 6 a small amount of money, 7 modest amount, 8 a considerable amount, 9 a big amount, 10 a huge amount
+
+- What does "each individual round of games" mean? It means that adding all scores for a player against any other one (e.g. all the results of individual matches 1 vs 1 added together) player A would always win 1 vs 1 against any other player. I hope this makes it clearer. I can put examples on the whiteboard if needed.
 
 - If people ask for clarifications: The number of rounds is finite and known in advance to each player (shouldn't matter here yet).
 
