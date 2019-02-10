@@ -34,8 +34,8 @@ The % is the approximate relative duration.
 ### Game played many times consecutively (e.g. 200)
 ### Final score per player is the sum of all scores
 
-- **Player A**: Guaranteed to win** each individual round of games
-- **Player B**: Guaranteed to tie or loose  each individual round of games
+- **Player A**: Guaranteed to win or tie** each individual round of games
+- **Player B**: Guaranteed to tie or loose each individual round of games
 - **Q2:** How condifent are you A will win* the tournament?
 - **Q3:** How condifent are you B will win* the tournament?
 
@@ -45,7 +45,7 @@ The % is the approximate relative duration.
 - I'll try to be neutral when asking questions. Just the phrasing or order will already influence the results. Why Player A before B? Anyway, good thing this is not a serious scientific study, so I don't have to worry too much :D
 
 - *If players were to tie in final score, we consider both winners
-- **Played against an equivalent strategy will tie ^_^U
+- **It will always win, except if played against an equivalent strategy, which will tie. More details later.
 
 - Vote goes like this: 5 means you are neither in favour nor against. 0 you are quite convinced P will loose. 10 P that P will win. If confidence is too abstract think 6 a small amount of money, 7 modest amount, 8 a considerable amount, 9 a big amount, 10 a huge amount
 
