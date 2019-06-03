@@ -8,24 +8,24 @@
 <div style="text-align:center; margin-top:-25rem"><img src="./Piano_Dompe.png" width="100%" /></div>
 
 ???
+- **Disclaimer:** Today I will not go into the detail of **physics, perception of sound nor music theory**. Sorry.
+- Other than that, feel free to interrupt and ask questions (but we can always ask at the end as usual).
 - Excerpt from "The American Heritage® Roget's Thesaurus" courtesy of https://www.thefreedictionary.com/rhythm
-- Today I will not go into the detail of physics, perception of sound nor music theory. Sorry.
-- Other than that, feel free to interrupt and ask questions.
 - Point out the 2 different representations of the same rhythm (left hand) from Lady carey's Dompe. A piece 500 years old.
 
 ---
 
 # Outline
 
-### ?0% Part 1 Rhythm notation.
-### ?0% Part 2 Real-time rhythm.
-### ?0% Part 3 Rhythm visualisation.
+### 50% Part 1 Rhythm notation.
+### 35% Part 2 Real-time rhythm.
+### 15% Part 3 Rhythm visualisation.
 
 The % is the approximate relative duration.
 
 ???
 - This is how the presentation is structured.
-- Within each section I will advance chronologically.
+- Within each section I will advance **chronologically**.
 
 ---
 
@@ -37,15 +37,15 @@ The % is the approximate relative duration.
 <div style="text-align:center; margin-top:-2rem"><img src="./CalHP.jpg" width="60%" /></div>
 
 ???
-- Why record text? *Memorisation* and oral tradition have their *limits*.
-    - *Message degradation* (ever played Chinese Whispers or the *Telephone Game* (https://en.wikipedia.org/wiki/Chinese_whispers ?)
-    - *Reach wider audiences*
-    - *Keep for posterity*
-    - *(con)* hard to note down all details/nuissances of a performance
-- Tablets are not sheet nor western notation (which is our focus), but a good precedent (image from https://music.stackexchange.com/questions/29121/what-did-ancient-cuneiform-notation-look-like-and-how-did-it-work ).
-- Printing enables a much wider audience to afford music, even without actually having heard it before. It's not anymore a mostly a master/disciple transmission of knowledge.
+- Why record text? **Memorisation** and oral tradition have their **limits**.
+    - **Message degradation** (ever played Chinese Whispers or the *Telephone Game* (https://en.wikipedia.org/wiki/Chinese_whispers ?)
+    - **Reach wider audiences**
+    - **Keep for posterity**
+    - **(con)** hard to note down all details/nuissances of a performance
+- Tablets are **not sheet** nor western notation (which is our focus), but a good **precedent** (image from https://music.stackexchange.com/questions/29121/what-did-ancient-cuneiform-notation-look-like-and-how-did-it-work ).
+- Printing enables overcoming previous limitations. A much wider audience to afford music, even **without actually having heard it** before. It's not anymore a mostly a **master/disciple** transmission of knowledge.
 
-### problem: Rhythm involves time, but scripture is static. How do we solve that? With abstractions
+# Problem: rhythm involves time, but scripture is static. How do we solve that? With abstractions
 
 ---
 
@@ -56,8 +56,10 @@ The % is the approximate relative duration.
 ### Rhythm can be represented!
 
 ???
-- What's a note? A unit of sound in a specific frequency (or range of). Since we are interested in rhythms here, let's the part relatd to pitch for now.
+- What's a note? A *pitched sound in time*. A unit of sound in a specific frequency (or range of). Since we are interested in rhythms here, let's the part relatd to pitch for now.
 - We have notes and rests (contrasting elements) of different relative durations. That's all we need for rhythm right?
+
+# Ok, how can we express note duration on paper?
 
 ---
 
@@ -74,6 +76,8 @@ The % is the approximate relative duration.
 - If there is a **semibreve** is because there is also a breve and other **notation "higher up"**. Is not used that often, as British names beyond 64th are not so common either.
 - **Balanced Binary Tree** image taken from https://www.researchgate.net/publication/258337267
 
+# Example clapping. They have the same relative duration but sound different!
+
 ---
 
 # 1.4 Pace and speed
@@ -87,8 +91,10 @@ The % is the approximate relative duration.
   - *Examples* (Italian): Lento, Presto, Andante.
 
 ???
-- Lento -> slow; Presto -> fast; Andante -> walking pace
-- It's hard to describe **precise timing** instructions on a paper. Especially when only available devices were **sundials, hourglasses and water clocks.**
+- It's hard to describe **precise timing** instructions on a paper. Especially when only available devices were **sundials, hourglasses and water clocks.
+- Lento -> slow; Presto -> fast; Andante -> walking pace.
+
+# That's quite subjective...
 
 ---
 
@@ -104,6 +110,8 @@ The % is the approximate relative duration.
 - At 20hz (50ms per note) and beyond human hearing stops discerning individual sounds and blends them into a single pitch. That's extremely fast, but not
 unattainable. E.g. Marc-André **Hamelin** has some passages at **36ms** per note on a live recording of Alkan's Etude No. 7 Op. 39 (1857) as quoted in https://web.archive.org/save/http://homes.sice.indiana.edu/donbyrd/CMNExtremes.htm . Probably refering to this performance? https://www.youtube.com/watch?v=l8dP0LW0Ps8
 
+# Ok, let's get objective!
+
 ---
 
 # 2.1 Towards measurable intervals
@@ -116,13 +124,15 @@ unattainable. E.g. Marc-André **Hamelin** has some passages at **36ms** per not
 <div style="text-align:center; margin-top:-1rem"><img src="./tumblr_lwt2pi2QDl1qfadvwo1_500.jpg" width="64%" /></div>
 
 ???
-- Galileo notices **isochronism** (pendulum oscillate at **same rate independent amplitude** for small swings).
+- Galileo notices **isochronism** (pendulum oscillate at **same rate independent amplitude** for small swings). He uses his **heartbeat** to measure time (better than sundiarls or hourglasses).
 - A long pendulum **without any sound**, but rather to be observed as a **conductor's baton**, the player should watch it's movement. This was a strong limitation, as musicians tended to rely on sound. On that era it was **common practise to beat the time** by banging a long staff on the floor. An example was Jean Baptiste **Lully**, who struck his toe in a **1687** concert. The injury became gangrenous, but he refused to have his foot amputated so he could still dance. Eventually gangrene extended and killed him. It wasn't until **19th century that conducting batons** started to gained popularity.
 - It made a sound, it helped have **higher accuracy and be small** even at slow tempos.
 - It was copied from Winkel. In fact he was famous for other treacheries such as buying (later **reselling it at 3x** the price he paid), modifying and touring with **The Turk in USA**, while **not paying debts** with the "chess operator" for more than one year, etc.
 - Such an stablished figure **helped** make the use of metronome **acceptable and common**. Mälzel knew Beethoven as he **invented hearing aids** for him earlier on. That was probably paramount to the early and widespread adoption.
 - **Electric, electronic, digital, etc.** New and future improvements in metronomes gave higher accuracy, precision and flexibility. But a **good enough standard** baseline was already set. Some more modern composer would measure pieces as a whole in seconds (e.g. Béla Bártok) though.
 - Image taken from England's Patent.
+
+# But that's not music per se, just a proxy for rhythm!
 
 ---
 
@@ -145,8 +155,7 @@ unattainable. E.g. Marc-André **Hamelin** has some passages at **36ms** per not
 - MIDI (Musical Instrument Digital Interface). **Communication protocol** among different musical instruments. It uses events. In 2019 a new standard is being produced 2.0. With **32-bit per-note pressure** (instead of 128 values of 7-bit pressure on older standard, etc.)
 - Images taken from https://unheardbeethoven.org
 
-https://en.wikipedia.org/wiki/File:Detail_of_barrel_organ_(1).JPG
-todo piano roll
+# Interesting, can we go into detail?
 
 ---
 
@@ -169,6 +178,7 @@ todo piano roll
 - Several different ways to record and play a roll. Won't go in depth in this presentation.
 - Images from Wikimedia Commons
 
+# This is limited to a few instruments (which for MIDI is relatively big).
 
 ---
 
@@ -187,10 +197,13 @@ todo piano roll
 - Not very flexible. They play the **music "as is" and not many changes** can be easily introduced. Also **limited by real player capabilities**, finding proper ensembles, etc. **Midi in a way supersedes** this.
 - Image from Wikipedia
 
+# This is quite rigid. One can't change the tempo without changing the pitch...
+
+
 ---
 
 # 3.1 Can metronomes be improved?
-### They are simple. Too simple?
+### They are simple. Too simple? Not enough?
 ### Tempo and time signature.
 ### [Let's try out!](https://www.google.com/search?q=metronome)
 
@@ -198,6 +211,8 @@ todo piano roll
 - Even if they are simple it's already **one extra abstraction layer** in addition to the music being played.
 - Tempo is how fast. Time signature is how to emphasize the beats. **E.g. 3/4 vs 4/4**
 - Google offers a super simple metronome to play with.
+
+# Ok, tempos can be adjusted. Let's work on that basis
 
 ---
 
@@ -214,6 +229,8 @@ todo piano roll
 - When practising an ensemble piece one may want a more realistic accompaniment
 - A more complex or realistic **base line** could be useful
 
+# That's nice, what more can there be?
+
 ---
 
 # 3.3 Visual patterns
@@ -227,6 +244,8 @@ todo piano roll
 - It's quite **neat**, very easy to encode a **rhythm in the URL**. It also allows you to **download as a MIDI** file and the interface is nice.
 - This guy shared his code in **github**
 - My brother has been playing the drums for almost 20 years now. But still he says sheet music does not help him visualise rhythms that much. Even real-time approaches like we saw on the first link. I thought that **rhythms** are often **cyclical patterns. Circles** are one of the best ways to represent cycles which keep repeating. So... 3 years ago I spend a couple of days on this pet project, I hacked together a couple of sunburst demos which used d3.js and got this!
+
+# I hope you liked it, because it ends here ;D
 
 ---
 
