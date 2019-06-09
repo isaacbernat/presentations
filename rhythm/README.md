@@ -2,7 +2,7 @@
 
 ## How to run the presentation
 ### If you don't care too much about the format
-[Click here](https://github.com/isaacbernat/presentations/blob/rhythm/prisoner/final.md) (just open the markdown file)
+[Click here](https://github.com/isaacbernat/presentations/blob/master/rhythm/final.md) (just open the markdown file)
 
 ### If you want it to look "good"
 - In a terminal with the same path as this directory type `python3 -m http.server`.
