@@ -92,7 +92,8 @@ The % is the approximate relative duration.
 
 ???
 - It's hard to describe **precise timing** instructions on a paper. Especially when only available devices were **sundials, hourglasses and water clocks.
-- Lento -> slow; Presto -> fast; Andante -> walking pace.
+- Lento -> slow; Presto -> fast; Andante -> walking pace... but people don't walk at the same pace!
+- "Clementi is a charlatan, like all Italians. He marks a piece presto but plays only allegro." W.A. Mozart (regarding a competition in 1781 at the Viennese court, which was declared "tie". Mozart latter used the opening motif of a Clementi's sonata for his opening of The Magic Flute. After that Clementi added a note on all publications of the sonata that his was written 10 years earlier).
 
 # That's quite subjective...
 
@@ -154,6 +155,7 @@ unattainable. E.g. Marc-André **Hamelin** has some passages at **36ms** per not
 - Standarisation is crucial for the industry to thrive. It creates economies of scale and such, allowing for wider repertoire, etc.
 - MIDI (Musical Instrument Digital Interface). **Communication protocol** among different musical instruments. It uses events. In 2019 a new standard is being produced 2.0. With **32-bit per-note pressure** (instead of 128 values of 7-bit pressure on older standard, etc.)
 - Images taken from https://unheardbeethoven.org
+- Optional mention of Ligeti's 1962 "Poème symphonique" for 100 metronomes (and how the Dutch TV broadcast was cancelled, etc. https://en.wikipedia.org/wiki/Poème_symphonique).
 
 # Interesting, can we go into detail?
 
