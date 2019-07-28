@@ -456,9 +456,6 @@ easy to retrieve.
 The earlier an error is discovered, the cheaper it is to correct.!!!
 
 
-
-
-
 ---
 
 Conceptual Schemas
@@ -492,4 +489,54 @@ La ultima transpa del PPT
 
 
 ---
+
+Joel On Software October 2000
+PART 1. WHY BOTHER? **functional specs** not technical specs
+
+https://www.joelonsoftware.com/2000/10/02/painless-functional-specifications-part-1-why-bother/
+
+"As a result, the final product tends to be a compromise between the initial, wrong design and the ideal design. It was “the best design we could get, given that we’d already written all this code and we just didn’t want to throw it away.” Not quite as good as “the best design we could get, period.”·
+
+- writing a spec is faster thna writing code a working prototype, etc. and it's also easier to inspect, by all stake holders, especially non-technical users. All this communication that has to happen still happens without document, but happens ad hoc
+
+"""the programmers tend to give the answer that corresponds to what they wrote in the code, rather than the “right answer.” So the QA people are really testing the program against the program rather than the program against the design, which would be, um, a little bit more useful."""
+
+"Number three giant important reason to have a spec is that without a detailed spec, it’s impossible to make a schedule."
+
+
+
+"(In most organizations, the only “specs” that exist are staccato, one page text documents that a programmer banged out in Notepad after writing the code and after explaining that damn feature to the three hundredth person.)" semi offtopic
+
+
+---
+
+https://www.joelonsoftware.com/2000/10/03/painless-functional-specifications-part-2-whats-a-spec/
+PART 2. WHAT'S A SPEC?
+
+- A functional specification describes how a product will work entirely from the user’s perspective. It doesn’t care how the thing is implemented. It talks about features. It specifies screens, menus, dialogs, and so on.
+- A technical specification describes the internal implementation of the program. It talks about data structures, relational database models, choice of programming languages and tools, algorithms, etc.
+
+
+Example of a functional spec:
+https://www.joelonsoftware.com/whattimeisit/
+
+This approach is why specs have such a bad reputation. A lot of people have said to me, “specs are useless, because nobody follows them, they’re always out of date, and they never reflect the product.”
+
+
+
+
+
+---
+
+Semi-offtopic. Help Manual
+
+https://www.joelonsoftware.com/2000/10/02/painless-functional-specifications-part-1-why-bother/
+you see a message on a screen which says
+
+Would you like to enable LRF-1914 support?
+… and you click “Help”, a tragicomic help topic comes up which says something like
+
+Allows you to choose between LRF-1914 support (default) or no LRF-1914 support. If you want LRF-1914 support, choose “Yes” or press “Y”. If you don’t want  LRF-1914 support, choose “No” or press “N”.
+Um, thanks. It’s pretty obvious here that the technical writer was trying to cover up the fact that they didn’t know what LRF-1914 support is. They couldn’t ask the programmer
+
 
