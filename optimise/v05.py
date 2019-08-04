@@ -14,13 +14,14 @@ def calculate(N):
 
     for x in range(3, N, 2):
         xx = x * x
-        for y in range(x + 1, N):
+        for y in range(x + 1, N, 2):
             yy = y * y
-            for z in range(y + 1, N):
+            for z in range(y + 1, N, 2):
                 if xx + yy == z * z and gcd(gcd(x, y), z) == 1:
                     combinations += 1
     print(combinations)
 
 
 for line in sys.stdin:
-    calculate(int(line[:-1]) + 1)
+    N = int(line[:-1]) + 1
+    calculate(N)

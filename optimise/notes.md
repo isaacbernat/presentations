@@ -1,12 +1,5 @@
 Measure timings and check correctness of results:
-
-cat input_sample.txt | time python3 v00.py | tee current_output.txt > /dev/null && diff output_sample.txt current_output.txt
-
-
-- The code could be improved but is not horrible, right? I mean, it even uses gcd from math instead of naively implementing it.
-22x speedup (todo check speedup if not linear curve, etc.). From
-python3 v00.py  1.57s user 0.03s system 97% cpu 1.632 total
-python3 v01.py  0.07s user 0.01s system 93% cpu 0.094 total
+- v0 Baseline. The code could be improved but is not horrible, right? I mean, it even uses gcd from math instead of naively implementing it.
 
 - v1 Specific and cheap over generic and expensive. Exponentiation is expensive and square is cheap:
     before) "x ** 2 + y ** 2 == z ** 2"
@@ -51,7 +44,7 @@ python3 v01.py  0.07s user 0.01s system 93% cpu 0.094 total
                     if xx + yy == z * z and gcd(gcd(x, y), z) == 1:
                         combinations += 1
 
-- v5 Code specialisation (problem-specific). We save 3/8 computations?
+- v5a Code specialisation (problem-specific). We save 6/8 computations
     before)
         for x in range(2, N):
             xx = x * x
@@ -71,13 +64,13 @@ python3 v01.py  0.07s user 0.01s system 93% cpu 0.094 total
 
         for x in range(3, N, 2):
             xx = x * x
-            for y in range(x + 1, N):
+            for y in range(x + 1, N, 2):
                 yy = y * y
-                for z in range(y + 1, N):
+                for z in range(y + 1, N, 2):
                     if xx + yy == z * z and gcd(gcd(x, y), z) == 1:
                         combinations += 1
 
-
+- v5b Pypy. Let compilers do the heavy lifting
 
 
 
