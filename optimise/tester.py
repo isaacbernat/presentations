@@ -3,6 +3,19 @@ import random
 import subprocess
 
 
+with open("output", 'r') as f:
+    expected_output = f.read().split("\n")
+
+
+def verify(values, results):
+    assert(len(values) + 1 == len(results))
+
+    for v, r in zip(values, results):
+        if r > "1000000":
+            continue
+        assert(expected_output[v - 1] == r)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-r", "--range", type=int, default=1048576,
@@ -34,15 +47,7 @@ def main():
 
             results = command.stdout.decode().split("\n")
             time = command.stderr.decode().strip().split(" ")[0]
-            assert(len(values) + 1 == len(results))
-
-            with open("output", 'r') as f:
-                expected_output = f.read().split("\n")
-
-            for v, r in zip(values, results):
-                if r > "1000000":
-                    continue
-                assert(expected_output[v - 1] == r)
+            verify(values, results)
 
             print(f"{a.file} took {time} for N = {v}.")
 
