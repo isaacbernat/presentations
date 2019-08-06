@@ -70,10 +70,23 @@ Measure timings and check correctness of results:
                     if xx + yy == z * z and gcd(gcd(x, y), z) == 1:
                         combinations += 1
 
-- v5b Pypy. Let compilers do the heavy lifting
+- Pypy interlude. Let compilers do the heavy lifting
+    before)
+        python v00.py
+        python v05.py
+    after)
+        pypy 00.py  ( 7x speedup)
+        pypy 05.py  (82x speedup)
 
+- v6 Paradigm shift. Complete refactor of "calculations":
 
-
+    for x in range(1, N):
+        for y in range(x + 1, N, 2):
+            if gcd(x, y) != 1:
+                continue
+            if x * x + y * y > N:  # N -> z
+                break
+            combinations += 1
 
 
 - Memoisation. Save results of calculations which are going to be needed again.

@@ -95,14 +95,12 @@ v05.py took 6.45 for N = 1024.
 v05.py took 50.48 for N = 2048.
 v05.py took 401.71 for N = 4096.
 
-ETA N 1.05M -> 6739575439s -> 78.004 -> 214 years
+ETA N 1.05M -> 6739575439s -> 78.004 days -> 214 years
 Total speedup   262.87x
 Incr. speedup     3.97x
 
-# Times (pypy)
-N*2 -> t*8 (double the size of N -> multiply by 8 required time). For very small numbers < 8x
-
-## v00pypy
+------------------------------------------------------
+## pypy interlude
 v00.py took 0.17 for N = 16.
 v00.py took 0.18 for N = 32.
 v00.py took 0.22 for N = 64.
@@ -116,7 +114,6 @@ ETA N 1.05M -> 251941439400s -> 2.915.989 days -> 7.989 years
 Total speedup       7.03x
 PyPy  speedup       7.03x
 
-# v05pypy
 v05.py took 0.49 for N = 16.
 v05.py took 0.15 for N = 32.
 v05.py took 0.16 for N = 64.
@@ -129,6 +126,30 @@ v05.py took 5.70 for N = 4096.
 v05.py took 41.18 for N = 8192.
 v05.py took 314.58 for N = 16384.
 
-ETA N 1.05M -> 82465259s -> 954 days -> 2.61 years
-Total speedup -> 21 483x
+ETA N 1.05M ->   82465259s -> 954 days -> 2.61 years
+Total speedup ->  21483x
 Incr. speedup ->     81.72x
+-----------------------------------------------------
+
+## v06
+v06.py took 0.04 for N = 16.
+...
+v06.py took 0.05 for N = 8192.
+v06.py took 0.06 for N = 16384.
+v06.py took 0.08 for N = 32768.
+v06.py took 0.12 for N = 65536.
+v06.py took 0.18 for N = 131072.
+v06.py took 0.33 for N = 262144.
+v06.py took 0.65 for N = 524288.
+v06.py took 1.22 for N = 1048576.
+N 1.05M -> 1.22s ->
+Total speedup       1.373.390.705.116x
+Incr. speedup (v5)      5.224.477.084x
+Incr. speedup (v5 pypy)
+There was a total refactor, so the comparison
+with v5 it really does not make a lot of sense.
+Time here seems to increase 2N -> 2T
+
+
+Too fast to continue measuring just on N=1M.
+Need to find another strategy. X numbers between 0 and 1M
