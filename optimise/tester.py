@@ -30,26 +30,41 @@ def main():
                         help="python intepreter. Defaults to python3.")
 
     a = parser.parse_args()
-    # TODO implement if entries > 1
-    # random.seed(a.seed)
-    # values = [random.randint(1, a.range) for _ in range(a.entries)]
+    # e.g. python3 tester.py -f v05.py -r 1024
+    # e.g. python3 tester.py -f v06.py -e 2
 
+    v = 1 if a.entries == 1 else 524288
+    while v < a.range:
+        v *= 2
+        command = subprocess.run(
+            ["time", a.python, a.file],
+            input="\n".join([str(v), ""]).encode(),
+            capture_output=True)
+
+        results = command.stdout.decode().split("\n")
+        time = command.stderr.decode().strip().split(" ")[0]
+        verify([v], results)
+
+        print(f"{a.file} took {time} for N = {v}.")
     if a.entries == 1:
-        # e.g. python3 tester.py -f v05.py -r 1024
-        v = 1
-        while v < a.range:
-            v *= 2
-            values = [v]
-            command = subprocess.run(
-                ["time", a.python, a.file],
-                input="\n".join([str(v), ""]).encode(),
-                capture_output=True)
+        return
 
-            results = command.stdout.decode().split("\n")
-            time = command.stderr.decode().strip().split(" ")[0]
-            verify(values, results)
+    random.seed(a.seed)
+    length = 1
+    for _ in range(a.entries - 1):
+        length *= 10
+        values = [random.randint(1, a.range) for _ in range(length)]
 
-            print(f"{a.file} took {time} for N = {v}.")
+        command = subprocess.run(
+            ["time", a.python, a.file],
+            input="\n".join([str(v) for v in values]).encode(),
+            capture_output=True)
+
+        results = command.stdout.decode().split("\n")
+        time = command.stderr.decode().strip().split(" ")[0]
+        verify(values, results)
+
+        print(f"{a.file} took {time} for {length} elements, N <= {a.range}")
 
 
 if __name__ == '__main__':

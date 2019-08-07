@@ -153,3 +153,8 @@ Time here seems to increase 2N -> 2T
 
 Too fast to continue measuring just on N=1M.
 Need to find another strategy. X numbers between 0 and 1M
+
+v06.py took 1.21 for N = 1048576
+v06.py took 5.78 for 10 elements, N <= 1048576
+v06.py took 57.50 for 100 elements, N <= 1048576
+v06.py took 539.71 for 1000 elements, N <= 1048576
