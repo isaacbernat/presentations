@@ -132,6 +132,7 @@ Incr. speedup ->     81.72x
 -----------------------------------------------------
 
 ## v06
+N*2 -> t*2 (double the size of N -> multiply by 2 required time).
 v06.py took 0.04 for N = 16.
 ...
 v06.py took 0.05 for N = 8192.
@@ -142,6 +143,7 @@ v06.py took 0.18 for N = 131072.
 v06.py took 0.33 for N = 262144.
 v06.py took 0.65 for N = 524288.
 v06.py took 1.22 for N = 1048576.
+
 N 1.05M -> 1.22s ->
 Total speedup       1.373.390.705.116x
 Incr. speedup (v5)      5.224.477.084x
@@ -150,11 +152,27 @@ There was a total refactor, so the comparison
 with v5 it really does not make a lot of sense.
 Time here seems to increase 2N -> 2T
 
-
 Too fast to continue measuring just on N=1M.
 Need to find another strategy. X numbers between 0 and 1M
+We assume each base calculation is 41.83% of the time N=1.05M for each random element <= 1.05M (1373390705116 * 539.71 / 1771674009600 / 1000 = 0.4183798449611553)
+Base 1000 elems time = 741232697458156s -> 8.579.082.146 days -> 23.504.334 years -> 23.5M years
 
 v06.py took 1.21 for N = 1048576
 v06.py took 5.78 for 10 elements, N <= 1048576
 v06.py took 57.50 for 100 elements, N <= 1048576
 v06.py took 539.71 for 1000 elements, N <= 1048576
+
+Total speedup N=1000      1.373.390.705.116x
+Incr. speedup (v5)            5.224.477.084x
+
+## v07
+v07.py took 0.09 for N = 1048576.
+v07.py took 0.36 for 10 elements, N <= 1048576
+v07.py took 3.19 for 100 elements, N <= 1048576
+v07.py took 29.64 for 1000 elements, N <= 1048576
+v07.py took 297.88 for 10000 elements, N <= 1048576
+
+Total speedup N=1000    2488360069350x
+Incr. speedup (v6)              18.21x
+pypy speedup (v7                 2.96x
+v07.pypy took 100.62 for 10000 elements, N <= 1048576

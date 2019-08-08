@@ -20,13 +20,6 @@ Measure timings and check correctness of results:
             for y in range(x + 1, N + 1):
                 for z in range(y + 1, N + 1):
                     if ...
-- v3b Cleanup (no real optimisation here).
-    before)
-        for line in sys.stdin:
-            calculate(int(line[:-1]))
-    after)
-        for line in sys.stdin:
-            calculate(int(line[:-1]) + 1)
 
 - v4 Code hoisting. Move results of known calculations outside loops.
     before)
@@ -87,6 +80,18 @@ Measure timings and check correctness of results:
             if x * x + y * y > N:  # N -> z
                 break
             combinations += 1
+
+- v7 Avoid useless calculations. Don't need to go all the way through N:
+    before)
+        for x in range(1, N):
+            for y in range(x + 1, N, 2):
+                ...
+    after)
+        max_iter = int(sqrt(N / 2)) + 1
+        for x in range(1, max_iter):
+            for y in range(x + 1, max_iter + 1, 2):
+                ...
+
 
 
 - Memoisation. Save results of calculations which are going to be needed again.
