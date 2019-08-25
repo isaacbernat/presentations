@@ -92,6 +92,28 @@ Measure timings and check correctness of results:
             for y in range(x + 1, max_iter + 1, 2):
                 ...
 
+- v8 Expensive vs cheap ops. A few SQRTs can save many squares here. Modest speedup.
+    before)
+        for y in range(x + 1, max_iter + 1, 2):
+            ...
+            if x * x + y * y > N:  # N -> z
+                break
+    after)
+        xxN = int(sqrt(N - x * x))
+        for y in range(x + 1, max_iter + 1, 2):
+            ...
+            if y > xxN:  # N -> z
+                break
+
+- v8b. Super modest speedup. Avoid int to float castings in the loop.
+    before)
+        xxN = sqrt(N - x * x)
+            ...
+            if y > xxN:  # N -> z
+    after)
+        xxN = int(sqrt(N - x * x))
+        ...
+        if y > xxN:  # N -> z
 
 
 - Memoisation. Save results of calculations which are going to be needed again.

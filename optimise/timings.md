@@ -174,5 +174,17 @@ v07.py took 297.88 for 10000 elements, N <= 1048576
 
 Total speedup N=1000    2488360069350x
 Incr. speedup (v6)              18.21x
-pypy speedup (v7                 2.96x
+pypy speedup  (v7)               2.96x
 v07.pypy took 100.62 for 10000 elements, N <= 1048576
+
+## v08
+v08.py took 0.07 for N = 1048576.
+v08.py took 0.26 for 10 elements, N <= 1048576
+v08.py took 2.45 for 100 elements, N <= 1048576
+v08.py took 22.80 for 1000 elements, N <= 1048576
+v08.py took 226.72 for 10000 elements, N <= 1048576
+
+Total speedup N=1000    2488360069350x
+Incr. speedup (v7)              1.31x
+pypy speedup  (v8)              2.54x
+v08.pypy took 89.12 for 10000 elements, N <= 1048576
