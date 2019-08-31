@@ -100,7 +100,9 @@ Total speedup   262.87x
 Incr. speedup     3.97x
 
 ------------------------------------------------------
+
 ## pypy interlude
+### v00 pypy
 v00.py took 0.17 for N = 16.
 v00.py took 0.18 for N = 32.
 v00.py took 0.22 for N = 64.
@@ -114,6 +116,23 @@ ETA N 1.05M -> 251941439400s -> 2.915.989 days -> 7.989 years
 Total speedup       7.03x
 PyPy  speedup       7.03x
 
+### v01 pypy
+v01.py took 0.17 for N = 16.
+v01.py took 0.19 for N = 32.
+v01.py took 0.24 for N = 64.
+v01.py took 0.59 for N = 128.
+v01.py took 3.96 for N = 256.
+v01.py took 37.12 for N = 512.
+v01.py took 259.78 for N = 1024.
+
+ETA N 1.05M -> 278936651038s -> 3.228.433 days -> 8.845 years
+Total speedup       6.35x
+PyPy  speedup       2.41x
+v00py speedup       0.90x
+v01 is slower than v00(!) PyPy can optimise x ** 2 better than x*x
+
+
+### v05 pypy
 v05.py took 0.49 for N = 16.
 v05.py took 0.15 for N = 32.
 v05.py took 0.16 for N = 64.
@@ -128,7 +147,76 @@ v05.py took 314.58 for N = 16384.
 
 ETA N 1.05M ->   82465259s -> 954 days -> 2.61 years
 Total speedup ->  21483x
-Incr. speedup ->     81.72x
+PyPy  speedup ->     81.72x
+
+------------------------------------------------------
+
+## C interlude
+## g++ v00.c -o v00 -std=c++17
+v00 took 0.00 for N = 16.
+v00 took 0.00 for N = 32.
+v00 took 0.04 for N = 64.
+v00 took 0.37 for N = 128.
+v00 took 3.14 for N = 256.
+v00 took 26.53 for N = 512.
+v00 took 230.09 for N = 1024.
+
+ETA N 1.05M -> 247057256284s -> 2.859.458 days -> 7.834 years
+Total speedup       7.17x
+PyPy  speedup       1.02x
+
+## g++ v00.c -O3 -o v00 -std=c++17
+v00 took 0.00 for N = 16.
+v00 took 0.00 for N = 32.
+v00 took 0.01 for N = 64.
+v00 took 0.06 for N = 128.
+v00 took 0.51 for N = 256.
+v00 took 4.58 for N = 512.
+v00 took 40.65 for N = 1024.
+v00 took 358.02 for N = 2048.
+
+ETA N 1.05M -> 48052630978s -> 556.164 days -> 1.523 years
+Total speedup      36.87x
+PyPy  speedup       5.24x
+O0    speedup       5.14x
+
+## g++ v01.c -o v01 -std=c++17
+v01 took 0.00 for N = 16.
+v01 took 0.00 for N = 32.
+v01 took 0.02 for N = 64.
+v01 took 0.14 for N = 128.
+v01 took 1.27 for N = 256.
+v01 took 10.94 for N = 512.
+v01 took 98.49 for N = 1024.
+v01 took 864.08 for N = 2048.
+
+ETA N 1.05M -> 115974854410s -> 1.342.301 days -> 3.677 years
+Total  speedup       15.27x
+py3 v1 speedup        5.81x
+PyPyv0 speedup        2.17x <- !!
+PyPyv1 speedup        2.40x
+Cv0 O0 speedup        2.13x
+Cv0 O3 speedup        0.41x
+
+## g++ v01.c -O3 -o v01 -std=c++17
+v01 took 0.00 for N = 16.
+v01 took 0.00 for N = 32.
+v01 took 0.00 for N = 64.
+v01 took 0.05 for N = 128.
+v01 took 0.48 for N = 256.
+v01 took 4.24 for N = 512.
+v01 took 37.43 for N = 1024.
+v01 took 325.33 for N = 2048.
+
+ETA N 1.05M -> 43665053450s -> 505.382 days -> 1.384 years
+Total speedup       40.57x
+py3 v1 speedup      15.43x
+PyPyv0 speedup       5.77x <- !!
+PyPyv1 speedup       6.39x
+Cv0 O0 speedup       5.66x
+Cv0 O3 speedup       1.10x <- !!
+Cv1 01 speedup       2.65x
+
 -----------------------------------------------------
 
 ## v06

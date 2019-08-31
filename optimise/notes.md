@@ -71,6 +71,28 @@ Measure timings and check correctness of results:
         pypy 00.py  ( 7x speedup)
         pypy 05.py  (82x speedup)
 
+- C interlude. Compilers... and optimisation flags :D
+    v00.py)
+        def calculate(N):
+            combinations = 0
+            for x in range(N + 1):
+                for y in range(N + 1):
+                    for z in range(N + 1):
+                        if gcd(gcd(x, y), z) == 1 and\
+                           x ** 2 + y ** 2 == z ** 2 and x < y < z:
+                            combinations += 1
+
+    v00.c) c++17 has gcd on numeric package. We'll try that here.
+        int calculate(int N){
+            int combinations = 0;
+            for(int x=1; x < N; x++){
+                for(int y=1; y < N; y++){
+                    for(int z=1; z < N; z++){
+                        if(std::gcd(std::gcd(x, y), z) == 1 &&
+                           std::pow(x, 2) + std::pow(y, 2) == std::pow(z, 2) &&
+                           x < y && y < z){
+                                combinations += 1; }}}}}
+
 - v6 Paradigm shift. Complete refactor of "calculations":
 
     for x in range(1, N):
