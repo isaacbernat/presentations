@@ -28,18 +28,30 @@ def main():
                         help="python file to run the program.")
     parser.add_argument("-p", "--python", type=str, default="python3",
                         help="python intepreter. Defaults to python3.")
+    parser.add_argument("-c", "--c", type=str, default=0,
+                        help="C implementation, instead of python.")
 
     a = parser.parse_args()
     # e.g. python3 tester.py -f v05.py -r 1024
     # e.g. python3 tester.py -f v06.py -e 2
+    # e.g. python3 tester.py -f v08.py -e 5 -p pypy3
+    # e.g. python3 tester.py -f v01 -c 1 -r 2048
+    # g++ v00.c -o v00 -std=c++17
+    # g++ v00.c -O3 -o v00 -std=c++17
 
     v = 1 if a.entries == 1 else 524288
     while v < a.range:
         v *= 2
-        command = subprocess.run(
-            ["time", a.python, a.file],
-            input="\n".join([str(v), ""]).encode(),
-            capture_output=True)
+        if a.c:
+            command = subprocess.run(
+                ["time", f"./{a.file}"],
+                input=f"{v}\n0".encode(),
+                capture_output=True)
+        else:
+            command = subprocess.run(
+                ["time", a.python, a.file],
+                input=f"{v}\n".encode(),
+                capture_output=True)
 
         results = command.stdout.decode().split("\n")
         time = command.stderr.decode().strip().split(" ")[0]
@@ -55,10 +67,16 @@ def main():
         length *= 10
         values = [random.randint(1, a.range) for _ in range(length)]
 
-        command = subprocess.run(
-            ["time", a.python, a.file],
-            input="\n".join([str(v) for v in values]).encode(),
-            capture_output=True)
+        if a.c:
+            command = subprocess.run(
+                ["time", f"./{a.file}"],
+                input="\n".join([str(v) for v in values] + ["0"]).encode(),
+                capture_output=True)
+        else:
+            command = subprocess.run(
+                ["time", a.python, a.file],
+                input="\n".join([str(v) for v in values]).encode(),
+                capture_output=True)
 
         results = command.stdout.decode().split("\n")
         time = command.stderr.decode().strip().split(" ")[0]
