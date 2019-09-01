@@ -1,15 +1,15 @@
 Measure timings and check correctness of results:
 - v0 Baseline. The code could be improved but is not horrible, right? I mean, it even uses gcd from math instead of naively implementing it.
 
-- v1 Specific and cheap over generic and expensive. Exponentiation is expensive and square is cheap:
+- v1 Function specialisation. Overly generic functions tend to be more expensive than specific ones. Exponentiation is generic and expensive. Squaring is specific and cheap:
     before) "x ** 2 + y ** 2 == z ** 2"
     after) "x * x + y * y == z * z"
 
-- v2 Fail fast. Arrange parameters to evaluate first the cheaper to compute so one may fail faster.
+- v2 Order matters. Arrange parameters so the ones more likely to fail (and/or cheaper to compute) are evaluated first (last in case of OR chains).
     before) if gcd(gcd(x, y), z) == 1 and x * x + y * y == z * z and x < y < z:
     after) if x < y < z and x * x + y * y == z * z and gcd(gcd(x, y), z) == 1:
 
-- v3a Enforce restrictions earlier. Avoid going through ranges we now won't satisfy the condition:
+- v3a Enforce restrictions earlier. Avoid going through ranges we know won't satisfy the condition:
     before)
         for x in range(N + 1):
             for y in range(N + 1):
@@ -66,10 +66,12 @@ Measure timings and check correctness of results:
 - Pypy interlude. Let compilers do the heavy lifting
     before)
         python v00.py
+        python v01.py
         python v05.py
     after)
-        pypy 00.py  ( 7x speedup)
-        pypy 05.py  (82x speedup)
+        pypy v00.py  ( 7x speedup)
+        pypy v01.py  ( 2x speedup) <- beware of manual optimisations!
+        pypy v05.py  (82x speedup)
 
 - C interlude. Compilers... and optimisation flags :D
     v00.py)
@@ -82,7 +84,7 @@ Measure timings and check correctness of results:
                            x ** 2 + y ** 2 == z ** 2 and x < y < z:
                             combinations += 1
 
-    v00.c) c++17 has gcd on numeric package. We'll try that here.
+    v00.c) c++17 has gcd on numeric package. We'll use it here.
         int calculate(int N){
             int combinations = 0;
             for(int x=1; x < N; x++){
@@ -127,7 +129,7 @@ Measure timings and check correctness of results:
             if y > xxN:  # N -> z
                 break
 
-- v8b. Super modest speedup. Avoid int to float castings in the loop.
+- v8b. Types exist! Avoid int to float castings in the loop. Even if it quacks like a duck, there are different kinds of ducks (very modest speedup here).
     before)
         xxN = sqrt(N - x * x)
             ...
@@ -140,4 +142,4 @@ Measure timings and check correctness of results:
 
 - Memoisation. Save results of calculations which are going to be needed again.
 
-- other noteworthy optimisations: loop unrolling. Leal, etc.
+- TODO: other noteworthy optimisations: loop unrolling, Leal, function inlining, conditional move, etc.
