@@ -1,6 +1,7 @@
 import argparse
 import random
 import subprocess
+import time
 
 
 with open("output", 'r') as f:
@@ -18,31 +19,53 @@ def verify(values, results):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-r", "--range", type=int, default=1048576,
-                        help="the maximum value of N. Defaults to 1048576")
-    parser.add_argument("-e", "--entries", type=int, default=1,
-                        help="the number of entries to test. Defaults to 1")
-    parser.add_argument("-s", "--seed", type=int, default=0x15AAC,
-                        help="random seed to generate inputs.")
-    parser.add_argument("-f", "--file", type=str, default="v05.py",
-                        help="python file to run the program.")
     parser.add_argument("-p", "--python", type=str, default="python3",
                         help="python intepreter. Defaults to python3.")
-    parser.add_argument("-c", "--c", type=str, default=0,
+    parser.add_argument("-e", "--entries", type=int, default=1,
+                        help="10^e entries to test. Defaults to 1")
+    parser.add_argument("-r", "--range", type=int, default=1048576,
+                        help="the maximum value of N. Defaults to 1048576")
+    parser.add_argument("-f", "--file", type=str, default="v05.py",
+                        help="python file to run the program.")
+    parser.add_argument("-o", "--csv", type=str, default="",
+                        help="output filename using csv format")
+    parser.add_argument("-c", "--c", type=int, default=0,
                         help="C implementation, instead of python.")
+    parser.add_argument("-i", "--maxiters", type=int, default=0,
+                        help="max iters for a chosen set of params")
+    parser.add_argument("-s", "--seed", type=int, default=0x15AAC,
+                        help="random seed to generate inputs.")
+    parser.add_argument("-t", "--timeout", type=int, default=0,
+                        help="re-run each iteration if < elapsed seconds")
 
-    a = parser.parse_args()
+    # e.g. python3 tester.py -f v05.py -t 5 -o times.csv -i 5
+    # e.g. python3 tester.py -f v08.py -t 5 -o times.csv -i 5 -e 3
     # e.g. python3 tester.py -f v05.py -r 1024
-    # e.g. python3 tester.py -f v06.py -e 2
     # e.g. python3 tester.py -f v08.py -e 5 -p pypy3
     # e.g. python3 tester.py -f v01 -c 1 -r 2048
-    # g++ v00.c -o v00 -std=c++17
-    # g++ v00.c -O3 -o v00 -std=c++17
+    # g++ v00.c -o v00 -std=c++17
+    # g++ v00.c -O3 -o v00 -std=c++17
+    #
+    # TODO scripts to do for each csv timing:
+    #  - calculate speedups with previous version(s)
+    #  - ratio time/problem size increase for N increase
+    #  - ratio time/problem size increase for entries increase
+    #  - estimate time for N = 2^20
+    #  - estimate time for 1000 entries, 1 < N <= 2^20
+    #  - estimate time for 100.000 entries, 1 < N <= 2^20
+    #  - plotting charts?
+    # TODO script to automate tester.py even more
+
+    a = parser.parse_args()
+    runner = "C" if a.c else a.python
+    today = time.strftime("%Y-%m-%d")
 
     v = 1 if a.entries == 1 else 524288
+    total_seconds = 0
+    total_iters = 0
     while v < a.range:
         v *= 2
-        if a.c:
+        if runner == "C":
             command = subprocess.run(
                 ["time", f"./{a.file}"],
                 input=f"{v}\n0".encode(),
@@ -54,20 +77,47 @@ def main():
                 capture_output=True)
 
         results = command.stdout.decode().split("\n")
-        time = command.stderr.decode().strip().split(" ")[0]
+        elapsed = float(command.stderr.decode().strip().split(" ")[0])
         verify([v], results)
 
-        print(f"{a.file} took {time} for N = {v}.")
+        if a.csv:
+            # "file_name,runtime,maxN,entries,runner,date,machine"
+            line = f"{a.file},{elapsed},{v},1,{runner},{today},mbp2012\n"
+            with open(a.csv, "a") as f:
+                f.write(line)
+
+        print(f"{a.file} took {elapsed} for N = {v}.")
+
+        total_iters += 1
+        if a.maxiters and total_iters > a.maxiters:
+            total_iters = 0
+            total_seconds = 0
+            continue
+
+        total_seconds += elapsed
+        if a.timeout:
+            if total_seconds <= a.timeout:
+                # repeat the same test again, cancel the *= 2 of each iteration
+                v = int(v / 2)
+            elif total_seconds == elapsed or a.maxiters:
+                # this is getting too long... let's already finish
+                break
+            else:
+                total_iters = 0
+                total_seconds = 0
+
     if a.entries == 1:
         return
 
     random.seed(a.seed)
+    total_seconds = 0
+    total_iters = 0
     length = 1
-    for _ in range(a.entries - 1):
+    while length < 10 ** a.entries:
         length *= 10
         values = [random.randint(1, a.range) for _ in range(length)]
 
-        if a.c:
+        if runner == "C":
             command = subprocess.run(
                 ["time", f"./{a.file}"],
                 input="\n".join([str(v) for v in values] + ["0"]).encode(),
@@ -79,10 +129,34 @@ def main():
                 capture_output=True)
 
         results = command.stdout.decode().split("\n")
-        time = command.stderr.decode().strip().split(" ")[0]
+        elapsed = float(command.stderr.decode().strip().split(" ")[0])
         verify(values, results)
 
-        print(f"{a.file} took {time} for {length} elements, N <= {a.range}")
+        if a.csv:
+            # "file_name,runtime,maxN,entries,runner,date,machine"
+            line = f"{a.file},{elapsed},{v},{length},{runner},{today},mbp2012\n"
+            with open(a.csv, "a") as f:
+                f.write(line)
+
+        print(f"{a.file} took {elapsed} for {length} elements, N <= {a.range}")
+
+        total_iters += 1
+        if a.maxiters and total_iters > a.maxiters:
+            total_iters = 0
+            total_seconds = 0
+            continue
+
+        total_seconds += elapsed
+        if a.timeout:
+            if total_seconds <= a.timeout:
+                # repeat the same test again, cancel the *= 2 of each iteration
+                length = int(length / 10)
+            elif total_seconds == elapsed or a.maxiters:
+                # this is getting too long... let's already finish
+                break
+            else:
+                total_iters = 0
+                total_seconds = 0
 
 
 if __name__ == '__main__':
