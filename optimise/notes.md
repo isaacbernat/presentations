@@ -111,7 +111,7 @@ Measure timings and check correctness of results:
             for y in range(x + 1, N, 2):
                 ...
     after)
-        max_iter = int(sqrt(N / 2)) + 1
+        max_iter = int(sqrt(N)) + 1
         for x in range(1, max_iter):
             for y in range(x + 1, max_iter + 1, 2):
                 ...
