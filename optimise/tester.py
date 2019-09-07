@@ -54,13 +54,12 @@ def main():
     #  - estimate time for 1000 entries, 1 < N <= 2^20
     #  - estimate time for 100.000 entries, 1 < N <= 2^20
     #  - plotting charts?
-    # TODO script to automate tester.py even more
 
     a = parser.parse_args()
     runner = "C" if a.c else a.python
     today = time.strftime("%Y-%m-%d")
 
-    v = 1 if a.entries == 1 else 524288
+    v = 1
     total_seconds = 0
     total_iters = 0
     while v < a.range:
@@ -89,7 +88,7 @@ def main():
         print(f"{a.file} took {elapsed} for N = {v}.")
 
         total_iters += 1
-        if a.maxiters and total_iters > a.maxiters:
+        if a.maxiters and total_iters >= a.maxiters:
             total_iters = 0
             total_seconds = 0
             continue
@@ -99,9 +98,9 @@ def main():
             if total_seconds <= a.timeout:
                 # repeat the same test again, cancel the *= 2 of each iteration
                 v = int(v / 2)
-            elif total_seconds == elapsed or a.maxiters:
+            elif total_seconds > a.timeout or total_iters < a.maxiters:
                 # this is getting too long... let's already finish
-                break
+                return
             else:
                 total_iters = 0
                 total_seconds = 0
@@ -141,7 +140,7 @@ def main():
         print(f"{a.file} took {elapsed} for {length} elements, N <= {a.range}")
 
         total_iters += 1
-        if a.maxiters and total_iters > a.maxiters:
+        if a.maxiters and total_iters >= a.maxiters:
             total_iters = 0
             total_seconds = 0
             continue
@@ -151,9 +150,9 @@ def main():
             if total_seconds <= a.timeout:
                 # repeat the same test again, cancel the *= 2 of each iteration
                 length = int(length / 10)
-            elif total_seconds == elapsed or a.maxiters:
+            elif total_seconds > a.timeout or total_iters < a.maxiters:
                 # this is getting too long... let's already finish
-                break
+                return
             else:
                 total_iters = 0
                 total_seconds = 0
