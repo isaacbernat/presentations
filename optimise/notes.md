@@ -9,7 +9,7 @@ Measure timings and check correctness of results:
     before) if gcd(gcd(x, y), z) == 1 and x * x + y * y == z * z and x < y < z:
     after) if x < y < z and x * x + y * y == z * z and gcd(gcd(x, y), z) == 1:
 
-- v3a Enforce restrictions earlier. Avoid going through ranges we know won't satisfy the condition:
+- v3 Enforce restrictions earlier. Avoid going through ranges we know won't satisfy the condition. (3b is a tiny refactor):
     before)
         for x in range(N + 1):
             for y in range(N + 1):
