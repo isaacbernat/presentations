@@ -11,244 +11,144 @@ Model Identifier:   MacBookPro10,1
   Hyper-Threading Technology:   Enabled
   Memory:   16 GB
 
-# Times (python)
-N*2 -> t*8 (double the size of N -> multiply by 8 required time).
-Run once for several N and then estimated the total time for N=2^20.
-
-## v00
-v00.py took 0.04 for N = 16.
-v00.py took 0.09 for N = 32.
-v00.py took 0.42 for N = 64.
-v00.py took 3.17 for N = 128.
-v00.py took 24.92 for N = 256.
-v00.py took 201.92 for N = 512.
-v00.py took 1651.86 for N = 1024.
-
-ETA N=1.05M -> 1771674009600s -> 20.505.486 days -> 56.179 years
-Total speedup    1x
-Incr. speedup    1x
-
-## v01
-v01.py took 0.02 for N = 16.
-v01.py took 0.04 for N = 32.
-v01.py took 0.17 for N = 64.
-v01.py took 1.18 for N = 128.
-v01.py took 9.55 for N = 256.
-v01.py took 76.88 for N = 512.
-v01.py took 627.51 for N = 1024.
-
-ETA N 1.05M -> 673772994560s -> 7.798.298 days -> 21.365 years
-Total speedup    2.63x
-Incr. speedup    2.63x
-
-## v02
-v02.py took 0.03 for N = 16.
-v02.py took 0.03 for N = 32.
-v02.py took 0.05 for N = 64.
-v02.py took 0.25 for N = 128.
-v02.py took 1.81 for N = 256.
-v02.py took 15.39 for N = 512.
-v02.py took 126.63 for N = 1024.
-v02.py took 1058.20 for N = 2048.
-
-ETA N 1.05M -> 142029199768s -> 1.643.856 days -> 4.503 years
-Total speedup    12.47x
-Incr. speedup     4.74x
-
-## v03
-v03b.py took 0.04 for N = 16.
-v03b.py took 0.04 for N = 32.
-v03b.py took 0.05 for N = 64.
-v03b.py took 0.12 for N = 128.
-v03b.py took 0.70 for N = 256.
-v03b.py took 5.81 for N = 512.
-v03b.py took 46.56 for N = 1024.
-v03b.py took 392.83 for N = 2048.
-
-ETA N 1.05M -> 52724750088s -> 610.240 days -> 1.672 years
-Total speedup    33.60x
-Incr. speedup     2.69x
-
-## v04
-v04.py took 0.03 for N = 16.
-v04.py took 0.02 for N = 32.
-v04.py took 0.03 for N = 64.
-v04.py took 0.07 for N = 128.
-v04.py took 0.39 for N = 256.
-v04.py took 3.15 for N = 512.
-v04.py took 25.13 for N = 1024.
-v04.py took 199.71 for N = 2048.
-v04.py took 1593.89 for N = 4096.
-
-ETA N 1.05M -> 26741036808s -> 309.502 days -> 848 years
-Total speedup    66.25x
-Incr. speedup     1.97x
-
-## v05
-v05.py took 0.03 for N = 16.
-v05.py took 0.04 for N = 32.
-v05.py took 0.04 for N = 64.
-v05.py took 0.05 for N = 128.
-v05.py took 0.13 for N = 256.
-v05.py took 0.85 for N = 512.
-v05.py took 6.45 for N = 1024.
-v05.py took 50.48 for N = 2048.
-v05.py took 401.71 for N = 4096.
-
-ETA N 1.05M -> 6739575439s -> 78.004 days -> 214 years
-Total speedup   262.87x
-Incr. speedup     3.97x
-
-------------------------------------------------------
-
-## pypy interlude
-### v00 pypy
-v00.py took 0.17 for N = 16.
-v00.py took 0.18 for N = 32.
-v00.py took 0.22 for N = 64.
-v00.py took 0.58 for N = 128.
-v00.py took 3.48 for N = 256.
-v00.py took 27.47 for N = 512.
-v00.py took 221.88 for N = 1024.
-v00.py took 1877.11 for N = 2048.
-
-ETA N 1.05M -> 251941439400s -> 2.915.989 days -> 7.989 years
-Total speedup       7.03x
-PyPy  speedup       7.03x
-
-### v01 pypy
-v01.py took 0.17 for N = 16.
-v01.py took 0.19 for N = 32.
-v01.py took 0.24 for N = 64.
-v01.py took 0.59 for N = 128.
-v01.py took 3.96 for N = 256.
-v01.py took 37.12 for N = 512.
-v01.py took 259.78 for N = 1024.
-
-ETA N 1.05M -> 278936651038s -> 3.228.433 days -> 8.845 years
-Total speedup       6.35x
-PyPy  speedup       2.41x
-v00py speedup       0.90x
-v01 is slower than v00(!) PyPy can optimise x ** 2 better than x*x
-
-
-### v05 pypy
-v05.py took 0.49 for N = 16.
-v05.py took 0.15 for N = 32.
-v05.py took 0.16 for N = 64.
-v05.py took 0.16 for N = 128.
-v05.py took 0.16 for N = 256.
-v05.py took 0.19 for N = 512.
-v05.py took 0.30 for N = 1024.
-v05.py took 0.96 for N = 2048.
-v05.py took 5.70 for N = 4096.
-v05.py took 41.18 for N = 8192.
-v05.py took 314.58 for N = 16384.
-
-ETA N 1.05M ->   82465259s -> 954 days -> 2.61 years
-Total speedup ->  21483x
-PyPy  speedup ->     81.72x
-
-------------------------------------------------------
-
-## C interlude
-## g++ v00.c -o v00 -std=c++17
-v00 took 0.00 for N = 16.
-v00 took 0.00 for N = 32.
-v00 took 0.04 for N = 64.
-v00 took 0.37 for N = 128.
-v00 took 3.14 for N = 256.
-v00 took 26.53 for N = 512.
-v00 took 230.09 for N = 1024.
-
-ETA N 1.05M -> 247057256284s -> 2.859.458 days -> 7.834 years
-Total speedup       7.17x
-PyPy  speedup       1.02x
-
-## g++ v00.c -O3 -o v00 -std=c++17
-v00 took 0.00 for N = 16.
-v00 took 0.00 for N = 32.
-v00 took 0.01 for N = 64.
-v00 took 0.06 for N = 128.
-v00 took 0.51 for N = 256.
-v00 took 4.58 for N = 512.
-v00 took 40.65 for N = 1024.
-v00 took 358.02 for N = 2048.
-
-ETA N 1.05M -> 48052630978s -> 556.164 days -> 1.523 years
-Total speedup      36.87x
-PyPy  speedup       5.24x
-O0    speedup       5.14x
-
-## g++ v01.c -o v01 -std=c++17
-v01 took 0.00 for N = 16.
-v01 took 0.00 for N = 32.
-v01 took 0.02 for N = 64.
-v01 took 0.14 for N = 128.
-v01 took 1.27 for N = 256.
-v01 took 10.94 for N = 512.
-v01 took 98.49 for N = 1024.
-v01 took 864.08 for N = 2048.
-
-ETA N 1.05M -> 115974854410s -> 1.342.301 days -> 3.677 years
-Total  speedup       15.27x
-py3 v1 speedup        5.81x
-PyPyv0 speedup        2.17x <- !!
-PyPyv1 speedup        2.40x
-Cv0 O0 speedup        2.13x
-Cv0 O3 speedup        0.41x
-
-## g++ v01.c -O3 -o v01 -std=c++17
-v01 took 0.00 for N = 16.
-v01 took 0.00 for N = 32.
-v01 took 0.00 for N = 64.
-v01 took 0.05 for N = 128.
-v01 took 0.48 for N = 256.
-v01 took 4.24 for N = 512.
-v01 took 37.43 for N = 1024.
-v01 took 325.33 for N = 2048.
-
-ETA N 1.05M -> 43665053450s -> 505.382 days -> 1.384 years
-Total speedup       40.57x
-py3 v1 speedup      15.43x
-PyPyv0 speedup       5.77x <- !!
-PyPyv1 speedup       6.39x
-Cv0 O0 speedup       5.66x
-Cv0 O3 speedup       1.10x <- !!
-Cv1 01 speedup       2.65x
-
------------------------------------------------------
-
-## v06
-N*2 -> t*2 (double the size of N -> multiply by 2 required time).
-v06.py took 0.04 for N = 16.
-...
-v06.py took 0.05 for N = 8192.
-v06.py took 0.06 for N = 16384.
-v06.py took 0.08 for N = 32768.
-v06.py took 0.12 for N = 65536.
-v06.py took 0.18 for N = 131072.
-v06.py took 0.33 for N = 262144.
-v06.py took 0.65 for N = 524288.
-v06.py took 1.22 for N = 1048576.
-
-N 1.05M -> 1.22s ->
-Total speedup       1.373.390.705.116x
-Incr. speedup (v5)      5.224.477.084x
-Incr. speedup (v5 pypy)
-There was a total refactor, so the comparison
-with v5 it really does not make a lot of sense.
-Time here seems to increase 2N -> 2T
-
-Too fast to continue measuring just on N=1M.
-Need to find another strategy. X numbers between 0 and 1M
-We assume each base calculation is 41.83% of the time N=1.05M for each random element <= 1.05M (1373390705116 * 539.71 / 1771674009600 / 1000 = 0.4183798449611553)
-Base 1000 elems time = 741232697458156s -> 8.579.082.146 days -> 23.504.334 years -> 23.5M years
-
-v06.py took 1.21 for N = 1048576
-v06.py took 5.78 for 10 elements, N <= 1048576
-v06.py took 57.50 for 100 elements, N <= 1048576
-v06.py took 539.71 for 1000 elements, N <= 1048576
-
-Total speedup N=1000      1.373.390.705.116x
-Incr. speedup (v5)            5.224.477.084x
+ ------ CONSTANTS ------
+MAXN=1048576; MAX_ITERS=100000
+ ------ TIMING SUMMARY ------
+{'v00.py': {'pypy3': {1: {256: 3.43, 512: 26.95, 1024: 222.83},
+                      'eta_MAXN': 258692217894.30334,
+                      'eta_MAXN_y': 8203.076417247063,
+                      'eta_MAX_iter': 2.5869221789430336e+16,
+                      'ts_ratio': 8.062708719851576},
+            'python3': {1: {128: 3.11, 256: 24.31, 512: 199.77},
+                        'eta_MAXN': 1756945022182.9294,
+                        'eta_MAXN_y': 55712.361180331354,
+                        'eta_MAX_iter': 1.7569450221829296e+17,
+                        'ts_ratio': 8.017163090361501}},
+ 'v01.py': {'pypy3': {1: {256: 3.44, 512: 27.36, 1024: 220.48},
+                      'eta_MAXN': 238515360235.25406,
+                      'eta_MAXN_y': 7563.272457992582,
+                      'eta_MAX_iter': 2.3851536023525404e+16,
+                      'ts_ratio': 8.005983952128382},
+            'python3': {1: {128: 1.17, 256: 9.24, 512: 76.16},
+                        'eta_MAXN': 719936877786.718,
+                        'eta_MAXN_y': 22829.048636057778,
+                        'eta_MAX_iter': 7.19936877786718e+16,
+                        'ts_ratio': 8.06993006993007}},
+ 'v02.py': {'pypy3': {1: {512: 1.0, 1024: 6.87, 2048: 45.75, 4096: 367.63},
+                      'eta_MAXN': 2620833040.079882,
+                      'eta_MAXN_y': 83.10607052511043,
+                      'eta_MAX_iter': 262083304007988.22,
+                      'ts_ratio': 7.188339020529585},
+            'python3': {1: {256: 1.78, 512: 15.13, 1024: 125.44},
+                        'eta_MAXN': 218199286370.21432,
+                        'eta_MAXN_y': 6919.053981805376,
+                        'eta_MAX_iter': 2.181992863702143e+16,
+                        'ts_ratio': 8.395406477197621}},
+ 'v03.py': {'pypy3': {1: {2048: 2.52, 4096: 18.92, 8192: 149.6},
+                      'eta_MAXN': 241718126.41982952,
+                      'eta_MAXN_y': 7.664831507478105,
+                      'eta_MAX_iter': 24171812641982.953,
+                      'ts_ratio': 7.707456626061277},
+            'python3': {1: {512: 5.47, 1024: 43.92, 2048: 352.4},
+                        'eta_MAXN': 48725321733.217354,
+                        'eta_MAXN_y': 1545.0698165023261,
+                        'eta_MAX_iter': 4872532173321735.0,
+                        'ts_ratio': 8.026464937080217}},
+ 'v04.py': {'pypy3': {1: {2048: 2.52, 4096: 18.92, 8192: 149.62},
+                      'eta_MAXN': 241866512.33402747,
+                      'eta_MAXN_y': 7.669536793950643,
+                      'eta_MAX_iter': 24186651233402.746,
+                      'ts_ratio': 7.707985167287493},
+            'python3': {1: {512: 3.06, 1024: 24.43, 2048: 194.77},
+                        'eta_MAXN': 25505032280.5152,
+                        'eta_MAXN_y': 808.759268154338,
+                        'eta_MAX_iter': 2550503228051520.0,
+                        'ts_ratio': 7.9781174169763425}},
+ 'v05.py': {'pypy3': {1: {4096: 4.96, 8192: 37.94, 16384: 300.3},
+                      'eta_MAXN': 66704743.37449197,
+                      'eta_MAXN_y': 2.1151935367355392,
+                      'eta_MAX_iter': 6670474337449.196,
+                      'ts_ratio': 7.7821613498393045},
+            'python3': {1: {1024: 6.2, 2048: 49.03, 4096: 390.19},
+                        'eta_MAXN': 6121125082.297892,
+                        'eta_MAXN_y': 194.09960306627005,
+                        'eta_MAX_iter': 612112508229789.1,
+                        'ts_ratio': 7.933126690044936}},
+ 'v06.py': {'pypy3': {1048576: {100: 5.4, 1000: 55.05, 10000: 550.21},
+                      'eta_MAXN': 5.4,
+                      'eta_MAX_iter': 5554.143402739934,
+                      'ts_ratio': 10.09458825310324},
+            'python3': {1: {1048576: 1.1},
+                        1048576: {10: 4.24, 100: 51.79, 1000: 531.21},
+                        'eta_MAXN': 4.24,
+                        'eta_MAX_iter': 67061.7828232997,
+                        'ts_ratio': 11.235811031123514}},
+ 'v07.py': {'pypy3': {1048576: {100: 1.45, 1000: 13.46, 10000: 133.28},
+                      'eta_MAXN': 1.45,
+                      'eta_MAX_iter': 1278.4677595941996,
+                      'ts_ratio': 9.592345135010504},
+            'python3': {1048576: {100: 4.28, 1000: 43.93, 10000: 444.86},
+                        'eta_MAXN': 4.28,
+                        'eta_MAX_iter': 4535.477528241617,
+                        'ts_ratio': 10.195291840672608}},
+ 'v08.py': {'pypy3': {1048576: {100: 1.43, 1000: 13.37, 10000: 133.55},
+                      'eta_MAXN': 1.43,
+                      'eta_MAX_iter': 1291.3237435339527,
+                      'ts_ratio': 9.669215601152775},
+            'python3': {1048576: {100: 3.26, 1000: 33.89, 10000: 343.85},
+                        'eta_MAXN': 3.26,
+                        'eta_MAX_iter': 3531.6431722217494,
+                        'ts_ratio': 10.270883153182346}}}
+ ------ SPEEDUP SUMMARY ------
+{'v00.py': {'total_pypy3': 1.0,
+            'total_python3': 1.0,
+            'total_vs_python3_pypy3': 6.791642348131181,
+            'vs_pypy3_python3': 6.791642348131181},
+ 'v01.py': {'prev_pypy3': 1.0845935357754248,
+            'prev_python3': 2.4404153702811517,
+            'total_pypy3': 1.0845935357754248,
+            'total_python3': 2.4404153702811517,
+            'total_vs_python3_pypy3': 7.366171388081707,
+            'vs_pypy3_python3': 3.0184088650585235},
+ 'v02.py': {'prev_pypy3': 91.00746082931867,
+            'prev_python3': 3.2994465278186826,
+            'total_pypy3': 98.70610372281422,
+            'total_python3': 8.05202001990949,
+            'total_vs_python3_pypy3': 670.3765540628939,
+            'vs_pypy3_python3': 83.25569886877024},
+ 'v03.py': {'prev_pypy3': 10.842517600553768,
+            'prev_python3': 4.47814973013225,
+            'total_pypy3': 1070.222666896699,
+            'total_python3': 36.05815127917715,
+            'total_vs_python3_pypy3': 7268.56958642551,
+            'vs_pypy3_python3': 201.5790973350029},
+ 'v04.py': {'prev_pypy3': 0.9993864966556718,
+            'prev_python3': 1.910419920167735,
+            'total_pypy3': 1069.566081711382,
+            'total_python3': 68.88621048816172,
+            'total_vs_python3_pypy3': 7264.110294675756,
+            'vs_pypy3_python3': 105.45086227270568},
+ 'v05.py': {'prev_pypy3': 3.6259267347173054,
+            'prev_python3': 4.166722936976893,
+            'total_pypy3': 3878.1682502241333,
+            'total_python3': 287.02975328244173,
+            'total_vs_python3_pypy3': 26339.131721400026,
+            'vs_pypy3_python3': 91.76446490368514},
+ 'v06.py': {'prev_pypy3': 1200990657.5618055,
+            'prev_python3': 9127590744.830587,
+            'total_pypy3': 4657643836971.998,
+            'total_python3': 2619890119551.822,
+            'total_vs_python3_pypy3': 31633051125691.227,
+            'vs_pypy3_python3': 12.074190016451},
+ 'v07.py': {'prev_pypy3': 4.344375023194079,
+            'prev_python3': 14.786046762599492,
+            'total_pypy3': 20234551552274.99,
+            'total_python3': 38737817820565.61,
+            'total_vs_python3_pypy3': 137425837217874.33,
+            'vs_pypy3_python3': 3.5475885052285006},
+ 'v08.py': {'prev_pypy3': 0.9900443370579014,
+            'prev_python3': 1.2842400285271054,
+            'total_pypy3': 20033103177236.02,
+            'total_python3': 49748656262960.99,
+            'total_vs_python3_pypy3': 136057671902997.45,
+            'vs_pypy3_python3': 2.734901445052607}}

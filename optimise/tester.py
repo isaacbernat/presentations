@@ -14,7 +14,10 @@ def verify(values, results):
     for v, r in zip(values, results):
         if r > "1000000":
             continue
-        assert(expected_output[v - 1] == r)
+        try:
+            assert(expected_output[v - 1] == r)
+        except Exception:
+            print(f"Values don't match!! v={v}, r={r}")
 
 
 def main():
@@ -42,18 +45,9 @@ def main():
     # e.g. python3 tester.py -f v08.py -t 5 -o times.csv -i 5 -e 3
     # e.g. python3 tester.py -f v05.py -r 1024
     # e.g. python3 tester.py -f v08.py -e 5 -p pypy3
+    # g++ v01.c -o v00 -std=c++17
+    # g++ v01.c -O3 -o v00 -std=c++17
     # e.g. python3 tester.py -f v01 -c 1 -r 2048
-    # g++ v00.c -o v00 -std=c++17
-    # g++ v00.c -O3 -o v00 -std=c++17
-    #
-    # TODO scripts to do for each csv timing:
-    #  - calculate speedups with previous version(s)
-    #  - ratio time/problem size increase for N increase
-    #  - ratio time/problem size increase for entries increase
-    #  - estimate time for N = 2^20
-    #  - estimate time for 1000 entries, 1 < N <= 2^20
-    #  - estimate time for 100.000 entries, 1 < N <= 2^20
-    #  - plotting charts?
 
     a = parser.parse_args()
     runner = "C" if a.c else a.python
