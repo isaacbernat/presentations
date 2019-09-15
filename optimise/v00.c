@@ -3,7 +3,7 @@
 #include <cmath>
 
 
-int calculate(int N){
+void calculate(int N){
     int combinations = 0;
     for(int x=1; x < N; x++){
         for(int y=1; y < N; y++){

@@ -5,7 +5,7 @@ from pprint import pprint
 
 MAXN = 1048576
 MAX_ITERS = 100000
-FIRST = "v00.py"
+FIRST = "v00"
 ETA = "eta_MAX_iter"
 
 df = pd.read_csv("times.csv").drop(columns=['machine', 'date'])
@@ -75,15 +75,29 @@ for k_file, v_file in summary_dict.items():
 speedups = {k: {} for k in summary_dict.keys()}
 python_1st = summary_dict[FIRST]["python3"][ETA]
 pypy_1st = summary_dict[FIRST]["pypy3"][ETA]
+cO0_1st = summary_dict[FIRST]["cO0"][ETA]
+cO3_1st = summary_dict[FIRST]["cO3"][ETA]
 
 for k, v in speedups.items():
     python = summary_dict[k].get("python3", {}).get(ETA)
     pypy = summary_dict[k].get("pypy3", {}).get(ETA)
-    if python and pypy:
+    cO0 = summary_dict[k].get("cO0", {}).get(ETA)
+    cO3 = summary_dict[k].get("cO3", {}).get(ETA)
+    if python:
         v["total_python3"] = python_1st / python
         v["total_pypy3"] = pypy_1st / pypy
         v["total_vs_python3_pypy3"] = python_1st / pypy
-        v["vs_pypy3_python3"] = python / pypy
+        v["vs_python3_pypy3"] = python / pypy
+    if cO0:
+        v["total_cO0"] = cO0_1st / cO0
+        v["total_cO3"] = cO3_1st / cO3
+        v["total_vs_python3_cO3"] = python_1st / cO3
+        v["vs_cO3_cO0"] = cO0 / cO3
+        v["vs_python3_cO3"] = python / cO3
+
+    if python and cO0:
+        v["vs_cO0_pypy3"] = pypy / cO0
+        v["vs_cO3_pypy3"] = pypy / cO3
 
 previous, current = tee(speedups.keys())
 next(current)
@@ -93,11 +107,21 @@ for pre, cur in zip(previous, current):
     cur_pypy3 = summary_dict[cur].get("pypy3", {}).get(ETA)
     pre_python3 = summary_dict[pre].get("python3", {}).get(ETA)
     pre_pypy3 = summary_dict[pre].get("pypy3", {}).get(ETA)
+    cur_cO0 = summary_dict[cur].get("cO0", {}).get(ETA)
+    cur_cO3 = summary_dict[cur].get("cO3", {}).get(ETA)
+    pre_cO0 = summary_dict[pre].get("cO0", {}).get(ETA)
+    pre_cO3 = summary_dict[pre].get("cO3", {}).get(ETA)
 
-    if cur_python3 and cur_pypy3:
+    if cur_python3:
         vs = speedups[cur]
         vs["prev_python3"] = pre_python3 / cur_python3
         vs["prev_pypy3"] = pre_pypy3 / cur_pypy3
+
+    if cur_cO0 and pre_cO0:
+        vs = speedups[cur]
+        vs["prev_cO0"] = pre_cO0 / cur_cO0
+        vs["prev_cO3"] = pre_cO3 / cur_cO3
+
 
 print(" ------ CONSTANTS ------")
 print(f"MAXN={MAXN}; MAX_ITERS={MAX_ITERS}")

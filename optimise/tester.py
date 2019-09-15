@@ -50,7 +50,8 @@ def main():
     # e.g. python3 tester.py -f v01 -c 1 -r 2048
 
     a = parser.parse_args()
-    runner = "C" if a.c else a.python
+    fname, f_sufix = a.file.split(".")
+    runner = f_sufix if a.c else a.python
     today = time.strftime("%Y-%m-%d")
 
     v = 1
@@ -58,7 +59,7 @@ def main():
     total_iters = 0
     while v < a.range:
         v *= 2
-        if runner == "C":
+        if a.c:
             command = subprocess.run(
                 ["time", f"./{a.file}"],
                 input=f"{v}\n0".encode(),
@@ -75,7 +76,7 @@ def main():
 
         if a.csv:
             # "file_name,runtime,maxN,entries,runner,date,machine"
-            line = f"{a.file},{elapsed},{v},1,{runner},{today},mbp2012\n"
+            line = f"{fname},{elapsed},{v},1,{runner},{today},mbp2012\n"
             with open(a.csv, "a") as f:
                 f.write(line)
 
@@ -110,7 +111,7 @@ def main():
         length *= 10
         values = [random.randint(1, a.range) for _ in range(length)]
 
-        if runner == "C":
+        if a.c:
             command = subprocess.run(
                 ["time", f"./{a.file}"],
                 input="\n".join([str(v) for v in values] + ["0"]).encode(),
@@ -127,7 +128,7 @@ def main():
 
         if a.csv:
             # "file_name,runtime,maxN,entries,runner,date,machine"
-            line = f"{a.file},{elapsed},{v},{length},{runner},{today},mbp2012\n"
+            line = f"{fname},{elapsed},{v},{length},{runner},{today},mbp2012\n"
             with open(a.csv, "a") as f:
                 f.write(line)
 
