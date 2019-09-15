@@ -45,9 +45,9 @@ def main():
     # e.g. python3 tester.py -f v08.py -t 5 -o times.csv -i 5 -e 3
     # e.g. python3 tester.py -f v05.py -r 1024
     # e.g. python3 tester.py -f v08.py -e 5 -p pypy3
-    # g++ v01.c -o v00 -std=c++17
-    # g++ v01.c -O3 -o v00 -std=c++17
-    # e.g. python3 tester.py -f v01 -c 1 -r 2048
+    # g++ v01.c -o v01.cO0 -std=c++17
+    # g++ v01.c -O3 -o v01.cO3 -std=c++17
+    # e.g. python3 tester.py -f v01.cO0 -c 1 -r 2048
 
     a = parser.parse_args()
     fname, f_sufix = a.file.split(".")
