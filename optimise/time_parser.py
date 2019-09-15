@@ -59,7 +59,10 @@ for k_file, v_file in summary_dict.items():
         maxN_lt_MAX_v = sorted(v_runner.get(MAXN, {}).values())
         maxN_lt_MAX_k = sorted(v_runner.get(MAXN, {}).keys())
         if maxN_lt_MAX_k:
-            v_runner["eta_MAXN"] = maxN_lt_MAX_v[0]  # better than an estimate
+            if maxN_lt_MAX_k[0] > 1:
+                v_runner["eta_MAXN"] = "N/A"  # TODO: not discard < 1s here...
+            else:
+                v_runner["eta_MAXN"] = maxN_lt_MAX_v[0]  # instead of estimate
             small, big = tee(maxN_lt_MAX_k)
             next(big)
             for s, b in zip(small, big):
