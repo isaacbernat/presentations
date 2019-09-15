@@ -64,16 +64,12 @@ Measure timings and check correctness of results:
                         combinations += 1
 
 - Pypy interlude. Let compilers do the heavy lifting
-    before)
-        python v00.py
-        python v01.py
-        python v05.py
-    after)
-        pypy v00.py  ( 7x speedup)
-        pypy v01.py  ( 2x speedup) <- beware of manual optimisations!
-        pypy v05.py  (82x speedup)
+    - Cpython vs pypy, and their speedups (see timings.md).
+      Some manual optimisations are not useful here. Pypy is clever :)
+    - Mention Cython, Numba... They are interesting but may require code
+    conversions and not be effective with libraries (e.g. gcd from math)
 
-- C interlude. Compilers... and optimisation flags :D
+- C interlude. Compilers... and (basic) optimisation flags :D
     v00.py)
         def calculate(N):
             combinations = 0
@@ -129,7 +125,7 @@ Measure timings and check correctness of results:
             if y > xxN:  # N -> z
                 break
 
-- v8b. Types exist! Avoid int to float castings in the loop. Even if it quacks like a duck, there are different kinds of ducks (very modest speedup here).
+- v8b. Types exist! Avoid implicit int to float castings in the loop. Even if it quacks like a duck, there are different kinds of ducks (very modest speedup here).
     before)
         xxN = sqrt(N - x * x)
             ...
