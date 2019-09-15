@@ -1,5 +1,6 @@
 import glob
 import subprocess
+import os
 
 for py in sorted(glob.glob("v*.py")):
     # ignore variants and refactorings
@@ -18,3 +19,4 @@ for file in sorted(glob.glob("v*.c")):
     for e in exe:
         subprocess.run("python3 tester.py"
                        f" -f {e} -t 600 -o times.csv -i 5 -e 5 -c 1".split())
+        os.remove(e)
