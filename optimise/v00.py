@@ -2,6 +2,9 @@ import sys
 from math import gcd
 
 
+# TODO the name of the function is a b it weird, calculate what?
+# (Also, it not only calculates -- but also prints.)
+# ((TODO Maybe just inline it?))
 def calculate(N):
     combinations = 0
     for x in range(N + 1):
@@ -14,4 +17,4 @@ def calculate(N):
 
 
 for line in sys.stdin:
-    calculate(int(line[:-1]))
+    calculate(int(line[:-1]))  # TODO line.rstrip() might be more pythonic?

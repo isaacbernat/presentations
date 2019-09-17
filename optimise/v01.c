@@ -1,3 +1,4 @@
+// TODO This file is c++, not c. (c++ headers, namespaces)
 #include <stdio.h>
 #include <numeric>
 
