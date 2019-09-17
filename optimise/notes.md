@@ -1,14 +1,45 @@
+# TODO There are also comments in the source files.
+
 Measure timings and check correctness of results:
 - v0 Baseline. The code could be improved but is not horrible, right? I mean, it even uses gcd from math instead of naively implementing it.
+# TODO the c code is in fact c++, I think that you should be clear about that (and preferablty rewrite it as idiomatic c++ in that case) if you intend to show it in the presentation. I can help you with that if you want.
 
 - v1 Function specialisation. Overly generic functions tend to be more expensive than specific ones. Exponentiation is generic and expensive. Squaring is specific and cheap:
     before) "x ** 2 + y ** 2 == z ** 2"
     after) "x * x + y * y == z * z"
+# TODO Maybe display some disassembly snippets to show that the generated code is quite different?
+#
+#    @@ -82,16 +82,16 @@
+#                  74 COMPARE_OP               2 (==)
+#                  76 POP_JUMP_IF_FALSE       54
+#   
+#    - 12          78 LOAD_FAST                2 (x)
+#    -             80 LOAD_CONST               3 (2)
+#    -             82 BINARY_POWER
+#    + 11          78 LOAD_FAST                2 (x)
+#    +             80 LOAD_FAST                2 (x)
+#    +             82 BINARY_MULTIPLY
+#                  84 LOAD_FAST                3 (y)
+#    -             86 LOAD_CONST               3 (2)
+#    -             88 BINARY_POWER
+#    +             86 LOAD_FAST                3 (y)
+#    +             88 BINARY_MULTIPLY
+#                  90 BINARY_ADD
+#                  92 LOAD_FAST                4 (z)
+#    -             94 LOAD_CONST               3 (2)
+#    -             96 BINARY_POWER
+#    +             94 LOAD_FAST                4 (z)
+#    +             96 BINARY_MULTIPLY
+#                  98 COMPARE_OP               2 (==)
+#                 100 POP_JUMP_IF_FALSE       54
+#                 102 LOAD_FAST                2 (x)
 
 - v2 Order matters. Arrange parameters so the ones more likely to fail (and/or cheaper to compute) are evaluated first (last in case of OR chains).
     before) if gcd(gcd(x, y), z) == 1 and x * x + y * y == z * z and x < y < z:
     after) if x < y < z and x * x + y * y == z * z and gcd(gcd(x, y), z) == 1:
+# TODO It's cheaper because of 'short-circuiting', maybe good to mention then name so that people can google it? (https://docs.python.org/3/library/stdtypes.html#boolean-operations-and-or-not)
 
+# TODO is there a concise name? "Reduce/prune the search space"?
 - v3 Enforce restrictions earlier. Avoid going through ranges we know won't satisfy the condition. (3b is a tiny refactor):
     before)
         for x in range(N + 1):
@@ -37,6 +68,8 @@ Measure timings and check correctness of results:
                     if xx + yy == z * z and gcd(gcd(x, y), z) == 1:
                         combinations += 1
 
+# TODO Visualize this? Maybe some table/plot with "primitive pythagorean triplets" and "visited" values?
+# TODO Maybe motivate why we can skip powers of 2?
 - v5a Code specialisation (problem-specific). We save 6/8 computations
     before)
         for x in range(2, N):
@@ -63,6 +96,7 @@ Measure timings and check correctness of results:
                     if xx + yy == z * z and gcd(gcd(x, y), z) == 1:
                         combinations += 1
 
+# TODO Check what values I get on Mac + PC... --> My pypy (7.1.1) can't find gcd.
 - Pypy interlude. Let compilers do the heavy lifting
     - Cpython vs pypy, and their speedups (see timings.md).
       Some manual optimisations are not useful here. Pypy is clever :)
@@ -91,6 +125,7 @@ Measure timings and check correctness of results:
                            x < y && y < z){
                                 combinations += 1; }}}}}
 
+# TODO Show refactoring steps, or at least mention Euclid?
 - v6 Paradigm shift. Complete refactor of "calculations":
 
     for x in range(1, N):
@@ -101,6 +136,7 @@ Measure timings and check correctness of results:
                 break
             combinations += 1
 
+# TODO Maybe motivate/explain.
 - v7 Avoid useless calculations. Don't need to go all the way through N:
     before)
         for x in range(1, N):
@@ -112,6 +148,7 @@ Measure timings and check correctness of results:
             for y in range(x + 1, max_iter + 1, 2):
                 ...
 
+# TODO Can we even measure this? :)
 - v8 Expensive vs cheap ops. A few SQRTs can save many squares here. Modest speedup.
     before)
         for y in range(x + 1, max_iter + 1, 2):
@@ -125,7 +162,9 @@ Measure timings and check correctness of results:
             if y > xxN:  # N -> z
                 break
 
+# TODO I can't find v08b, but v08.py already cast to int.
 - v8b. Types exist! Avoid implicit int to float castings in the loop. Even if it quacks like a duck, there are different kinds of ducks (very modest speedup here).
+- v8b. Types exist! Avoid int to float castings in the loop. Even if it quacks like a duck, there are different kinds of ducks (very modest speedup here).
     before)
         xxN = sqrt(N - x * x)
             ...
@@ -138,4 +177,7 @@ Measure timings and check correctness of results:
 
 - Memoisation. Save results of calculations which are going to be needed again.
 
+# TODO What is leal?
 - TODO: other noteworthy optimisations: loop unrolling, Leal, function inlining, conditional move, etc.
+
+# TODO Maybe compare to a c++ implementation of v08, optimized for the current machine?
