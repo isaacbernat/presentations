@@ -1,8 +1,6 @@
-# TODO There are also comments in the source files.
-
 Measure timings and check correctness of results:
 - v0 Baseline. The code could be improved but is not horrible, right? I mean, it even uses gcd from math instead of naively implementing it.
-# TODO the c code is in fact c++, I think that you should be clear about that (and preferablty rewrite it as idiomatic c++ in that case) if you intend to show it in the presentation. I can help you with that if you want.
+# TODO switching from a custom function to the gcd library is probably a good optimisation "per se" (don't reinvent the wheel, etc.). Should probably add it, rearrange v numbers and recalulate times/stats.
 
 - v1 Function specialisation. Overly generic functions tend to be more expensive than specific ones. Exponentiation is generic and expensive. Squaring is specific and cheap:
     before) "x ** 2 + y ** 2 == z ** 2"
@@ -12,7 +10,7 @@ Measure timings and check correctness of results:
 #    @@ -82,16 +82,16 @@
 #                  74 COMPARE_OP               2 (==)
 #                  76 POP_JUMP_IF_FALSE       54
-#   
+#
 #    - 12          78 LOAD_FAST                2 (x)
 #    -             80 LOAD_CONST               3 (2)
 #    -             82 BINARY_POWER
@@ -34,13 +32,11 @@ Measure timings and check correctness of results:
 #                 100 POP_JUMP_IF_FALSE       54
 #                 102 LOAD_FAST                2 (x)
 
-- v2 Order matters. Arrange parameters so the ones more likely to fail (and/or cheaper to compute) are evaluated first (last in case of OR chains).
+- v2 Short-circuit evaluation. Arrange parameters so the ones more likely to fail (and/or cheaper to compute) are evaluated first (last in case of OR chains). Keep in mind that it may affect branch prediction on modern CPUs. Reference: (https://docs.python.org/3/library/stdtypes.html#boolean-operations-and-or-not)
     before) if gcd(gcd(x, y), z) == 1 and x * x + y * y == z * z and x < y < z:
     after) if x < y < z and x * x + y * y == z * z and gcd(gcd(x, y), z) == 1:
-# TODO It's cheaper because of 'short-circuiting', maybe good to mention then name so that people can google it? (https://docs.python.org/3/library/stdtypes.html#boolean-operations-and-or-not)
 
-# TODO is there a concise name? "Reduce/prune the search space"?
-- v3 Enforce restrictions earlier. Avoid going through ranges we know won't satisfy the condition. (3b is a tiny refactor):
+- v3 Search space reduction. Avoid going through ranges we know won't satisfy the condition and enforce restrictions earlier (3b is a tiny refactor):
     before)
         for x in range(N + 1):
             for y in range(N + 1):
@@ -69,8 +65,7 @@ Measure timings and check correctness of results:
                         combinations += 1
 
 # TODO Visualize this? Maybe some table/plot with "primitive pythagorean triplets" and "visited" values?
-# TODO Maybe motivate why we can skip powers of 2?
-- v5a Code specialisation (problem-specific). We save 6/8 computations
+- v5 Code specialisation (problem-specific). We save 6/8 computations. Numbers must be coprimes. At most one number in the triplet can be pair. This let's us increment loops by 2 to keep variables either pair or odd as required.
     before)
         for x in range(2, N):
             xx = x * x
@@ -96,14 +91,14 @@ Measure timings and check correctness of results:
                     if xx + yy == z * z and gcd(gcd(x, y), z) == 1:
                         combinations += 1
 
-# TODO Check what values I get on Mac + PC... --> My pypy (7.1.1) can't find gcd.
 - Pypy interlude. Let compilers do the heavy lifting
     - Cpython vs pypy, and their speedups (see timings.md).
       Some manual optimisations are not useful here. Pypy is clever :)
     - Mention Cython, Numba... They are interesting but may require code
     conversions and not be effective with libraries (e.g. gcd from math)
 
-- C interlude. Compilers... and (basic) optimisation flags :D
+- C/C++ interlude. Compilers... and (basic) optimisation flags :D
+# TODO: make the C++ code more idiomatic
     v00.py)
         def calculate(N):
             combinations = 0
@@ -162,9 +157,7 @@ Measure timings and check correctness of results:
             if y > xxN:  # N -> z
                 break
 
-# TODO I can't find v08b, but v08.py already cast to int.
-- v8b. Types exist! Avoid implicit int to float castings in the loop. Even if it quacks like a duck, there are different kinds of ducks (very modest speedup here).
-- v8b. Types exist! Avoid int to float castings in the loop. Even if it quacks like a duck, there are different kinds of ducks (very modest speedup here).
+    - v8 also. Types exist! Avoid int to float castings in the loop. Even if it quacks like a duck, there are different kinds of ducks (very modest speedup here, maybe not worth mentioning?).
     before)
         xxN = sqrt(N - x * x)
             ...
@@ -174,10 +167,6 @@ Measure timings and check correctness of results:
         ...
         if y > xxN:  # N -> z
 
-
 - Memoisation. Save results of calculations which are going to be needed again.
 
-# TODO What is leal?
-- TODO: other noteworthy optimisations: loop unrolling, Leal, function inlining, conditional move, etc.
-
-# TODO Maybe compare to a c++ implementation of v08, optimized for the current machine?
+- TODO: other noteworthy optimisations: loop unrolling, function inlining, conditional move, branch predictions, rematerialisation (vs hoisting), etc.
