@@ -1,6 +1,8 @@
-# Specs
-## As run under MacBook Pro (Retina, Mid 2012):
+System specs
+------------
+MacBook Pro (Retina, Mid 2012)
 
+```
 Model Identifier:   MacBookPro10,1
   Processor Name:   Intel Core i7
   Processor Speed:  2,3 GHz
@@ -10,10 +12,18 @@ Model Identifier:   MacBookPro10,1
   L3 Cache: 6 MB
   Hyper-Threading Technology:   Enabled
   Memory:   16 GB
+```
 
- ------ CONSTANTS ------
-MAXN=1048576; MAX_ITERS=100000
- ------ TIMING SUMMARY ------
+Constants
+---------
+
+- MAXN=1048576
+- MAX_ITERS=100000
+
+Timing summary
+--------------
+
+```
 {'v00': {'cO0': {1: {256: 3.07, 512: 25.49, 1024: 211.65},
                  'eta_MAXN': 329623191713.9921,
                  'eta_MAXN_y': 10452.282842275245,
@@ -165,7 +175,11 @@ MAXN=1048576; MAX_ITERS=100000
                      'eta_MAXN': 'N/A',
                      'eta_MAX_iter': 3513.287494355102,
                      'ts_ratio': 10.252983990997205}}}
- ------ SPEEDUP SUMMARY ------
+```
+Speedup summary
+---------------
+
+```
 {'v00': {'total_cO0': 1.0,
          'total_cO3': 1.0,
          'total_pypy3': 1.0,
@@ -270,3 +284,4 @@ MAXN=1048576; MAX_ITERS=100000
          'total_python3': 50008575301789.64,
          'total_vs_python3_pypy3': 131067372541602.67,
          'vs_python3_pypy3': 2.6208979510142574}}
+```

@@ -126,12 +126,13 @@ for pre, cur in zip(previous, current):
         vs["prev_cO3"] = pre_cO3 / cur_cO3
 
 
-print(" ------ CONSTANTS ------")
-print(f"MAXN={MAXN}; MAX_ITERS={MAX_ITERS}")
-print(" ------ TIMING SUMMARY ------")
+print("Constants\n---------\n")
+print(f"- MAXN={MAXN}\n- MAX_ITERS={MAX_ITERS}\n")
+print("Timing summary\n--------------\n\n```")
 pprint(summary_dict)
-print(" ------ SPEEDUP SUMMARY ------")
+print("```\nSpeedup summary\n---------------\n\n```")
 pprint(speedups)
+print("```\n")
 
 # Some assertions on time_size_ratios, just for fun
 for tsr in tsr_lt:
