@@ -2,7 +2,7 @@
 #include <numeric>
 
 
-void calculate(int N){
+void process(int N){
     int combinations = 0;
     int xx, yy;
     for(int x=2; x < N; x+=2){
@@ -39,7 +39,7 @@ void calculate(int N){
 int main(){
     int N;
     while (scanf("%d", &N) && N){
-        calculate(N);
+        process(N);
     }
     return 0;
 }

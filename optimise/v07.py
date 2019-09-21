@@ -2,7 +2,7 @@ import sys
 from math import gcd
 
 
-def calculate(N):
+def process(N):
     combinations = 0
     for x in range(1, N):
         for y in range(x + 1, N, 2):
@@ -16,4 +16,4 @@ def calculate(N):
 
 for line in sys.stdin:
     N = int(line[:-1])
-    calculate(N)
+    process(N)

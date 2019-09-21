@@ -2,7 +2,7 @@ from math import gcd
 import dis
 
 
-def calculate(N):
+def process(N):
     combinations = 0
     for x in range(2, N):
         xx = x * x
@@ -14,4 +14,4 @@ def calculate(N):
     print(combinations)
 
 
-dis.dis(calculate)
+dis.dis(process)

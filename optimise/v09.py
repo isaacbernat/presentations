@@ -3,7 +3,7 @@ from math import gcd
 from math import sqrt
 
 
-def calculate(N):
+def process(N):
     combinations = 0
     max_iter = int(sqrt(N)) + 1
     for x in range(1, max_iter):
@@ -19,4 +19,4 @@ def calculate(N):
 
 for line in sys.stdin:
     N = int(line[:-1])
-    calculate(N)
+    process(N)

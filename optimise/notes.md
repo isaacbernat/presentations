@@ -57,12 +57,12 @@ Measure timings and check correctness of results:
             ...
 
     after)
-        def calculate(N):
+        def process(N):
             combinations = 0
             ...
 
         for line in sys.stdin:
-            calculate(int(line[:-1]) + 1)
+            process(int(line[:-1]) + 1)
 
 # TODO explain, introduce and/or refer to docs on "dis" for diassembling function calls and not just "main" code, etc. `python -m dis v04.py > v04_no.py.dis`
     before BYTECODE excerpt)
@@ -127,7 +127,7 @@ Measure timings and check correctness of results:
 - C/C++ interlude. Compilers... and (basic) optimisation flags :D
 # TODO: make the C++ code more idiomatic
     v00.py)
-        def calculate(N):
+        def process(N):
             combinations = 0
             for x in range(N + 1):
                 for y in range(N + 1):
@@ -137,7 +137,7 @@ Measure timings and check correctness of results:
                             combinations += 1
 
     v00.c) c++17 has gcd on numeric package. We'll use it here.
-        int calculate(int N){
+        int process(int N){
             int combinations = 0;
             for(int x=1; x < N; x++){
                 for(int y=1; y < N; y++){

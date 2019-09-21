@@ -1,8 +1,8 @@
 import sys
 from math import gcd
 
-for line in sys.stdin:
-    N = int(line[:-1]) + 1
+
+def process(N):
     combinations = 0
     for x in range(2, N, 2):
         xx = x * x
@@ -20,3 +20,7 @@ for line in sys.stdin:
                 if xx + yy == z * z and gcd(gcd(x, y), z) == 1:
                     combinations += 1
     print(combinations)
+
+
+for line in sys.stdin:
+    process(int(line[:-1]) + 1)
