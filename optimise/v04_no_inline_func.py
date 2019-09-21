@@ -1,5 +1,5 @@
-import sys
 from math import gcd
+import dis
 
 
 def calculate(N):
@@ -14,5 +14,4 @@ def calculate(N):
     print(combinations)
 
 
-for line in sys.stdin:
-    calculate(int(line[:-1]) + 1)
+dis.dis(calculate)

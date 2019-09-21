@@ -2,7 +2,8 @@ import sys
 from math import gcd
 
 
-def calculate(N):
+for line in sys.stdin:
+    N = int(line[:-1])
     combinations = 0
     for x in range(N + 1):
         for y in range(N + 1):
@@ -11,7 +12,3 @@ def calculate(N):
                    gcd(gcd(x, y), z) == 1:
                         combinations += 1
     print(combinations)
-
-
-for line in sys.stdin:
-    calculate(int(line[:-1]))

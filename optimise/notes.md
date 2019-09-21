@@ -48,7 +48,34 @@ Measure timings and check correctness of results:
                 for z in range(y + 1, N + 1):
                     if ...
 
-- v4 Code hoisting. Move results of known calculations outside loops.
+- v4 Function calls vs inline code. Python BYTECODE implementation may change, but apparently this has been true at least since 2014 (python 2.7 see https://stackoverflow.com/questions/21107131/why-mesh-python-code-slower-than-decomposed-one ) and is still true today (current version of python 3.7.4). Variables in functions load faster, and this makes the extra function call overhead negligible. Always measure instead of relying only in intuitions:
+
+    before)
+        for line in sys.stdin:
+            N = int(line[:-1]) + 1
+            combinations = 0
+            ...
+
+    after)
+        def calculate(N):
+            combinations = 0
+            ...
+
+        for line in sys.stdin:
+            calculate(int(line[:-1]) + 1)
+
+# TODO explain, introduce and/or refer to docs on "dis" for diassembling function calls and not just "main" code, etc. `python -m dis v04.py > v04_no.py.dis`
+    before BYTECODE excerpt)
+        STORE_NAME
+        LOAD_NAME
+        LOAD_NAME
+
+    after BYTECODE excerpt)
+        STORE_FAST
+        LOAD_FAST
+        LOAD_FAST
+
+- v5 Code hoisting. Move results of known calculations outside loops.
     before)
         for x in range(2, N):
             for y in range(x + 1, N):
@@ -65,7 +92,7 @@ Measure timings and check correctness of results:
                         combinations += 1
 
 # TODO Visualize this? Maybe some table/plot with "primitive pythagorean triplets" and "visited" values?
-- v5 Code specialisation (problem-specific). We save 6/8 computations. Numbers must be coprimes. At most one number in the triplet can be pair. This let's us increment loops by 2 to keep variables either pair or odd as required.
+- v6 Code specialisation (problem-specific). We save 6/8 computations. Numbers must be coprimes. At most one number in the triplet can be pair. This let's us increment loops by 2 to keep variables either pair or odd as required.
     before)
         for x in range(2, N):
             xx = x * x
@@ -121,7 +148,7 @@ Measure timings and check correctness of results:
                                 combinations += 1; }}}}}
 
 # TODO Show refactoring steps, or at least mention Euclid?
-- v6 Paradigm shift. Complete refactor of "calculations":
+- v7 Paradigm shift. Complete refactor of "calculations":
 
     for x in range(1, N):
         for y in range(x + 1, N, 2):
@@ -132,7 +159,7 @@ Measure timings and check correctness of results:
             combinations += 1
 
 # TODO Maybe motivate/explain.
-- v7 Avoid useless calculations. Don't need to go all the way through N:
+- v8 Avoid useless calculations. Don't need to go all the way through N:
     before)
         for x in range(1, N):
             for y in range(x + 1, N, 2):
@@ -144,7 +171,7 @@ Measure timings and check correctness of results:
                 ...
 
 # TODO Can we even measure this? :)
-- v8 Expensive vs cheap ops. A few SQRTs can save many squares here. Modest speedup.
+- v9 Expensive vs cheap ops. A few SQRTs can save many squares here. Modest speedup.
     before)
         for y in range(x + 1, max_iter + 1, 2):
             ...
