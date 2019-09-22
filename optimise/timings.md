@@ -1,28 +1,63 @@
-System specs
-------------
-MacBook Pro (Retina, Mid 2012)
+Specifications
+==============
 
-```
-Model Identifier:   MacBookPro10,1
-  Processor Name:   Intel Core i7
-  Processor Speed:  2,3 GHz
-  Number of Processors: 1
-  Total Number of Cores:    4
-  L2 Cache (per Core):  256 KB
-  L3 Cache: 6 MB
-  Hyper-Threading Technology:   Enabled
-  Memory:   16 GB
-```
+Hardware
+--------
+- Model Name: MacBook Pro (Retina, Mid 2012)
+- Model Identifier: MacBookPro10,1
+- Processor Name: Intel Core i7
+- Processor Speed: 2,3 GHz
+- Number of Processors: 1
+- Total Number of Cores: 4
+- L2 Cache (per Core): 256 KB
+- L3 Cache: 6 MB
+- Hyper-Threading Technology: Enabled
+- Memory: 16 GB
+
+Timing
+------
+Best of ~5 runs. All values are times measured in seconds.
+- First key: the script version that's run.
+- Second key: the "interpreter" or in case of C++ the Optimisation level used.
+- Third keys:
+    - 1      : It means running the script just with 1 number.
+               The subkeys are the value of N.
+    - 1048576: It means running the script with numbers from 1 to 2^20,
+               using a fixed seed so they are comparable.
+               The subkeys are the amount of numbers given as input.
+
+- eta_MAXN: estimated time to calculate N=2^20 with those settings.
+- eta_MAX_y: estimated time to calculate N=2^20 with those settings in years.
+- eta_MAX_iter: estimated time to calculate 100k entries with random N <= 2^20.
+                the current results are pessimistic and an upper bound, but
+                within the same order of magnitude of a realistic results.
+                # TODO: calculate a more accurate upper bound.
+- ts_ratio: aka "time-size ratio". This is used to calculate ETAs.
+            How much the time increases when:
+            - 1      : Size of N *= 2 (e.g. 8 -> O(n^3) complexity (2^3 -> 8).
+            - 1048576: the ratio is how much time increases when N =* 10.
+
+Speedup
+-------
+All ratios are calculated using "eta_MAX_iter".
+When available it's a real value instead of an estimation.
+Compare current script with chosen settings to
+- prev_...    : ... equivalent previous script version.
+- total_...   : ... equivalent of v00.
+- total_vs... : ... equivalent with chosen settings of v00.
+- vs_...      : ... other chosen settings.
+
+
+Results summary
+===============
 
 Constants
 ---------
-
 - MAXN=1048576
 - MAX_ITERS=100000
 
-Timing summary
---------------
-
+Timing
+------
 ```
 {'v00': {'cO0': {1: {256: 2.59, 512: 21.63, 1024: 179.48},
                  'eta_MAXN': 286827022875.19385,
@@ -215,8 +250,8 @@ Timing summary
                      'eta_MAX_iter': 4297.234780526248,
                      'ts_ratio': 9.959752423228684}}}
 ```
-Speedup summary
----------------
+Speedup
+-------
 
 ```
 {'v00': {'total_cO0': 1.0,

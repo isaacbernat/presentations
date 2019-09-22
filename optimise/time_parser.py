@@ -1,7 +1,8 @@
 import pandas as pd
 from math import log
 from itertools import tee
-from pprint import pprint
+from pprint import pformat
+from copy import deepcopy
 
 MAXN = 1048576
 MAX_ITERS = 100000
@@ -9,8 +10,8 @@ FIRST = "v00"
 ETA = "eta_MAX_iter"
 
 df = pd.read_csv("times.csv").drop(columns=['machine', 'date'])
-# get rows with tests > 1 second
-df = df[(df.runtime >= 1)]  # FIXME: if the fastest is <1 but there are >1?
+# get rows with tests > 0.5 second
+df = df[(df.runtime >= 0.5)]
 # group by "run type"
 group_df = df.groupby(['file_name', 'maxN', 'entries', 'runner'])
 # get the fastest of each run type only, slower times are overhead
@@ -35,6 +36,19 @@ for k, v in min_dict.items():
 # Time size ratios for a single calculation of size N <= 1048576
 tsr_lt = []
 
+# Reduce dictionary size removing smaller and less reliable Ns
+for k_file, v_file in deepcopy(summary_dict).items():
+    for k_runner, v_runner in v_file.items():
+        maxN_lt_MAX_k = sorted(v_runner.get(1, {}).keys())[-3:]
+        for k in v_runner.get(1, {}):
+            if k not in maxN_lt_MAX_k:
+                del summary_dict[k_file][k_runner][1][k]
+
+        maxN_lt_MAX_k = sorted(v_runner.get(MAXN, {}).keys())[-3:]
+        for k in v_runner.get(MAXN, {}):
+            if k not in maxN_lt_MAX_k:
+                del summary_dict[k_file][k_runner][MAXN][k]
+
 # Calculate time_size_ratio + ETAs
 for k_file, v_file in summary_dict.items():
     for k_runner, v_runner in v_file.items():
@@ -55,12 +69,11 @@ for k_file, v_file in summary_dict.items():
                 * maxN_lt_MAX_v[-1]
             v_runner["eta_MAXN_y"] = v_runner["eta_MAXN"] / 3600 / 24 / 365
             v_runner["eta_MAX_iter"] = v_runner["eta_MAXN"] * MAX_ITERS
-
-        maxN_lt_MAX_v = sorted(v_runner.get(MAXN, {}).values())
         maxN_lt_MAX_k = sorted(v_runner.get(MAXN, {}).keys())
+        maxN_lt_MAX_v = sorted(v_runner.get(MAXN, {}).values())
         if maxN_lt_MAX_k:
             if maxN_lt_MAX_k[0] > 1:
-                v_runner["eta_MAXN"] = "N/A"  # TODO: not discard < 1s here...
+                v_runner["eta_MAXN"] = "N/A"  # TODO: not discard < 0.5s here?
             else:
                 v_runner["eta_MAXN"] = maxN_lt_MAX_v[0]  # instead of estimate
             small, big = tee(maxN_lt_MAX_k)
@@ -125,24 +138,75 @@ for pre, cur in zip(previous, current):
         vs["prev_cO0"] = pre_cO0 / cur_cO0
         vs["prev_cO3"] = pre_cO3 / cur_cO3
 
+print(f"""
+Specifications
+==============
 
-print("Constants\n---------\n")
-print(f"- MAXN={MAXN}\n- MAX_ITERS={MAX_ITERS}\n")
-print("Timing summary\n--------------\n\n```")
-pprint(summary_dict)
-print("```\nSpeedup summary\n---------------\n\n```")
-pprint(speedups)
-print("```\n")
+Hardware
+--------
+- Model Name: MacBook Pro (Retina, Mid 2012)
+- Model Identifier: MacBookPro10,1
+- Processor Name: Intel Core i7
+- Processor Speed: 2,3 GHz
+- Number of Processors: 1
+- Total Number of Cores: 4
+- L2 Cache (per Core): 256 KB
+- L3 Cache: 6 MB
+- Hyper-Threading Technology: Enabled
+- Memory: 16 GB
 
-# Some assertions on time_size_ratios, just for fun
-for tsr in tsr_lt:
-    # Versions that follow this basic algorithm (v00-05) are O(n^3).
-    assert(6.5 < tsr < 9)  # 2n -> 8x
-    # Other paradigm algorithms are too fast to be here (<1s) on the machine I
-    # ran (e.g. v06 is close to O(n)). Could happen on slower machines, so take
-    # this assertion with a grain of salt, rather than a truth that must hold.
+Timing
+------
+Best of ~5 runs. All values are times measured in seconds.
+- First key: the script version that's run.
+- Second key: the "interpreter" or in case of C++ the Optimisation level used.
+- Third keys:
+    - 1      : It means running the script just with 1 number.
+               The subkeys are the value of N.
+    - 1048576: It means running the script with numbers from 1 to 2^20,
+               using a fixed seed so they are comparable.
+               The subkeys are the amount of numbers given as input.
+
+- eta_MAXN: estimated time to calculate N=2^20 with those settings.
+- eta_MAX_y: estimated time to calculate N=2^20 with those settings in years.
+- eta_MAX_iter: estimated time to calculate 100k entries with random N <= 2^20.
+                the current results are pessimistic and an upper bound, but
+                within the same order of magnitude of a realistic results.
+                # TODO: calculate a more accurate upper bound.
+- ts_ratio: aka "time-size ratio". This is used to calculate ETAs.
+            How much the time increases when:
+            - 1      : Size of N *= 2 (e.g. 8 -> O(n^3) complexity (2^3 -> 8).
+            - 1048576: the ratio is how much time increases when N =* 10.
+
+Speedup
+-------
+All ratios are calculated using "eta_MAX_iter".
+When available it's a real value instead of an estimation.
+Compare current script with chosen settings to
+- prev_...    : ... equivalent previous script version.
+- total_...   : ... equivalent of v00.
+- total_vs... : ... equivalent with chosen settings of v00.
+- vs_...      : ... other chosen settings.
+
+
+Results summary
+===============
+
+Constants
+---------
+- MAXN={MAXN}
+- MAX_ITERS={MAX_ITERS}
+
+Timing
+------
+{pformat(summary_dict)}
+
+Speedup
+-------
+{pformat(speedups)}
+""")
+
 
 
 # TODO scripts to do for each csv timing:
 #  - plotting charts?
-#  - versions with C and different compiler optimisations
