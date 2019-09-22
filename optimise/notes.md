@@ -1,8 +1,18 @@
 Measure timings and check correctness of results:
-- v0 Baseline. The code could be improved but is not horrible, right? I mean, it even uses gcd from math instead of naively implementing it.
-# TODO switching from a custom function to the gcd library is probably a good optimisation "per se" (don't reinvent the wheel, etc.). Should probably add it, rearrange v numbers and recalulate times/stats.
+- v0 Baseline. The code could be improved but it is not horrible, right? I mean, it even uses a counter with the result instead adding the triplets to a list and returning the length.
 
-- v1 Function specialisation. Overly generic functions tend to be more expensive than specific ones. Exponentiation is generic and expensive. Squaring is specific and cheap:
+- v1 Don't reinvent the wheel. If the functionality needed can be found in a trusted library it's probably a good idea to try that first before reimplementing it (and not just for performance reasons):
+    before)
+        def euclidean_gcd(a, b):
+            while (b != 0):
+                t = b
+                b = a % b
+                a = t
+            return a
+    after)
+        from math import gcd
+
+- v2 Function specialisation. Overly generic functions tend to be more expensive than specific ones. Exponentiation is generic and expensive. Squaring is specific and cheap:
     before) "x ** 2 + y ** 2 == z ** 2"
     after) "x * x + y * y == z * z"
 # TODO Maybe display some disassembly snippets to show that the generated code is quite different?
@@ -32,11 +42,11 @@ Measure timings and check correctness of results:
 #                 100 POP_JUMP_IF_FALSE       54
 #                 102 LOAD_FAST                2 (x)
 
-- v2 Short-circuit evaluation. Arrange parameters so the ones more likely to fail (and/or cheaper to compute) are evaluated first (last in case of OR chains). Keep in mind that it may affect branch prediction on modern CPUs. Reference: (https://docs.python.org/3/library/stdtypes.html#boolean-operations-and-or-not)
+- v3 Short-circuit evaluation. Arrange parameters so the ones more likely to fail (and/or cheaper to compute) are evaluated first (last in case of OR chains). Keep in mind that it may affect branch prediction on modern CPUs. Reference: (https://docs.python.org/3/library/stdtypes.html#boolean-operations-and-or-not)
     before) if gcd(gcd(x, y), z) == 1 and x * x + y * y == z * z and x < y < z:
     after) if x < y < z and x * x + y * y == z * z and gcd(gcd(x, y), z) == 1:
 
-- v3 Search space reduction. Avoid going through ranges we know won't satisfy the condition and enforce restrictions earlier (3b is a tiny refactor):
+- v4 Search space reduction. Avoid going through ranges we know won't satisfy the condition and enforce restrictions earlier (4b is a tiny refactor):
     before)
         for x in range(N + 1):
             for y in range(N + 1):
@@ -48,7 +58,7 @@ Measure timings and check correctness of results:
                 for z in range(y + 1, N + 1):
                     if ...
 
-- v4 Function calls vs inline code. Python BYTECODE implementation may change, but apparently this has been true at least since 2014 (python 2.7 see https://stackoverflow.com/questions/21107131/why-mesh-python-code-slower-than-decomposed-one ) and is still true today (current version of python 3.7.4). Variables in functions load faster, and this makes the extra function call overhead negligible. Always measure instead of relying only in intuitions:
+- v5 Function calls vs inline code. Python BYTECODE implementation may change, but apparently this has been true at least since 2014 (python 2.7 see https://stackoverflow.com/questions/21107131/why-mesh-python-code-slower-than-decomposed-one ) and is still true today (current version of python 3.7.4). Variables in functions load faster, and this makes the extra function call overhead negligible. Always measure instead of relying only in intuitions:
 
     before)
         for line in sys.stdin:
@@ -64,7 +74,7 @@ Measure timings and check correctness of results:
         for line in sys.stdin:
             process(int(line[:-1]) + 1)
 
-# TODO explain, introduce and/or refer to docs on "dis" for diassembling function calls and not just "main" code, etc. `python -m dis v04.py > v04_no.py.dis`
+# TODO explain, introduce and/or refer to docs on "dis" for diassembling function calls and not just "main" code, etc. `python -m dis v05.py > v05_no.py.dis`
     before BYTECODE excerpt)
         STORE_NAME
         LOAD_NAME
@@ -75,7 +85,7 @@ Measure timings and check correctness of results:
         LOAD_FAST
         LOAD_FAST
 
-- v5 Code hoisting. Move results of known calculations outside loops.
+- v6 Code hoisting. Move results of known calculations outside loops.
     before)
         for x in range(2, N):
             for y in range(x + 1, N):
@@ -92,7 +102,7 @@ Measure timings and check correctness of results:
                         combinations += 1
 
 # TODO Visualize this? Maybe some table/plot with "primitive pythagorean triplets" and "visited" values?
-- v6 Code specialisation (problem-specific). We save 6/8 computations. Numbers must be coprimes. At most one number in the triplet can be pair. This let's us increment loops by 2 to keep variables either pair or odd as required.
+- v7 Code specialisation (problem-specific). We save 6/8 computations. Numbers must be coprimes. At most one number in the triplet can be pair. This let's us increment loops by 2 to keep variables either pair or odd as required.
     before)
         for x in range(2, N):
             xx = x * x
@@ -126,7 +136,7 @@ Measure timings and check correctness of results:
 
 - C/C++ interlude. Compilers... and (basic) optimisation flags :D
 # TODO: make the C++ code more idiomatic
-    v00.py)
+    v01.py)
         def process(N):
             combinations = 0
             for x in range(N + 1):
@@ -136,7 +146,7 @@ Measure timings and check correctness of results:
                            x ** 2 + y ** 2 == z ** 2 and x < y < z:
                             combinations += 1
 
-    v00.c) c++17 has gcd on numeric package. We'll use it here.
+    v01.c) c++17 has gcd on numeric package. We'll use it here.
         int process(int N){
             int combinations = 0;
             for(int x=1; x < N; x++){
@@ -148,7 +158,7 @@ Measure timings and check correctness of results:
                                 combinations += 1; }}}}}
 
 # TODO Show refactoring steps, or at least mention Euclid?
-- v7 Paradigm shift. Complete refactor of "process":
+- v8 Paradigm shift. Complete refactor of "process":
 
     for x in range(1, N):
         for y in range(x + 1, N, 2):
@@ -159,7 +169,7 @@ Measure timings and check correctness of results:
             combinations += 1
 
 # TODO Maybe motivate/explain.
-- v8 Avoid useless calculations. Don't need to go all the way through N:
+- v9 Avoid useless calculations. Don't need to go all the way through N:
     before)
         for x in range(1, N):
             for y in range(x + 1, N, 2):
@@ -170,7 +180,7 @@ Measure timings and check correctness of results:
             for y in range(x + 1, max_iter + 1, 2):
                 ...
 
-- v9 Expensive vs cheap ops. A few SQRTs can save many squares here.
+- v10 Expensive vs cheap ops. A few SQRTs can save many squares here.
     before)
         for y in range(x + 1, max_iter + 1, 2):
             ...
@@ -183,7 +193,7 @@ Measure timings and check correctness of results:
             if y > xxN:  # N -> z
                 break
 
-- v10 Types exist! Avoid int to float castings in the loop. Even if it quacks like a duck, there are different kinds of ducks (i.e. implicit conversions).
+- v11 Types exist! Avoid int to float castings in the loop. Even if it quacks like a duck, there are different kinds of ducks (i.e. implicit conversions).
     before)
         xxN = sqrt(N - x * x)
             ...
@@ -196,7 +206,7 @@ Measure timings and check correctness of results:
 - Profilers interlude:
     Previous speedup was... modest (<1%). Time measurement doesn't need to be a black box. Let's profile the code to see what to optimise next (maybe introduce Amdah'ls law here? And gustafson-barsis instead of a longer theoretical intro?). (talk about statistical vs deterministic profilers?)
 
-- v11 Memoisation (without r, no typo here). Storing the result of calculations that are going to be needed again (soon and/or often). Useful for expensive function calls:
+- v12 Memoisation (without r, no typo here). Storing the result of calculations that are going to be needed again (soon and/or often). Useful for expensive function calls:
     before)
         def process(N):
             ...

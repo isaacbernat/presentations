@@ -4,16 +4,23 @@ from math import gcd
 
 def process(N):
     combinations = 0
-    for x in range(1, N):
+    for x in range(2, N, 2):
+        xx = x * x
         for y in range(x + 1, N, 2):
-            if gcd(x, y) != 1:
-                continue
-            if x * x + y * y > N:  # N -> z
-                break
-            combinations += 1
+            yy = y * y
+            for z in range(y + 2, N, 2):
+                if xx + yy == z * z and gcd(gcd(x, y), z) == 1:
+                    combinations += 1
+
+    for x in range(3, N, 2):
+        xx = x * x
+        for y in range(x + 1, N, 2):
+            yy = y * y
+            for z in range(y + 1, N, 2):
+                if xx + yy == z * z and gcd(gcd(x, y), z) == 1:
+                    combinations += 1
     print(combinations)
 
 
 for line in sys.stdin:
-    N = int(line[:-1])
-    process(N)
+    process(int(line[:-1]) + 1)

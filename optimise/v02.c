@@ -9,9 +9,9 @@ int main(){
         for(int x=1; x < N; x++){
             for(int y=1; y < N; y++){
                 for(int z=1; z < N; z++){
-                    if(x < y && y < z &&
+                    if(std::gcd(std::gcd(x, y), z) == 1 &&
                        x * x + y * y == z * z &&
-                       std::gcd(std::gcd(x, y), z) == 1){
+                       x < y && y < z){
                             combinations += 1;
                     }
                 }
