@@ -148,7 +148,7 @@ Measure timings and check correctness of results:
                                 combinations += 1; }}}}}
 
 # TODO Show refactoring steps, or at least mention Euclid?
-- v7 Paradigm shift. Complete refactor of "calculations":
+- v7 Paradigm shift. Complete refactor of "process":
 
     for x in range(1, N):
         for y in range(x + 1, N, 2):
@@ -170,8 +170,7 @@ Measure timings and check correctness of results:
             for y in range(x + 1, max_iter + 1, 2):
                 ...
 
-# TODO Can we even measure this? :)
-- v9 Expensive vs cheap ops. A few SQRTs can save many squares here. Modest speedup.
+- v9 Expensive vs cheap ops. A few SQRTs can save many squares here.
     before)
         for y in range(x + 1, max_iter + 1, 2):
             ...
@@ -184,7 +183,7 @@ Measure timings and check correctness of results:
             if y > xxN:  # N -> z
                 break
 
-    - v9 also. Types exist! Avoid int to float castings in the loop. Even if it quacks like a duck, there are different kinds of ducks (very modest speedup here, maybe not worth mentioning?).
+- v10 Types exist! Avoid int to float castings in the loop. Even if it quacks like a duck, there are different kinds of ducks (i.e. implicit conversions).
     before)
         xxN = sqrt(N - x * x)
             ...
@@ -194,13 +193,15 @@ Measure timings and check correctness of results:
         ...
         if y > xxN:  # N -> z
 
-- v10 Memoisation (without r, no typo here). Storing the result of calculations that are going to be needed again (soon and/or often). Useful for expensive function calls:
+- Profilers interlude:
+    Previous speedup was... modest (<1%). Time measurement doesn't need to be a black box. Let's profile the code to see what to optimise next (maybe introduce Amdah'ls law here? And gustafson-barsis instead of a longer theoretical intro?). (talk about statistical vs deterministic profilers?)
+
+- v11 Memoisation (without r, no typo here). Storing the result of calculations that are going to be needed again (soon and/or often). Useful for expensive function calls:
     before)
         def process(N):
             ...
                     if gcd(x, y) != 1:
                         continue
-
     after)
         @lru_cache(maxsize=None)
         def GCD(x, y):
