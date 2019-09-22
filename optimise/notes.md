@@ -184,7 +184,7 @@ Measure timings and check correctness of results:
             if y > xxN:  # N -> z
                 break
 
-    - v8 also. Types exist! Avoid int to float castings in the loop. Even if it quacks like a duck, there are different kinds of ducks (very modest speedup here, maybe not worth mentioning?).
+    - v9 also. Types exist! Avoid int to float castings in the loop. Even if it quacks like a duck, there are different kinds of ducks (very modest speedup here, maybe not worth mentioning?).
     before)
         xxN = sqrt(N - x * x)
             ...
@@ -194,6 +194,23 @@ Measure timings and check correctness of results:
         ...
         if y > xxN:  # N -> z
 
-- Memoisation. Save results of calculations which are going to be needed again.
+- v10 Memoisation (without r, no typo here). Storing the result of calculations that are going to be needed again (soon and/or often). Useful for expensive function calls:
+    before)
+        def process(N):
+            ...
+                    if gcd(x, y) != 1:
+                        continue
+
+    after)
+        @lru_cache(maxsize=None)
+        def GCD(x, y):
+            return gcd(x, y)
+
+        def process(N):
+            ...
+                    if GCD(x, y) != 1:
+                        continue
+
+    ... but wait, in this case the lru_cache was actually more expensive than calculating it each time! Remember to measure!
 
 - TODO: other noteworthy optimisations: loop unrolling, function inlining, conditional move, branch predictions, rematerialisation (vs hoisting), etc.
