@@ -9,6 +9,11 @@ Measure timings and check correctness of results:
                 b = a % b
                 a = t
             return a
+
+        def simplified_euclidean_gcd(a, b):
+            while b:
+                a, b = b, a % b
+            return a
     after)
         from math import gcd
 
@@ -157,14 +162,15 @@ Measure timings and check correctness of results:
                            x < y && y < z){
                                 combinations += 1; }}}}}
 
-# TODO Show refactoring steps, or at least mention Euclid?
-- v8 Paradigm shift. Complete refactor of "process":
+- v8 Paradigm shift. Significant speedups can be achieved using non-incremental approaches. In this case we use a calculation based on Euclid's formula to generate primitive pythagorean triples.
+    # a*a + b*b = c*c
+    # a=(x*x)-(y*y); b=2x*y; c=(x*x)+(y*y)
 
     for x in range(1, N):
         for y in range(x + 1, N, 2):
             if gcd(x, y) != 1:
                 continue
-            if x * x + y * y > N:  # N -> z
+            if x * x + y * y > N:
                 break
             combinations += 1
 
@@ -223,5 +229,27 @@ Measure timings and check correctness of results:
                         continue
 
     ... but wait, in this case the lru_cache was actually more expensive than calculating it each time! Remember to measure!
+
+- v13 Reuse results. The program calculates many Ns. Many computations for a given N are the same as with previous Ns.
+    before):
+        def process(N):
+            ...
+                    combinations += 1
+            print(combinations)
+
+        for line in sys.stdin:
+            process(int(line[:-1]))
+
+    after):
+        RESULT = defaultdict(int)
+        def preprocess(N=1048576):
+            ...
+                    RESULT[xx + y * y] += 1
+            for i in range(1, MAXN + 1):
+                RESULT[i] += RESULT[i - 1]
+
+        preprocess()
+        for line in sys.stdin:
+            print(RESULT[int(line[:-1])])
 
 - TODO: other noteworthy optimisations: loop unrolling, function inlining, conditional move, branch predictions, rematerialisation (vs hoisting), etc.

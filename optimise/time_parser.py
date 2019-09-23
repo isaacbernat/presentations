@@ -157,7 +157,9 @@ Hardware
 
 Timing
 ------
-Best of ~5 runs. All values are times measured in seconds.
+Best of ~5 runs. All values are times measured in seconds. For values of any
+specific run see `times.csv`.
+
 - First key: the script version that's run.
 - Second key: the "interpreter" or in case of C++ the Optimisation level used.
 - Third keys:
@@ -199,13 +201,16 @@ Constants
 
 Timing
 ------
+```
 {pformat(summary_dict)}
+```
 
 Speedup
 -------
+```
 {pformat(speedups)}
+```
 """)
-
 
 
 # TODO scripts to do for each csv timing:
