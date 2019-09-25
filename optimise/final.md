@@ -8,7 +8,7 @@ contact info? link to github? link to ivbar?
 # Outline
 
 ### 15% Part 1 Why bother?
-### 50% Part 2 Problem definition, time measurement.
+### 50% Part 2 Problem definition.
 ### 35% Part 3 Optimisations.
 ### 35% Part 4 Conclusions.
 
@@ -113,15 +113,14 @@ If the functionality needed can be found in a trusted library it's probably a go
 
 ## v2 Function specialisation.
 
-<div ><img src="./img_v02ii.py.png" height="100%"/></div>
-
-#### TODO display some disassembly snippets to show that the generated code is quite different
+<div ><img src="./img_v02ii.py.png" width="100%"/></div>
 
 ???
 
 Overly generic functions tend to be more expensive than specific ones. 
 - Exponentiation is generic and expensive.
-- Squaring is specific and cheap:
+- Squaring is specific and cheap.
+- We can see the difference in CPython bytecode (more on that later)
 
 ---
 
@@ -263,7 +262,7 @@ Significant speedups can be achieved using non-incremental approaches. In this c
 ---
 
 ## v9 Early loop termination.
-### V8 vs V7 speedup: 9 172 593 998x; N=2^20: 1.1s
+### V8 vs V7 speedup: 9 172 593 998x; N=2^20: 1.1s (v7 ETA 195years)
 
 <div style="margin-left:-4rem" ><img src="./img_v09i.py.png" width="100%"/></div>
 
