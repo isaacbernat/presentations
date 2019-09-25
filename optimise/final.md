@@ -60,6 +60,21 @@ Well known Euclidean algorithm that does the job. The first version would probab
 
 ---
 
+
+
+---
+
+## Intelude: measurements.
+
+## TODO
+ 
+???
+
+todo
+optimise time, vs memory, a specific shared resource, etc.
+
+---
+
 ## v1 Don't reinvent the wheel.
 
 <div ><img src="./img_v01.py.png" height="100%"/></div>
@@ -73,7 +88,7 @@ If the functionality needed can be found in a trusted library it's probably a go
 ---
 
 ## v2 Function specialisation.  
-### V1 vs V0 speedup: 2x
+### V1 vs V0 speedup: 1.61x; 
 
 <div style="margin-left:-4rem" ><img src="./img_v02i.py.png" width="110%"/></div>
 
@@ -94,7 +109,7 @@ Overly generic functions tend to be more expensive than specific ones.
 ---
 
 ## v3 Short-circuit evaluation.
-### V2 vs V1 speedup: 2x
+### V2 vs V1 speedup: 2.19x
 
 <div style="margin-left:-4rem" ><img src="./img_v03i.py.png" width="110%"/></div>
 
@@ -113,7 +128,7 @@ Further references: https://docs.python.org/3/library/stdtypes.html#boolean-oper
 ---
 
 ## v4 Search space reduction.
-### V3 vs V2 speedup: 2x
+### V3 vs V2 speedup: 2.58x
 
 <div style="margin-left:-4rem" ><img src="./img_v04i.py.png" width="110%"/></div>
 
@@ -132,7 +147,7 @@ Avoid going through ranges we know won't satisfy the condition and enforce restr
 ---
 
 ## v5 Code hoisting.
-### V4 vs V3 speedup: 2x
+### V4 vs V3 speedup: 3.56x
 
 <div style="margin-left:-4rem" ><img src="./img_v05i.py.png" width="110%"/></div>
 
@@ -149,7 +164,7 @@ Moving results of known calculations (invariants) outside loops.
 ---
 
 ## v6 Function calls vs inline code.
-### V5 vs V4 speedup: 2x
+### V5 vs V4 speedup: 1.83x
 
 <div style="margin-left:-4rem" ><img src="./img_v06i.py.png" height="100%" width="100%"/></div>
 
@@ -182,7 +197,7 @@ References:
 ---
 
 ## v7 Code specialisation
-### V6 vs V5 speedup: 2x
+### V6 vs V5 speedup: 2.03x
 
 <div style="margin-left:-4rem" ><img src="./img_v07i.py.png" width="110%"/></div>
 
@@ -205,7 +220,7 @@ Problem-specific. We save 6/8 computations. Numbers must be coprimes. At most on
 ---
 
 ## v8 Paradigm shift.
-### V7 vs V6 speedup: 2x
+### V7 vs V6 speedup: 4.15x
 
 <div style="margin-left:-4rem" ><img src="./img_v08i.py.png" height="90%" width="90%"/></div>
 
@@ -228,7 +243,7 @@ Significant speedups can be achieved using non-incremental approaches. In this c
 ---
 
 ## v9 Early loop termination.
-### V8 vs V7 speedup: 2000x
+### V8 vs V7 speedup: 9 172 593 998x
 
 <div style="margin-left:-4rem" ><img src="./img_v09i.py.png" width="100%"/></div>
 
@@ -245,7 +260,7 @@ Don't need to go all the way through N. TODO explain more
 ---
 
 ## v10 Expensive vs cheap ops.
-### V9 vs V8 speedup: 2x
+### V9 vs V8 speedup: 14.82x
 
 <div style="margin-left:-4rem" ><img src="./img_v10i.py.png" width="100%"/></div>
 
@@ -262,7 +277,7 @@ A few SQRTs can save many squares here.
 ---
 
 ## v11 Mind types.
-### V10 vs V9 speedup: 2x
+### V10 vs V9 speedup: 1.28x
 
 <div style="margin-left:-4rem" ><img src="./img_v11i.py.png" width="100%"/></div>
 
@@ -287,7 +302,7 @@ Previous speedup was... modest (<1%). Time measurement doesn't need to be a blac
 ---
 
 ## v12 Memoisation (without r, no typo here).
-### V11 vs V10 speedup: 2x
+### V11 vs V10 speedup: 1.01x
 
 
 <div style="margin-left:-4rem" ><img src="./img_v12i.py.png" width="100%"/></div>
@@ -304,6 +319,30 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 
 ---
 
-## TODO ad 13... and 14 (C with optimisations)
+## v13 Reuse results.
+### V12 vs V11 speedup: 0.81x
 
-    ... but wait, in this case the lru_cache was actually more expensive than calculating it each time! Remember to measure!
+<div style="margin-left:-4rem" ><img src="./img_v13i.py.png" width="100%"/></div>
+
+???
+
+... but wait, in this case the lru_cache was actually more expensive than calculating it each time! We won't be adding that "optimisation" (also always remember to measure!)
+
+---
+
+<div style="margin-left:-4rem" ><img src="./img_v13ii.py.png" height="85%" width="85%"/></div>
+
+---
+
+## v14 The end of a journey?
+### V13 vs V12 speedup: 3978.92x
+
+<div style="margin-left:-4rem" ><img src="./img_v14i.py.png" height="80%" width="80%"/></div>
+
+???
+
+... but wait, in this case the lru_cache was actually more expensive than calculating it each time! We won't be adding that "optimisation" (also always remember to measure!)
+
+--
+
+## TODOOOOO add 14 (C with optimisations)
