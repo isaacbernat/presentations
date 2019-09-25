@@ -4,9 +4,7 @@
 #include <numeric>
 
 #define NUMIO 128
-// NOTE: adjust the size of READLINES according to the machine you intend to run the code.
-// A value too small may make it a few times slower. But a value too big will be orders of magnitude slower.
-#define READLINES (100000/NUMIO)/2
+#define READLINES (100000/NUMIO)/2 // NOTE: adjust the size to that of the input to be read. A smaller size will be slower, but a bigger will just not work.
 #define MAXN 1048576
 #define MAX_ITERS 726
 
