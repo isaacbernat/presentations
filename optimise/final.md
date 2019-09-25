@@ -364,10 +364,39 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 <div style="margin-left:-4rem" ><img src="./img_v14i.py.png" height="80%" width="80%"/></div>
 
 ???
+
 ### V13 ETA 100k N>=2^20: 1.08s
 
 ... but wait, in this case the lru_cache was actually more expensive than calculating it each time! We won't be adding that "optimisation" (also always remember to measure!)
 
---
+---
 
 ## TODOOOOO add 14 (C with optimisations)
+python is simpler and shorter
+ 0.6 Kib vs  15 Kib
+30 lines vs 140 lines
+### Noteworthy C++ optimisations:
+- threads
+- vectorisation
+- memoisation of GCD using chars (faster in C++ than python?)  # TODO CHECK
+- smaller memory footprint (e.g. `chars` for `gcd(m, n) == 1`)
+    - bithacks and masks has even smaller footprint!
+- store RESULTS using 1/4 of memory, since they change at most %4
+- `struct union` to reuse all memory allocated for `GCD == 1` for results, even when they have different data types.
+    - 4 `char` -> 1 `int`, so it fits!
+- read and store many input entries while still calculating the results (using threads).
+- do so in bulk (128 entries at a time)
+- reading/writing on a shared memory buffer simulataneously for a smaller memory footprint.
+
+### non-noteworthy (compiler should do):
+- do while (vs for loop)
+- preincrement (vs postincrement, e.g. ++i vs i++)
+
+???
+Many other interesting techniques
+- branch predictions
+- conditional move vs if
+- loop unrolling
+- function inlining
+- rematerialisation (vs code hoisting)
+- and many more! (for fun check LEA for multiplications on x86)
