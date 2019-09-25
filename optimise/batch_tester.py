@@ -12,6 +12,10 @@ for py in sorted(glob.glob("v*.py")):
     subprocess.run(params + ["-p", "pypy3"])
 
 for file in sorted(glob.glob("v*.c")):
+    # ignore variants and 1337.c which should run under tester_100k.py
+    if len(py) != 5:
+        continue
+
     exe = [f"{file}O0", f"{file}O3"]
     subprocess.run(["g++", file, "-o", exe[0], "-std=c++17"])
     subprocess.run(["g++", file, "-o", exe[1], "-std=c++17", "-O3"])
