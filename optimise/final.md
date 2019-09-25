@@ -21,32 +21,59 @@ The % is the approximate relative duration.
 
 ---
 
-## Problem definition
-### Input
-- Positive integers
-- N <= 1024^2
+## Problem definition.
 
-### Output
-- Number of unique solutions to x^2+y^2=z^2
-- x, y, z are positive integers
-- x, y, z are <= N
-- x, y, z are relative primes (no common divisor > 1)
+<div style="margin-left:-4rem" ><img src="./img_problem_definition.png" width="110%"/></div>
 
-### Other
-- Source code must be at most 50kiB
-- Many different N may be submitted at a time (e.g. 100)
+---
+
+## Time measurements.
+#### Timing
+- Code is run using python3.7 using this **2012 laptop**.
+- Best of **5 runs** for each algorithm and input.
+- Increase problem size until set takes **>600 seconds**.
+- **Discard** problem sizes with time **< 0.5 seconds**.
+- Calculate **ETA using** time complexity estimation of **biggest 3 inputs**.
+- e.g. `if size*2 -> time*8 then complexity=O(n^3)` because (2^3 -> 8).
+
+#### Sources
+- `github.com/isaacbernat/presentations/tree/master/optimise`
+- Specific timings at `times.csv`.
+- Summary, ratios and more at `timings.md`.
+ 
+???
+
+- The laptop **specs** can be found in the **github url**. Just a **new laptop** would probably be a **good speedup** ;D.
+- Best of 5 runs (extra time is overhead from OS, etc).
+- 600s should be big enough to provide robust numbers.
+- Small times have higher variablity non dependent on algorithm.
+- We don't have billions of years to wait and get result, but we want to compare different algorithms that are much faster and can't use the same input.
+
+- Feel free to replicate the experiments. If on a different machine they may vary accordingly, but I think should be within the same order of magnitude?
+optimise time, vs memory, a specific shared resource, etc.
+
+---
+
+## How good are you at estimating speedups?.
+## https://tinyurl.com/pycon2019
+### Results from the above form will be published in a few days. 
+### How fast code is compared to the previous version?
+#### current_time / previous_time. 
+#### E.g. if the code now takes half the time it is 2x (1/0.5). If it takes 75% the original time it is 1.33x (1/0.75).
+### Compare Python to Python but also PyPy to PyPy for extra fun!
 
 ---
 
 ## v0 Baseline.
+### `ETA N=2^20:` 98.263 years `; ETA 100k N<=2^20:` >1 Bn
 
 <div style="margin-left:-4rem" ><img src="./img_v00a.py.png" width="110%"/></div>
 
 ???
 
-A naive solution would be something like this. It could be improved, but it's not horrible right? I mean, it even uses a **counter** with the result **instead of adding all the triplets to a list** and returning the length of that.
+A naive solution would be something like the one above. One could have used a set and put all triplets in it instead of making x < y < z (to avoid repetitions) and then returning the length of the set. It felt more natural to me to add the check and use a counter, since only the amount is needed.
 
-But before that... let's see how gcd is calculated
+But before we evaluate how good/bad the code is... let's see how gcd is calculated, that's important too!
 
 ---
 
@@ -56,22 +83,7 @@ But before that... let's see how gcd is calculated
     
 ???
 
-Well known Euclidean algorithm that does the job. The first version would probably be good enough for most cases, but it can be further simplified as we see below.
-
----
-
-
-
----
-
-## Intelude: measurements.
-
-## TODO
- 
-???
-
-todo
-optimise time, vs memory, a specific shared resource, etc.
+Well known Euclidean algorithm that does the job. The first version would probably be good enough and look reasonable for most cases, but it can be further simplified as we see below (and use less variables, assignments, etc).
 
 ---
 
@@ -81,16 +93,21 @@ optimise time, vs memory, a specific shared resource, etc.
 
 ???
 
+### ASK ABOUT TIME ESTIMATING SPEEDUP
+
 Well known algorithm that does the job. The first version would probably be good enough for most cases, but it can be further simplified as we see below.
 
 If the functionality needed can be found in a trusted library it's probably a good idea to try that first before reimplementing it (and not just for performance reasons).
 
 ---
 
-## v2 Function specialisation.  
-### V1 vs V0 speedup: 1.61x; 
+## v2 Function specialisation.
+### V1 vs V0 speedup: 1.61x
 
 <div style="margin-left:-4rem" ><img src="./img_v02i.py.png" width="110%"/></div>
+
+???
+### ETA V1 N=2^20: 60.943 years
 
 ---
 
@@ -114,6 +131,7 @@ Overly generic functions tend to be more expensive than specific ones.
 <div style="margin-left:-4rem" ><img src="./img_v03i.py.png" width="110%"/></div>
 
 ???
+### ETA V2 N=2^20: 27.714 years
 
 Arrange parameters so the ones more likely to fail (and/or cheaper to compute) are evaluated first (last in case of OR chains). Keep in mind that it may affect branch prediction on modern CPUs. 
 
@@ -134,9 +152,9 @@ Further references: https://docs.python.org/3/library/stdtypes.html#boolean-oper
 
 
 ???
+### ETA V3 N=2^20: 10.717 years
 
 Avoid going through ranges we know won't satisfy the condition and enforce restrictions earlier (4b is a tiny refactor):
-
 
 ---
 
@@ -152,6 +170,7 @@ Avoid going through ranges we know won't satisfy the condition and enforce restr
 <div style="margin-left:-4rem" ><img src="./img_v05i.py.png" width="110%"/></div>
 
 ???
+### ETA V4 N=2^20: 3012 years
 
 Moving results of known calculations (invariants) outside loops.
 
@@ -169,6 +188,7 @@ Moving results of known calculations (invariants) outside loops.
 <div style="margin-left:-4rem" ><img src="./img_v06i.py.png" height="100%" width="100%"/></div>
 
 ???
+### ETA V5 N=2^20: 1647 years
 
 This may not hold true in newer Python versions, but variables in functions load faster, and this makes the extra function call overhead negligible. Always measure instead of relying only in intuitions.
 
@@ -202,6 +222,7 @@ References:
 <div style="margin-left:-4rem" ><img src="./img_v07i.py.png" width="110%"/></div>
 
 ???
+### ETA V6 N=2^20: 811 years
 
 Problem-specific. We save 6/8 computations. Numbers must be coprimes. At most one number in the triplet can be pair. This let's us increment loops by 2 to keep variables either pair or odd as required.
 
@@ -225,6 +246,7 @@ Problem-specific. We save 6/8 computations. Numbers must be coprimes. At most on
 <div style="margin-left:-4rem" ><img src="./img_v08i.py.png" height="90%" width="90%"/></div>
 
 ???
+### ETA V7 N=2^20: 195 years. v0 was 98.263. That's >500x total!
 
 Significant speedups can be achieved using non-incremental approaches. In this case we use a calculation based on Euclid's formula to generate primitive pythagorean triples.
 
@@ -238,16 +260,15 @@ Significant speedups can be achieved using non-incremental approaches. In this c
 
 Significant speedups can be achieved using non-incremental approaches. In this case we use a calculation based on Euclid's formula to generate primitive pythagorean triples.
 
-
-
 ---
 
 ## v9 Early loop termination.
-### V8 vs V7 speedup: 9 172 593 998x
+### V8 vs V7 speedup: 9 172 593 998x; N=2^20: 1.1s
 
 <div style="margin-left:-4rem" ><img src="./img_v09i.py.png" width="100%"/></div>
 
 ???
+### V8 ETA 100k N>=2^20: 67.165s
 
 Don't need to go all the way through N. TODO explain more
 
@@ -265,6 +286,7 @@ Don't need to go all the way through N. TODO explain more
 <div style="margin-left:-4rem" ><img src="./img_v10i.py.png" width="100%"/></div>
 
 ???
+### V9 ETA 100k N>=2^20: 4531s
 
 A few SQRTs can save many squares here.
 
@@ -282,6 +304,7 @@ A few SQRTs can save many squares here.
 <div style="margin-left:-4rem" ><img src="./img_v11i.py.png" width="100%"/></div>
 
 ???
+### V10 ETA 100k N>=2^20: 3531s
 
 Avoid int to float castings in the loop. Even if it quacks like a duck, there are different kinds of ducks (i.e. implicit conversions).
 
@@ -308,6 +331,7 @@ Previous speedup was... modest (<1%). Time measurement doesn't need to be a blac
 <div style="margin-left:-4rem" ><img src="./img_v12i.py.png" width="100%"/></div>
 
 ???
+### V11 ETA 100k N>=2^20: 3513s
 
 Avoid int to float castings in the loop. Even if it quacks like a duck, there are different kinds of ducks (i.e. implicit conversions).
 
@@ -325,6 +349,7 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 <div style="margin-left:-4rem" ><img src="./img_v13i.py.png" width="100%"/></div>
 
 ???
+### V12 ETA 100k N>=2^20: 4297s
 
 ... but wait, in this case the lru_cache was actually more expensive than calculating it each time! We won't be adding that "optimisation" (also always remember to measure!)
 
@@ -340,6 +365,7 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 <div style="margin-left:-4rem" ><img src="./img_v14i.py.png" height="80%" width="80%"/></div>
 
 ???
+### V13 ETA 100k N>=2^20: 1.08s
 
 ... but wait, in this case the lru_cache was actually more expensive than calculating it each time! We won't be adding that "optimisation" (also always remember to measure!)
 
