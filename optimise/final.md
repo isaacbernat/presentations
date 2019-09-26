@@ -1,7 +1,8 @@
 # From 1 > billion years to < 1 second
 
-### Landing page, lifetime of earth? (TODO)
-contact info? link to github? link to ivbar?
+"An algorithm must be seen to be believed" - *Donald Knuth, 1968*
+
+<div style="text-align: center"><img src="./img_timeline.png" width="80%" height="80%"/></div>
 
 ---
 
@@ -40,7 +41,7 @@ The % is the approximate relative duration.
 - `github.com/isaacbernat/presentations/tree/master/optimise`
 - Specific timings at `times.csv`.
 - Summary, ratios and more at `timings.md`.
- 
+
 ???
 
 - The laptop **specs** can be found in the **github url**. Just a **new laptop** would probably be a **good speedup** ;D.
@@ -56,9 +57,9 @@ optimise time, vs memory, a specific shared resource, etc.
 
 ## How good are you at estimating speedups?.
 ## https://tinyurl.com/pycon2019
-### Results from the above form will be published in a few days. 
+### Results from the above form will be published in a few days.
 ### How fast code is compared to the previous version?
-#### current_time / previous_time. 
+#### current_time / previous_time.
 #### E.g. if the code now takes half the time it is 2x (1/0.5). If it takes 75% the original time it is 1.33x (1/0.75).
 ### Compare Python to Python but also PyPy to PyPy for extra fun!
 
@@ -80,7 +81,7 @@ But before we evaluate how good/bad the code is... let's see how gcd is calculat
 ## v0 Baseline.
 
 <div ><img src="./img_v00_gcd.py.png" height="100%"/></div>
-    
+
 ???
 
 Well known Euclidean algorithm that does the job. The first version would probably be good enough and look reasonable for most cases, but it can be further simplified as we see below (and use less variables, assignments, etc).
@@ -117,7 +118,7 @@ If the functionality needed can be found in a trusted library it's probably a go
 
 ???
 
-Overly generic functions tend to be more expensive than specific ones. 
+Overly generic functions tend to be more expensive than specific ones.
 - Exponentiation is generic and expensive.
 - Squaring is specific and cheap.
 - We can see the difference in CPython bytecode (more on that later)
@@ -132,7 +133,7 @@ Overly generic functions tend to be more expensive than specific ones.
 ???
 ### ETA V2 N=2^20: 27.714 years
 
-Arrange parameters so the ones more likely to fail (and/or cheaper to compute) are evaluated first (last in case of OR chains). Keep in mind that it may affect branch prediction on modern CPUs. 
+Arrange parameters so the ones more likely to fail (and/or cheaper to compute) are evaluated first (last in case of OR chains). Keep in mind that it may affect branch prediction on modern CPUs.
 
 Further references: https://docs.python.org/3/library/stdtypes.html#boolean-operations-and-or-not
 
@@ -207,11 +208,11 @@ This may not hold true in newer Python versions, but variables in functions load
 
 They make no guarantees that the transformation from Python code to the intermediate bytcode used by CPython will be compatible/the same between versions (implementation may change), so, use it at your own risk.
 
-Apparently this behaviour has been true at least since 2014 in python 2.7 and is still true today (current version of python 3.7.4). 
+Apparently this behaviour has been true at least since 2014 in python 2.7 and is still true today (current version of python 3.7.4).
 
-References: 
+References:
 - https://stackoverflow.com/questions/21107131/why-mesh-python-code-slower-than-decomposed-one
-- https://docs.python.org/3/library/dis.html (the official disassembler package) 
+- https://docs.python.org/3/library/dis.html (the official disassembler package)
 
 ---
 
@@ -250,13 +251,13 @@ PyPy is just one of many tools to speedup python.
 ### Numba didn't like gcd
 ### Cython converts "python" code to C. Needs to define data types to be really effective.
 ### there are others
-Are also interesting, but in this case required more code changes and were skipped for simplicity's sake. 
+Are also interesting, but in this case required more code changes and were skipped for simplicity's sake.
 ---
 
 ## Interlude: C++ 17
 
 ???
-- C++ is a compiled language which can be quite close to the machine. 
+- C++ is a compiled language which can be quite close to the machine.
 - Tried to be as faithful as possible when porting code to the original python source. Some idioms are not available and forced it to make it differently, of course.
 - But I ported it to C++ 17, so I could use the built-in gcd library and compare it with the first optimisation (i.e. don't reinvent the wheel!).
 - g++ (from GNU Compiler Collection) is a production-grade compiler used and relied upon by many. We'll use it in our tests.
@@ -342,10 +343,10 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 
 ## Interlude: Profiling
 
-#### Maximum possible speedup
-- An optimisation may not speed up a program more than the time it takes.
-- E.g. A part taking 33% of time will at most make the code 1.5x faster.
-- Useful to choose where to focus on and if it's worth it.
+#### Amdahl's law*
+- The non-optimised part sets an upper bound on speedup.
+- Optimising code which takes 1/3 of time won't make the code faster than 1.5x.
+- Useful to choose where to focus on and the potential upside.
 
 #### github.com/vpelletier/pprofile
 
@@ -353,11 +354,12 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 
 
 ???
-## TODO ask to Write previous speedup!
+## DO ask to write previous speedup!
 
-Previous speedup was... modest (<1%). Time measurement doesn't need to be a black box. Let's profile the code to see what to optimise next 
+Previous speedup was... modest (<1%). Time measurement doesn't need to be a black box. Let's profile the code to see what to optimise next
 
-### Maximum possible speedup
+### Amdahl's law
+- Added the * because he referred to parallellisable code. Not exactly the same context here, I know.
 - Mention Amdahl's law vs Gustafson's law? That only applied to parallel computing though...
 
 References: Amdahl's law http://demonstrations.wolfram.com/AmdahlsLaw/
@@ -366,6 +368,7 @@ References: Amdahl's law http://demonstrations.wolfram.com/AmdahlsLaw/
 - it allows line-by-line (cProfile, python's standard granularity is functions)
 - is deterministic (good for tasks that take few seconds)
 - easy to install with pip and easy to use
+- the image shown in next screen is a simplified output
 
 ---
 
@@ -471,16 +474,16 @@ Many other interesting techniques
 ---
 
 ## Typical pitfalls
-#### Not considering Amdahl's law
+#### Not considering Amdahl's law*
 #### Optimising code still in development.
 #### Not measuring time/resources properly.
 #### Not checking result correctness.
-#### Include more than 1 optimisation at once.
+#### Including more than 1 optimisation at once.
 #### Ignoring usage constraints (e.g. cache size, IO).
-#### Knowing when to stop.
+#### Not knowing when to stop.
 
 ???
-#### Amdahl: If the code optimised takes only 1% of time, even if it's n^5 to n optimisation speedup will be <1% 
+#### Amdahl: If the code optimised takes only 1% of time, even if it's n^5 to n optimisation speedup will be <1%
 
 #### Still dev: code may change. Optimisations may not even apply after the refactored version with the correct logic is delivered. That's wasted effort/development time.
 
@@ -507,9 +510,17 @@ Many other interesting techniques
 ---
 
 ## Specials thanks to:
-### Matte:
-### Dagavi:
+### Mattias Johansson: `github.com/folkol`
+### David Garcia Villalba: `github.com/dagavi`
 ### Me ^_^U: `github.com/isaacbernat/presentations`
 
+"Programmers waste enormous amounts of time thinking about, or worrying about, the speed of noncritical parts of their programs, and these attempts at efficiency actually have a strong negative impact when debugging and maintenance are considered. We should **forget about small efficiencies, say about 97% of the time**: premature optimization is the root of all evil. Yet we should **not pass** up our opportunities in **that critical 3%"** - *Knuth, 1974*
 
-## TODO: Premature optimisation. Donald Knuth quotes
+"In established engineering disciplines **a 12 % improvement**, easily obtained, **is never considered marginal** and I believe the same viewpoint should prevail in software engineering" - *Knuth, 1974*
+
+"It is often a mistake to make a priori judgements about what parts of a program are really critical..." - *Knuth, 1974*
+
+???
+### For once I have not highlighted the most (in)famous part of the quote about "premature optimization is the root of all evil"
+### 12% improvement on what? A specific routine? The whole system? Just so you see I am not a Knuth fanboy I added a quote on optimisation I disagree with. I think software engineering is special in that "waiting two years for a more powerful computer to become available" or more recently "scaling up on instances" might be seen as a legit improvement by many. Bigger and easier than 12% for sure.
+### So... always measure! I hope writing down and checking speedups helped you see how much off one may be!
