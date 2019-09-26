@@ -233,9 +233,34 @@ Problem-specific. We save 6/8 computations. Numbers must be coprimes. At most on
 
 ---
 
-## TODO CONTINUE PYPY INTERLUDE-----------------
-------------------------------------------------
------------------------------------------------
+## Interlude: Charts
+
+---
+
+## Interlude: PyPy
+
+???
+Compilers translate a source language (python) into another (bytecode). They also can apply optimisations, analysing the whole source code and how it behaves.
+
+PyPy is a JIT (just in time) compiler. In addition to what a static compiler can do, a JIT can among others:
+- target a specific CPU architecture without having to know which beforehand.
+- take usage data of the code and rearrange itself to be more efficient
+
+PyPy is just one of many tools to speedup python.
+### Numba didn't like gcd
+### Cython converts "python" code to C. Needs to define data types to be really effective.
+### there are others
+Are also interesting, but in this case required more code changes and were skipped for simplicity's sake. 
+---
+
+## Interlude: C++ 17
+
+???
+- C++ is a compiled language which can be quite close to the machine. 
+- Tried to be as faithful as possible when porting code to the original python source. Some idioms are not available and forced it to make it differently, of course.
+- But I ported it to C++ 17, so I could use the built-in gcd library and compare it with the first optimisation (i.e. don't reinvent the wheel!).
+- g++ (from GNU Compiler Collection) is a production-grade compiler used and relied upon by many. We'll use it in our tests.
+- I used -O0 and -O3 optimisation levels. But many more useful optimisation flags exist (e.g. march) that may increase speedup even more.
 
 ---
 
@@ -397,7 +422,7 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 
 ---
 
-## v14 The end of a journey?
+## v1337 The end of a journey?
 ### V13 vs V12 speedup: 3978.92x
 
 <div style="margin-left:-4rem" ><img src="./img_v14i.py.png" height="80%" width="80%"/></div>
@@ -410,12 +435,11 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 
 ---
 
-## TODOOOOO add 14 (C with optimisations)
+## TODOOOOO add 1337 (C with optimisations)
 python is simpler and shorter
  0.6 Kib vs  15 Kib
 30 lines vs 140 lines
 ### Noteworthy C++ optimisations:
-- threads
 - vectorisation
 - memoisation of GCD using chars (faster in C++ than python?)  # TODO CHECK
 - smaller memory footprint (e.g. `chars` for `gcd(m, n) == 1`)
@@ -433,9 +457,59 @@ python is simpler and shorter
 
 ???
 Many other interesting techniques
-- branch predictions
-- conditional move vs if
-- loop unrolling
+- threads
+- branch predictions (especially important on pipeline processors)
+- conditional move (both computed, but hit rate independent)
+- loop unrolling (space-time tradeoff). Beware of data dependencies.
 - function inlining
 - rematerialisation (vs code hoisting)
+- pre-compute vs do it on demand
+- bit hacks
+- loop fusion/fission
 - and many more! (for fun check LEA for multiplications on x86)
+
+---
+
+## Typical pitfalls
+#### Not considering Amdahl's law
+#### Optimising code still in development.
+#### Not measuring time/resources properly.
+#### Not checking result correctness.
+#### Include more than 1 optimisation at once.
+#### Ignoring usage constraints (e.g. cache size, IO).
+#### Knowing when to stop.
+
+???
+#### Amdahl: If the code optimised takes only 1% of time, even if it's n^5 to n optimisation speedup will be <1% 
+
+#### Still dev: code may change. Optimisations may not even apply after the refactored version with the correct logic is delivered. That's wasted effort/development time.
+
+#### Proper measurement. Timings should be taken several times to avoid outliers, also the machine load and state should be as close as possible as the state that is compared with. Usage should be as close to production/reality as possible. That includes other programs running.
+
+#### One may forget to be thorough on results, just looking at time.
+
+#### Hard to know the effects of each specific one. Maybe one actually makes the code slower, but when put together is not noticeable.
+
+#### Knowing cache sizes to avoid misses (e.g. by accessing matrixes in bocks) can have a big impact on performance. On a higher level, handling slow resources (e.g. disk IO, HTTP requests) asyncronously (if possible). This can go undetected if only measuring CPU time too.
+
+#### Good enough is good enough. Performance requirements are important. E.g. if we only want numbers < 50 the code for v00.py is perfectly fine. In fact is faster than v13.py .
+
+---
+
+## Methodology
+### `WHILE` not is_acceptable(performance):
+#### 0. Analyze performance of current code.
+#### 1. Apply ONE optimization.
+#### 2. Check correctness of results.
+#### 3. Analyze performance of the new version.
+#### 4. Decide if the optimization should be included.
+
+---
+
+## Specials thanks to:
+### Matte:
+### Dagavi:
+### Me ^_^U: `github.com/isaacbernat/presentations`
+
+
+## TODO: Premature optimisation. Donald Knuth quotes
