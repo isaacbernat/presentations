@@ -315,11 +315,50 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 
 ---
 
-# PROFILERS INTERLUDE. TODO!!!
+## Interlude: Profiling
+
+#### Maximum possible speedup
+- An optimisation may not speed up a program more than the time it takes.
+- E.g. A part taking 33% of time will at most make the code 1.5x faster.
+- Useful to choose where to focus on and if it's worth it.
+
+#### github.com/vpelletier/pprofile
+
+<div style="margin-left:-4rem" ><img src="./img_profilingi.png" height="100%"/></div>
+
+
+???
+## TODO ask to Write previous speedup!
+
+Previous speedup was... modest (<1%). Time measurement doesn't need to be a black box. Let's profile the code to see what to optimise next 
+
+### Maximum possible speedup
+- Mention Amdahl's law vs Gustafson's law? That only applied to parallel computing though...
+
+References: Amdahl's law http://demonstrations.wolfram.com/AmdahlsLaw/
+
+### pprofile
+- it allows line-by-line (cProfile, python's standard granularity is functions)
+- is deterministic (good for tasks that take few seconds)
+- easy to install with pip and easy to use
+
+---
+
+## Interlude: Profiling
+
+<div style="margin-left:-4rem" ><img src="./img_profilingii.png" width="110%"/></div>
 
 ???
 
-Previous speedup was... modest (<1%). Time measurement doesn't need to be a black box. Let's profile the code to see what to optimise next (maybe introduce Amdah'ls law here? And gustafson-barsis instead of a longer theoretical intro?). (talk about statistical vs deterministic profilers?)
+### statistical vs deterministic profilers?
+- det: overhead (can't be used in prod)
+### about 50x slower
+### 2.73s vs ~0.06s; N=1024*1024
+### 154s  vs  3.26s; 100 of 0 < N <= 1024*1024
+- implemented in python. There may be less portable C versions with smaller overhead
+
+- stat: needs long run time to be reliable
+this profiles also supports statistical mode
 
 ---
 
