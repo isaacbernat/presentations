@@ -4,7 +4,7 @@ import subprocess
 import time
 
 
-with open("output", 'r') as f:
+with open("output.txt", 'r') as f:
     expected_output = f.read().split("\n")
 
 
@@ -12,12 +12,11 @@ def verify(values, results):
     assert(len(values) + 1 == len(results))
 
     for v, r in zip(values, results):
-        if r > "1000000":
-            continue
         try:
-            assert(expected_output[v - 1] == r)
+            expected = expected_output[v - 1]
+            assert(expected == r)
         except Exception:
-            print(f"Values don't match!! v={v}, r={r}")
+            print(f"Values don't match!! v={v}, r={r}, expected_r={expected}")
 
 
 def main():

@@ -1,10 +1,9 @@
 import argparse
 import random
 import subprocess
-import time
 
 
-with open("output", 'r') as f:
+with open("output.txt", 'r') as f:
     expected_output = f.read().split("\n")
 
 
@@ -12,12 +11,11 @@ def verify(values, results):
     assert(len(values) + 1 == len(results))
 
     for v, r in zip(values, results):
-        if r > "1000000":
-            continue
         try:
-            assert(expected_output[v - 1] == r)
+            expected = expected_output[v - 1]
+            assert(expected == r)
         except Exception:
-            print(f"Values don't match!! v={v}, r={r}")
+            print(f"Values don't match!! v={v}, r={r}, expected_r={expected}")
 
 
 def main():
@@ -32,13 +30,13 @@ def main():
                         help="max iters for a chosen set of params")
     parser.add_argument("-s", "--seed", type=int, default=0x15AAC,
                         help="random seed to generate inputs.")
+    parser.add_argument("-a", "--all", type=int, default=0,
+                        help="generate and verify *all* from 1 to 2^20.")
 
     # python3 tester_100k.py -f v13.py -i 5 -p pypy3
-    # python3 tester_100k.py -f fvp_cpp17.cO3 -i 5 -c 1
+    # python3 tester_100k.py -f v1337.cO3 -i 5 -c 1
+    # python3 tester_100k.py -f v1337.cO3 -a 1 -c 1
     a = parser.parse_args()
-    fname, f_sufix = a.file.split(".")
-    runner = f_sufix if a.c else a.python
-    today = time.strftime("%Y-%m-%d")
 
     random.seed(a.seed)
     total_seconds = 0
@@ -47,7 +45,10 @@ def main():
     MAX_N = 1048576
 
     while a.maxiters and total_iters < a.maxiters:
-        values = [random.randint(1, MAX_N) for _ in range(length)]
+        if a.all:
+            values = list(range(1, MAX_N))
+        else:
+            values = [random.randint(1, MAX_N) for _ in range(length)]
 
         if a.c:
             command = subprocess.run(
@@ -63,7 +64,6 @@ def main():
         results = command.stdout.decode().split("\n")
         elapsed = float(command.stderr.decode().strip().split(" ")[0])
 
-        # print(command.stdout.decode().split("Total duration")[-1])
         verify(values, results)
         total_iters += 1
         total_seconds += elapsed
