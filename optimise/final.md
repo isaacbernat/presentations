@@ -102,7 +102,7 @@ If the functionality needed can be found in a trusted library it's probably a go
 
 ---
 
-## v2 Function specialisation.
+## v2 Peephole optimization/strength reduction.
 ### V1 vs V0 speedup: 1.61x
 
 <div style="margin-left:-4rem" ><img src="./img_v02i.py.png" width="110%"/></div>
@@ -112,7 +112,7 @@ If the functionality needed can be found in a trusted library it's probably a go
 
 ---
 
-## v2 Function specialisation.
+## v2 Peephole optimization/strength reduction.
 
 <div ><img src="./img_v02ii.py.png" width="100%"/></div>
 
@@ -122,6 +122,8 @@ Overly generic functions tend to be more expensive than specific ones.
 - Exponentiation is generic and expensive.
 - Squaring is specific and cheap.
 - We can see the difference in CPython bytecode (more on that later)
+- Peephole usually consists on replacing a few instructions for equivalent ones that are cheaper for a given architecture (e.g. `y = x * 15` -> `y = (x << 4) - x`)
+- Strength reduction is a more generic name for a process of replacing expensive operations for equivalent ones that are cheaper, but that usually involves transforming nested loops, looking at induction variables and invariants.
 
 ---
 
@@ -483,7 +485,7 @@ Many other interesting techniques
 #### Not knowing when to stop.
 
 ???
-#### Amdahl: If the code optimised takes only 1% of time, even if it's n^5 to n optimisation speedup will be <1%
+#### Amdahl: If the code optimised takes only 1% of time, even if it's n^3 to n optimisation speedup will be <1%
 
 #### Still dev: code may change. Optimisations may not even apply after the refactored version with the correct logic is delivered. That's wasted effort/development time.
 
@@ -509,18 +511,21 @@ Many other interesting techniques
 
 ---
 
-## Specials thanks to:
+## Specials thanks to: github.com/isaacbernat
 ### Mattias Johansson: `github.com/folkol`
 ### David Garcia Villalba: `github.com/dagavi`
-### Me ^_^U: `github.com/isaacbernat/presentations`
 
 "Programmers waste enormous amounts of time thinking about, or worrying about, the speed of noncritical parts of their programs, and these attempts at efficiency actually have a strong negative impact when debugging and maintenance are considered. We should **forget about small efficiencies, say about 97% of the time**: premature optimization is the root of all evil. Yet we should **not pass** up our opportunities in **that critical 3%"** - *Knuth, 1974*
 
+"It is often a mistake to make **a priori judgements** about what parts of a program are really critical..." - *Knuth, 1974*
+
 "In established engineering disciplines **a 12 % improvement**, easily obtained, **is never considered marginal** and I believe the same viewpoint should prevail in software engineering" - *Knuth, 1974*
 
-"It is often a mistake to make a priori judgements about what parts of a program are really critical..." - *Knuth, 1974*
+["Structured Programming with go to Statements"](https://web.archive.org/web/20131023061601/http://cs.sjsu.edu/~mak/CS185C/KnuthStructuredProgrammingGoTo.pdf) (page 8 of the pdf)
 
 ???
-### For once I have not highlighted the most (in)famous part of the quote about "premature optimization is the root of all evil"
-### 12% improvement on what? A specific routine? The whole system? Just so you see I am not a Knuth fanboy I added a quote on optimisation I disagree with. I think software engineering is special in that "waiting two years for a more powerful computer to become available" or more recently "scaling up on instances" might be seen as a legit improvement by many. Bigger and easier than 12% for sure.
+### For once I have not highlighted the most (in)famous part of the quote about "premature optimization is the root of all evil". I think he meant that one should focus on bottlenecks when doing **incremental optimisations**. Note that he talks about "small efficiencies". I think optimisations which change time complexity, say from N^3 to N^2 won't be in the same league and should be considered (considered != automatically applied, for small Ns the difference won't probably matter, there are also setup times, etc. and keep in mind Amdahl!).
 ### So... always measure! I hope writing down and checking speedups helped you see how much off one may be!
+### All quotes above taken from here. GOTO statements are not a hot topic anymore, but there are yet more still valid quotes in that paper surrounding the topic of code optimisation.
+### 12% improvement on what? A specific routine? The whole system? Just so you see I am not a Knuth fanboy I added a quote on optimisation I disagree with. I think software engineering is special in that "waiting two years for a more powerful computer to become available" or more recently "scaling up on instances" might be seen as a legit improvement by many. Bigger and easier than 12% for sure... He goes on that he wouldn't probably bother for such optimisations on one-time-jobs, but wouldn't deny them to prepare quality software. On that second part I do agree :D 
+A good article on the topic: http://www.joshbarczak.com/blog/?p=580
