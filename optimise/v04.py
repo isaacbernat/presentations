@@ -3,7 +3,7 @@ from math import gcd
 
 
 for line in sys.stdin:
-    N = int(line[:-1])
+    N = int(line)
     combinations = 0
     for x in range(2, N + 1):
         for y in range(x + 1, N + 1):

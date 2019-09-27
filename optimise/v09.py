@@ -17,5 +17,5 @@ def process(N):
 
 
 for line in sys.stdin:
-    N = int(line[:-1])
+    N = int(line)
     process(N)

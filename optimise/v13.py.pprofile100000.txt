@@ -35,7 +35,7 @@ Line #|      Hits|         Time| Time per hit|      %|Source code
 (call)|         1|      11.7561|      11.7561| 97.81%|# v13.py:12 preprocess
     30|         0|            0|            0|  0.00%|    for line in sys.stdin:
 (call)|        87|   0.00286937|  3.29812e-05|  0.02%|# /usr/local/bin/../Cellar/python/3.7.4/bin/../Frameworks/Python.framework/Versions/3.7/lib/python3.7/codecs.py:319 decode
-    31|         0|            0|            0|  0.00%|        N = int(line[:-1])
+    31|         0|            0|            0|  0.00%|        N = int(line)
     32|         0|            0|            0|  0.00%|        print(RESULT[N])
     33|         0|            0|            0|  0.00%|
     34|         0|            0|            0|  0.00%|prof.print_stats()

@@ -23,4 +23,4 @@ def process(N):
 
 
 for line in sys.stdin:
-    process(int(line[:-1]) + 1)
+    process(int(line) + 1)

@@ -28,7 +28,7 @@ Line #|      Hits|         Time| Time per hit|      %|Source code
     22|         0|            0|            0|  0.00%|with prof():
     23|         0|            0|            0|  0.00%|    for line in sys.stdin:
 (call)|         2|   0.00010705|   5.3525e-05|  0.00%|# /usr/local/bin/../Cellar/python/3.7.4/bin/../Frameworks/Python.framework/Versions/3.7/lib/python3.7/codecs.py:319 decode
-    24|         0|            0|            0|  0.00%|        N = int(line[:-1])
+    24|         0|            0|            0|  0.00%|        N = int(line)
     25|         0|            0|            0|  0.00%|        process(N)
 (call)|         1|      2.73477|      2.73477| 99.99%|# v11.py:7 process
     26|         0|            0|            0|  0.00%|

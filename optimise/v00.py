@@ -10,7 +10,7 @@ def euclidean_gcd(a, b):
 
 
 for line in sys.stdin:
-    N = int(line[:-1])
+    N = int(line)
     combinations = 0
     for x in range(N + 1):
         for y in range(N + 1):
