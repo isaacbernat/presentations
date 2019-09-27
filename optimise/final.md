@@ -6,6 +6,18 @@
 
 ---
 
+# TODO update each optimisation picture so it uses the casting to int in the reading part without the string manipulation [:-1] as previously
+
+- ./img_v00a.py.png
+- ./img_v02i.py.png
+- ./img_v03i.py.png
+- ./img_v04i.py.png
+- ./img_v05i.py.png
+- ./img_v06i.py.png
+- ./img_v06ii.py.png
+- ./img_profilingi.png
+- ./img_v14i.py.png
+
 # Outline
 
 ### 15% Part 1 Why bother?
