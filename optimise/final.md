@@ -6,27 +6,12 @@
 
 ---
 
-# TODO update each optimisation picture so it uses the casting to int in the reading part without the string manipulation [:-1] as previously
-
-- ./img_v00a.py.png
-- ./img_v02i.py.png
-- ./img_v03i.py.png
-- ./img_v04i.py.png
-- ./img_v05i.py.png
-- ./img_v06i.py.png
-- ./img_v06ii.py.png
-- ./img_profilingi.png
-- ./img_v14i.py.png
-
-- ./img_v10i.py.png ORDER OF xNN!!!
-
 # Outline
 
 ### 15% Part 1 Why bother?
 ### 50% Part 2 Problem definition.
 ### 35% Part 3 Optimisations.
 ### 35% Part 4 Conclusions.
-
 
 The % is the approximate relative duration.
 
@@ -82,7 +67,7 @@ optimise time, vs memory, a specific shared resource, etc.
 ## v0 Baseline.
 ### `ETA N=2^20:` 98.263 years `; ETA 100k N<=2^20:` >1 Bn
 
-<div style="margin-left:-4rem" ><img src="./img_v00a.py.png" width="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./img_v00i.py.png" width="110%"/></div>
 
 ???
 
@@ -94,7 +79,7 @@ But before we evaluate how good/bad the code is... let's see how gcd is calculat
 
 ## v0 Baseline.
 
-<div ><img src="./img_v00_gcd.py.png" height="100%"/></div>
+<div ><img src="./img_v00ii.py.png" height="100%"/></div>
 
 ???
 
@@ -291,6 +276,10 @@ Are also interesting, but in this case required more code changes and were skipp
 
 Significant speedups can be achieved using non-incremental approaches. In this case we use a calculation based on Euclid's formula to generate primitive pythagorean triples.
 
+Didn't know if I should call it "paradigm shift", "do research", or "full rewrite".
+
+People get attached to code, and there is this sunk cost fallacy which prevents people from discarding and recognised the "wasted effort" when that would be the more effective approach. 
+
 ---
 
 ## v8 Paradigm shift.
@@ -408,7 +397,6 @@ this profiles also supports statistical mode
 
 ## v12 Memoisation (without r, no typo here).
 ### V11 vs V10 speedup: 1.01x
-
 
 <div style="margin-left:-4rem" ><img src="./img_v12i.py.png" width="100%"/></div>
 
