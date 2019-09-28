@@ -18,6 +18,8 @@
 - ./img_profilingi.png
 - ./img_v14i.py.png
 
+- ./img_v10i.py.png ORDER OF xNN!!!
+
 # Outline
 
 ### 15% Part 1 Why bother?
