@@ -7,6 +7,9 @@
 #define MAX_ITERS 1024
 
 int memGCD[MAXN -1][MAX_ITERS];
+// `int` could be `char` here and only store `gcd != 1` instead.
+// This would save 3/4 or even 7/8 of memory (depends if int is 32/64bits).
+// But `int` seemed a closer comparison with the Python version.
 
 int gcd(int x, int y) {
     if (memGCD[x][y] == 0) {
@@ -23,7 +26,7 @@ void process(int N){
         for(long int y=x+1; y < max_iter+1; y+=2){
             if(gcd(x, y) != 1){
                 continue;
-            } 
+            }
             if(y > xxN){
                 y = N + 1;
                 break;

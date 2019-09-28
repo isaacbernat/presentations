@@ -10,8 +10,8 @@ FIRST = "v00"
 ETA = "eta_MAX_iter"
 
 df = pd.read_csv("times.csv").drop(columns=['machine', 'date'])
-# get rows with tests > 0.5 second
-df = df[(df.runtime >= 0.5)]
+# get rows with tests > 0.3 second
+df = df[(df.runtime >= 0.3)]
 # group by "run type"
 group_df = df.groupby(['file_name', 'maxN', 'entries', 'runner'])
 # get the fastest of each run type only, slower times are overhead
@@ -19,7 +19,7 @@ min_dict = group_df.min().to_dict()["runtime"]
 
 summary_dict = {v: {} for v in sorted(set(df["file_name"]))}
 
-# TODO: I should probably look more into pandas ^_^U
+# TODO: I should probably look more into pandas instead of doing this ^_^U
 for k, v in min_dict.items():
     if not summary_dict[k[0]].get(k[3]):
         summary_dict[k[0]][k[3]] = {}
@@ -54,26 +54,38 @@ for k_file, v_file in summary_dict.items():
     for k_runner, v_runner in v_file.items():
         maxN_lt_MAX_k = sorted(v_runner.get(1, {}).keys())
         maxN_lt_MAX_v = sorted(v_runner.get(1, {}).values())
-        if maxN_lt_MAX_k and maxN_lt_MAX_k[-1] < MAXN:
-            small, big = tee(maxN_lt_MAX_k)
-            next(big)
-            for s, b in zip(small, big):
-                assert(s * 2 == b)
-            small, big = tee(maxN_lt_MAX_v)
-            next(big)
-            time_size_ratio = [b / s for s, b in zip(small, big)]
-            tsr_lt += time_size_ratio
-            v_runner["ts_ratio"] = sum(time_size_ratio) / len(time_size_ratio)
-            v_runner["eta_MAXN"] = (MAXN / maxN_lt_MAX_k[-1])\
-                ** log(v_runner["ts_ratio"], 2)\
-                * maxN_lt_MAX_v[-1]
-            v_runner["eta_MAXN_y"] = v_runner["eta_MAXN"] / 3600 / 24 / 365
-            v_runner["eta_MAX_iter"] = v_runner["eta_MAXN"] * MAX_ITERS
+        try:
+            if maxN_lt_MAX_k and maxN_lt_MAX_k[-1] < MAXN:
+                small, big = tee(maxN_lt_MAX_k)
+                next(big)
+                for s, b in zip(small, big):
+                    assert(s * 2 == b)
+
+                small, big = tee(maxN_lt_MAX_v)
+                next(big)
+                time_size_ratio = [b / s for s, b in zip(small, big)]
+                tsr_lt += time_size_ratio
+                ts = time_size_ratio
+                v_runner["ts_ratio"] = sum(ts) / len(ts)
+                v_runner["eta_MAXN"] = (MAXN / maxN_lt_MAX_k[-1])\
+                    ** log(v_runner["ts_ratio"], 2)\
+                    * maxN_lt_MAX_v[-1]
+                v_runner["eta_MAXN_y"] = v_runner["eta_MAXN"] / 3600 / 24 / 365
+                v_runner["eta_MAX_iter"] = v_runner["eta_MAXN"] * MAX_ITERS
+        except Exception:
+            # Probably `assert(s * 2 == b)` failed or got a divide by 0 on
+            # `v_runner["ts_ratio"] = v_runner["ts_ratio"] = sum(ts) / len(ts)`
+            # This may happen if there are too few times for different Ns or
+            # that they are very close in value with the threshold set above at
+            # `df = df[(df.runtime >= 0.3)]`. They can be safely ignored, but
+            # if you want to play around with this and send a PR do.
+            pass
+
         maxN_lt_MAX_k = sorted(v_runner.get(MAXN, {}).keys())
         maxN_lt_MAX_v = sorted(v_runner.get(MAXN, {}).values())
         if maxN_lt_MAX_k:
             if maxN_lt_MAX_k[0] > 1:
-                v_runner["eta_MAXN"] = "N/A"  # TODO: not discard < 0.5s here?
+                v_runner["eta_MAXN"] = "N/A"  # TODO: not discard < 0.3s here?
             else:
                 v_runner["eta_MAXN"] = maxN_lt_MAX_v[0]  # instead of estimate
             small, big = tee(maxN_lt_MAX_k)
