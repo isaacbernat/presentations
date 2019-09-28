@@ -427,22 +427,44 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 
 <div style="margin-left:-4rem" ><img src="./img_v13ii.py.png" height="85%" width="85%"/></div>
 
+
 ---
 
-## v1337 The end of a journey?
+## v14 Reduce memory footprint.
 ### V13 vs V12 speedup: 3978.92x
 
-<div style="margin-left:-4rem" ><img src="./img_v14i.py.png" height="80%" width="80%"/></div>
+<div style="margin-left:-4rem" ><img src="./img_v14i.py.png" width="100%"/></div>
 
 ???
-
 ### V13 ETA 100k N>=2^20: 1.08s
 
 ... but wait, in this case the lru_cache was actually more expensive than calculating it each time! We won't be adding that "optimisation" (also always remember to measure!)
 
 ---
 
-## TODOOOOO add 1337 (C with optimisations)
+## v14 Reduce memory footprint.
+
+<div style="margin-left:-4rem" ><img src="./img_v14ii.py.png" height="85%" width="85%"/></div>
+
+???
+
+---
+
+## The end? (V14 vs V13 speedup: 1.77x)
+
+<div style="margin-left:-4rem" ><img src="./img_v15i.py.png" height="95%" width="95%"/></div>
+
+???
+### V14 ETA 100k N>=2^20: 0.61s
+
+
+... but wait, in this case the lru_cache was actually more expensive than calculating it each time! We won't be adding that "optimisation" (also always remember to measure!)
+
+---
+
+## v1337 The end is just another beginning
+
+## TODOOOOO (C with optimisations)
 python is simpler and shorter
  0.6 Kib vs  15 Kib
 30 lines vs 140 lines
