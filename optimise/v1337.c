@@ -59,9 +59,9 @@ unsigned int inputBuffer[READLINES][NUMIO];
 //     return memGCD[x][y];
 // }
 
-int gcd(int x, int y) {
+int gcd_eq1(int x, int y) {
     if (memGCD[x][y] == 0) {
-        memGCD[x][y] = std::gcd(x, y);
+        memGCD[x][y] = std::gcd(x, y) == 1;
     }
     return memGCD[x][y];
 }
@@ -79,7 +79,7 @@ void* calculaResultados(void* id) {
             m = n + 1;
             f = MAXN - n2;
             for (m2 = m*m; m2 <= f; m += 2, m2 = m*m) {
-                memUnions.tempResult[m2 + n2] += (gcd(m, n) == 1);
+                memUnions.tempResult[m2 + n2] += (gcd_eq1(m, n));
             }
             n += 2;
         } while (n < MAX_ITERS);
