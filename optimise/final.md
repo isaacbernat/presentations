@@ -27,6 +27,12 @@ The % is the approximate relative duration.
 
 ---
 
+## Solution samples.
+
+<div style="margin-left:-4rem" ><img src="./img_solutions.py.png" width="95%"/></div>
+
+---
+
 ## Time measurements.
 #### Timing
 - Code is run using python3.7 using this **2012 laptop**.
