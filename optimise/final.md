@@ -8,16 +8,28 @@
 
 # Outline
 
-### 15% Part 1 Why bother?
-### 50% Part 2 Problem definition.
-### 35% Part 3 Optimisations.
-### 35% Part 4 Conclusions.
+### 12% Part 1 Problem definition.
+### 27% Part 2 Optimisations I (0-7).
+### 10% Part 3 Python vs PyPy vs C++.
+### 13% Part 4 Optimisations II (8-11).
+###  6% Part 5 Profiling.
+### 11% Part 6 Optimisations III (12-14).
+### 21% Part 7 Recap and closing remarks.
 
 The % is the approximate relative duration.
 
 ???
 - This is how the presentation is structured.
+- The timing is quite tight, so let's not waste more here?
 - Within each section I will advance **chronologically**.
+
+- 3.5m Part 1 Problem definition.
+- 8.0m Part 2 Optimisations I (0-7).
+- 2.5m Part 3 Python vs PyPy vs C++.
+- 4.0m Part 4 Optimisations II (8-11).
+- 1.5m Part 5 Profiling.
+- 3.5m Part 6 Optimisations III (12-14).
+- 6.5m Part 7 Recap and closing remarks.
 
 ---
 
@@ -38,7 +50,7 @@ The % is the approximate relative duration.
 - Code is run using python3.7 using this **2012 laptop**.
 - Best of **5 runs** for each algorithm and input.
 - Increase problem size until set takes **>600 seconds**.
-- **Discard** problem sizes with time **< 0.5 seconds**.
+- **Discard** problem sizes with time **< 0.3 seconds**.
 - Calculate **ETA using** time complexity estimation of **biggest 3 inputs**.
 - e.g. `if size*2 -> time*8 then complexity=O(n^3)` because (2^3 -> 8).
 
@@ -284,7 +296,7 @@ Significant speedups can be achieved using non-incremental approaches. In this c
 
 Didn't know if I should call it "paradigm shift", "do research", or "full rewrite".
 
-People get attached to code, and there is this sunk cost fallacy which prevents people from discarding and recognised the "wasted effort" when that would be the more effective approach. 
+People get attached to code, and there is this sunk cost fallacy which prevents people from discarding and recognised the "wasted effort" when that would be the more effective approach.
 
 ---
 
@@ -305,8 +317,8 @@ Significant speedups can be achieved using non-incremental approaches. In this c
 
 ???
 ### V8 ETA 100k N>=2^20: 67.165s
-
-Don't need to go all the way through N. TODO explain more
+### `sqrt(N) * sqrt(N) = N`
+### Adding anything to N will make it > N. Therefore invalid as we see in line 17. Let's save those computations. Don't need to go all the way through N.
 
 ---
 
@@ -470,19 +482,18 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 
 ## v1337 The end is just another beginning
 
-## TODOOOOO (C with optimisations)
+## TODOOOOO (alt C with optimisations)
 python is simpler and shorter
  0.6 Kib vs  15 Kib
 30 lines vs 140 lines
 ### Noteworthy C++ optimisations:
-- vectorisation
-- memoisation of GCD using chars (faster in C++ than python?)  # TODO CHECK
+- vectorisation  # TODO check: needed? couldn't we use the / 4?
+- memoisation of GCD using chars (43x on v12)
 - smaller memory footprint (e.g. `chars` for `gcd(m, n) == 1`)
     - bithacks and masks has even smaller footprint!
-- store RESULTS using 1/4 of memory, since they change at most %4
 - `struct union` to reuse all memory allocated for `GCD == 1` for results, even when they have different data types.
     - 4 `char` -> 1 `int`, so it fits!
-- read and store many input entries while still calculating the results (using threads).
+- read and store many input entries while calculating the results in parallel (using threads).
 - do so in bulk (128 entries at a time)
 - reading/writing on a shared memory buffer simulataneously for a smaller memory footprint.
 
@@ -492,7 +503,7 @@ python is simpler and shorter
 
 ???
 Many other interesting techniques
-- threads
+- threads (use them more)
 - branch predictions (especially important on pipeline processors)
 - conditional move (both computed, but hit rate independent)
 - loop unrolling (space-time tradeoff). Beware of data dependencies.
@@ -502,6 +513,16 @@ Many other interesting techniques
 - bit hacks
 - loop fusion/fission
 - and many more! (for fun check LEA for multiplications on x86)
+
+---
+
+## More charts and some conclusions
+- e.g. memoisation in C++ vs Python (using arrays, not maps though)
+
+???
+
+## TODO ADD THEM!!
+
 
 ---
 
@@ -557,5 +578,5 @@ Many other interesting techniques
 ### For once I have not highlighted the most (in)famous part of the quote about "premature optimization is the root of all evil". I think he meant that one should focus on bottlenecks when doing **incremental optimisations**. Note that he talks about "small efficiencies". I think optimisations which change time complexity, say from N^3 to N^2 won't be in the same league and should be considered (considered != automatically applied, for small Ns the difference won't probably matter, there are also setup times, etc. and keep in mind Amdahl!).
 ### So... always measure! I hope writing down and checking speedups helped you see how much off one may be!
 ### All quotes above taken from here. GOTO statements are not a hot topic anymore, but there are yet more still valid quotes in that paper surrounding the topic of code optimisation.
-### 12% improvement on what? A specific routine? The whole system? Just so you see I am not a Knuth fanboy I added a quote on optimisation I disagree with. I think software engineering is special in that "waiting two years for a more powerful computer to become available" or more recently "scaling up on instances" might be seen as a legit improvement by many. Bigger and easier than 12% for sure... He goes on that he wouldn't probably bother for such optimisations on one-time-jobs, but wouldn't deny them to prepare quality software. On that second part I do agree :D 
+### 12% improvement on what? A specific routine? The whole system? Just so you see I am not a Knuth fanboy I added a quote on optimisation I disagree with. I think software engineering is special in that "waiting two years for a more powerful computer to become available" or more recently "scaling up on instances" might be seen as a legit improvement by many. Bigger and easier than 12% for sure... He goes on that he wouldn't probably bother for such optimisations on one-time-jobs, but wouldn't deny them to prepare quality software. On that second part I do agree :D
 A good article on the topic: http://www.joshbarczak.com/blog/?p=580
