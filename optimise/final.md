@@ -89,6 +89,8 @@ optimise time, vs memory, a specific shared resource, etc.
 
 ???
 
+## TODO embed/remind the original problem again!
+
 A naive solution would be something like the one above. One could have used a set and put all triplets in it instead of making x < y < z (to avoid repetitions) and then returning the length of the set. It felt more natural to me to add the check and use a counter, since only the amount is needed.
 
 But before we evaluate how good/bad the code is... let's see how gcd is calculated, that's important too!
@@ -562,9 +564,9 @@ Many other interesting techniques
 
 ---
 
-## Specials thanks to: github.com/isaacbernat
-### Mattias Johansson: `github.com/folkol`
-### David Garcia Villalba: `github.com/dagavi`
+## Specials thanks: `github.com/isaacbernat`
+### Mattias Johansson, Ivbar, LOGEX Group; `github.com/folkol`
+### David Garcia Villalba, Zhilabs, Samsung; `github.com/dagavi`
 
 "Programmers waste enormous amounts of time thinking about, or worrying about, the speed of noncritical parts of their programs, and these attempts at efficiency actually have a strong negative impact when debugging and maintenance are considered. We should **forget about small efficiencies, say about 97% of the time**: premature optimization is the root of all evil. Yet we should **not pass** up our opportunities in **that critical 3%"** - *Knuth, 1974*
 
