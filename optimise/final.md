@@ -475,8 +475,9 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 <div style="margin-left:-4rem" ><img src="./img_v15i.py.png" height="95%" width="95%"/></div>
 
 ???
-### V14 ETA 100k N>=2^20: 0.61s
-
+### V14.py ETA 100k N>=2^20: 0.61s
+### V13.py ETA 100k N>=2^20: 1.08s
+### V13.c  ETA 100k N>=2^20: 0.05s
 
 ... but wait, in this case the lru_cache was actually more expensive than calculating it each time! We won't be adding that "optimisation" (also always remember to measure!)
 
@@ -489,7 +490,7 @@ python is simpler and shorter
  0.6 Kib vs  15 Kib
 30 lines vs 140 lines
 ### Noteworthy C++ optimisations:
-- vectorisation  # TODO check: needed? couldn't we use the / 4?
+- vectorisation
 - memoisation of GCD using chars (43x on v12)
 - smaller memory footprint (e.g. `chars` for `gcd(m, n) == 1`)
     - bithacks and masks has even smaller footprint!
@@ -505,7 +506,7 @@ python is simpler and shorter
 
 ???
 Many other interesting techniques
-- threads (use them more)
+- threads (for calculations too, splitting a big task)
 - branch predictions (especially important on pipeline processors)
 - conditional move (both computed, but hit rate independent)
 - loop unrolling (space-time tradeoff). Beware of data dependencies.
@@ -524,7 +525,8 @@ Many other interesting techniques
 ???
 
 ## TODO ADD THEM!!
-
+### V1337.c  ETA 100k N>=2^20: 0.02s
+### V9001.c  ETA 100k N>=2^20: 0.03s
 
 ---
 
