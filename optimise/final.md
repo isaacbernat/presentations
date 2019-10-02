@@ -10,9 +10,9 @@
 
 ### 12% Part 1 Problem definition.
 ### 27% Part 2 Optimisations I (0-7).
-### 10% Part 3 Python vs PyPy vs C++.
+### 10% Part 3 Compilers.
 ### 13% Part 4 Optimisations II (8-11).
-###  6% Part 5 Profiling.
+###  6% Part 5 Profilers.
 ### 11% Part 6 Optimisations III (12-14).
 ### 21% Part 7 Recap and closing remarks.
 
@@ -255,34 +255,56 @@ Problem-specific. We save 6/8 computations. Numbers must be coprimes. At most on
 
 ---
 
-## Interlude: Charts
+## Interlude: Compilers
+### V7 vs V6 speedup: 4.15x
 
----
+### PyPy
+- JIT (just in time). Can take into account usage data be more efficient.
+- Replace `"python3"` with `"pypy3"`
+- Many other "python-based" options are avialable: e.g. Numba, Cython...
 
-## Interlude: PyPy
+### C++ 17
+- Can be close to the machine.
+- Tried to be faithful when porting Python to make comparisons fair.
+- g++ (from GNU Compiler Collection) is a production-grade compiler.
+- Flags used `"-O0"` and `"-O3"`.
 
 ???
+### Definition
 Compilers translate a source language (python) into another (bytecode). They also can apply optimisations, analysing the whole source code and how it behaves.
-
-PyPy is a JIT (just in time) compiler. In addition to what a static compiler can do, a JIT can among others:
-- target a specific CPU architecture without having to know which beforehand.
-- take usage data of the code and rearrange itself to be more efficient
 
 PyPy is just one of many tools to speedup python.
 ### Numba didn't like gcd
 ### Cython converts "python" code to C. Needs to define data types to be really effective.
-### there are others
-Are also interesting, but in this case required more code changes and were skipped for simplicity's sake.
----
+### there are others, but the presentation is already quite long as it is.
 
-## Interlude: C++ 17
-
-???
-- C++ is a compiled language which can be quite close to the machine.
+## C++
 - Tried to be as faithful as possible when porting code to the original python source. Some idioms are not available and forced it to make it differently, of course.
 - But I ported it to C++ 17, so I could use the built-in gcd library and compare it with the first optimisation (i.e. don't reinvent the wheel!).
 - g++ (from GNU Compiler Collection) is a production-grade compiler used and relied upon by many. We'll use it in our tests.
 - I used -O0 and -O3 optimisation levels. But many more useful optimisation flags exist (e.g. march) that may increase speedup even more.
+
+
+---
+<!-- <object type="text/html" width="100%" height="100%", data="timing7.html"/> -->
+<embed style="margin-left:-2rem" src="plot_timing7.html" width="110%" height="100%"></embed>
+
+
+???
+
+
+---
+<embed style="margin-left:-2rem" src="plot_speedup7.html" width="110%" height="100%"></embed>
+
+
+???
+
+
+---
+<embed style="margin-left:-2rem" src="plot_size_complexity7.html" width="110%" height="100%"></embed>
+
+
+???
 
 ---
 
