@@ -10,7 +10,7 @@ FIRST = "v00"
 ETA = "eta_MAX_iter"
 
 df = pd.read_csv("times.csv").drop(columns=['machine', 'date'])
-# get rows with tests > 0.3 second
+# get rows with tests >= 0.3 second
 df = df[(df.runtime >= 0.3)]
 # group by "run type"
 group_df = df.groupby(['file_name', 'maxN', 'entries', 'runner'])
@@ -239,7 +239,3 @@ Speedup
 {pformat(speedups_2dec)}
 ```
 """)
-
-
-# TODO scripts to do for each csv timing:
-#  - plotting charts?

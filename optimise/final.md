@@ -254,8 +254,8 @@ Problem-specific. We save 6/8 computations. Numbers must be coprimes. At most on
 ???
 
 ---
-
-## Interlude: Charts
+<!-- <object type="text/html" width="100%" height="100%", data="timing7.html"/> -->
+<embed style="margin-top:-0rem" src="timing7.html" width="100%" height="100%"></embed>
 
 ---
 
