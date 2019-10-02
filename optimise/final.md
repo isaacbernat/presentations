@@ -255,7 +255,18 @@ Problem-specific. We save 6/8 computations. Numbers must be coprimes. At most on
 
 ---
 <!-- <object type="text/html" width="100%" height="100%", data="timing7.html"/> -->
-<embed style="margin-top:-0rem" src="timing7.html" width="100%" height="100%"></embed>
+<embed style="margin-left:-2rem" src="timing7.html" width="110%" height="100%"></embed>
+
+
+???
+
+
+---
+<embed style="margin-left:-2rem" src="speedup7.html" width="110%" height="100%"></embed>
+
+
+???
+
 
 ---
 

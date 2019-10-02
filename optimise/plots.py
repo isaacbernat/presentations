@@ -472,9 +472,6 @@ speedup = {'v00': {'total_cO0': 1.0,
                    'vs_python3_pypy3': 1.24}}
 
 
-timing_7 = {k: v for k, v in timing.items() if int(k[1:]) <= 7}
-speedup_7 = {k: v for k, v in timing.items() if int(k[1:]) <= 7}
-
 from bokeh.plotting import figure
 from bokeh.models import FactorRange
 from bokeh.io import show, output_file
@@ -483,6 +480,7 @@ from bokeh.io import show, output_file
 def ETA_7():
     output_file("timing7.html")
 
+    timing_7 = {k: v for k, v in timing.items() if int(k[1:]) <= 7}
     timing7_factors = []
     timing7_MAXN_years = []
     for version, language in timing_7.items():
@@ -505,9 +503,36 @@ def ETA_7():
     p.xaxis.major_label_orientation = 1
     p.xgrid.grid_line_color = None
 
+
+def speedup_7():
+    output_file("speedup7.html")
+
+    langs = ["cO0", "cO3", "pypy3", "python3"]
+    speedup7 = {k: v for k, v in speedup.items() if 0 < int(k[1:]) <= 7}
+    speedup7_factors = [("v00", l) for l in langs]
+    speedup7_relative_X = [1, 1, 1, 1]
+
+    for version, info in speedup7.items():
+        speedup7_factors += [(version, l) for l in langs]
+        speedup7_relative_X += [info[f"prev_{l}"] for l in langs]
+
+    p = figure(
+        title="Incremental speedups (i.e. current vs previous of same config)",
+        x_range=FactorRange(*speedup7_factors),
+        plot_height=600, plot_width=800)
+
+    p.xaxis.axis_label = 'Code version'
+    p.yaxis.axis_label = 'Speedup in X'
+
+    p.vbar(x=speedup7_factors, top=speedup7_relative_X, width=1, alpha=0.6)
+
+    p.y_range.start = 0
+    p.x_range.range_padding = 0.1
+    p.xaxis.major_label_orientation = 1
+    p.xgrid.grid_line_color = None
+
     show(p)
 
 
 ETA_7()
-
-a = 10
+speedup_7()
