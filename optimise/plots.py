@@ -478,7 +478,7 @@ from bokeh.io import show, output_file
 
 
 def ETA_7():
-    output_file("timing7.html")
+    output_file("plot_timing7.html")
 
     timing_7 = {k: v for k, v in timing.items() if int(k[1:]) <= 7}
     timing7_factors = []
@@ -505,7 +505,7 @@ def ETA_7():
 
 
 def speedup_7():
-    output_file("speedup7.html")
+    output_file("plot_speedup7.html")
 
     langs = ["cO0", "cO3", "pypy3", "python3"]
     speedup7 = {k: v for k, v in speedup.items() if 0 < int(k[1:]) <= 7}
