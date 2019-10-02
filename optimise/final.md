@@ -287,7 +287,7 @@ PyPy is just one of many tools to speedup python.
 
 ---
 <!-- <object type="text/html" width="100%" height="100%", data="timing7.html"/> -->
-<embed style="margin-left:-2rem" src="plot_timing7.html" width="110%" height="100%"></embed>
+<embed style="margin-left:-2rem" src="plot_eta7.html" width="110%" height="100%"></embed>
 
 
 ???

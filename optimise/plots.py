@@ -580,57 +580,66 @@ from bokeh.models import FactorRange, LinearColorMapper
 from bokeh.io import show, output_file
 
 
-def ETA_7():
-    output_file("plot_timing7.html")
+def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
+             unit="years"):
+    output_file(f"plot_eta{vmax}.html")
 
-    timing_7 = {k: v for k, v in timing.items() if int(k[1:]) <= 7}
-    timing7_factors = []
-    timing7_MAXN_years = []
-    for version, language in timing_7.items():
+    timing_subset = {k: v for k, v in timing.items() if vmin <= int(k[1:]) <= vmax}
+    timing_factors = []
+    timing_ETA = []
+    python3_line = []
+    for version, language in timing_subset.items():
         for lang_name, times in language.items():
-            timing7_factors.append((version, lang_name))
-            timing7_MAXN_years.append(times["eta_MAXN_y"])
+            timing_factors.append((version, lang_name))
+            timing_ETA.append(times[eta])
+            if lang_name == "python3":
+                python3_line.append(times[eta])
 
     p = figure(
-        title="Estimated time to compute N=2^20",
-        x_range=FactorRange(*timing7_factors),
+        title=f"Estimated time to compute {title_sufix}",
+        x_range=FactorRange(*timing_factors),
         plot_height=600, plot_width=800)
 
     p.xaxis.axis_label = 'Code version'
-    p.yaxis.axis_label = 'Time in years'
+    p.yaxis.axis_label = f'Time in {unit}'
 
-    p.vbar(x=timing7_factors, top=timing7_MAXN_years, width=1, alpha=0.6)
+    p.vbar(x=timing_factors, top=timing_ETA, width=1, alpha=0.6)
 
     p.y_range.start = 0
-    p.x_range.range_padding = 0.1
+    # p.x_range.range_padding = 0.1
     p.xaxis.major_label_orientation = 1
     p.xgrid.grid_line_color = None
 
+    p.line(x=[f for f in timing_factors if f[1] == "python3"],
+           y=python3_line, color="red", line_width=2)
 
-def speedup_7():
-    output_file("plot_speedup7.html")
+    show(p)
+
+
+def speedup_plot(vmin=1, vmax=7):
+    output_file(f"plot_speedup{max}.html")
 
     langs = ["cO0", "cO3", "pypy3", "python3"]
-    speedup7 = {k: v for k, v in speedup.items() if 0 < int(k[1:]) <= 7}
-    speedup7_factors = [("v00", l) for l in langs]
-    speedup7_relative_X = [1, 1, 1, 1]
+    speedup_subset = {k: v for k, v in speedup.items() if vmin <= int(k[1:]) <= vmax}
+    speedup_factors = [("v00", l) for l in langs]
+    speedup_relative_X = [1, 1, 1, 1]
 
-    for version, info in speedup7.items():
-        speedup7_factors += [(version, l) for l in langs]
-        speedup7_relative_X += [info[f"prev_{l}"] for l in langs]
+    for version, info in speedup_subset.items():
+        speedup_factors += [(version, l) for l in langs]
+        speedup_relative_X += [info[f"prev_{l}"] for l in langs]
 
     p = figure(
         title="Incremental speedups (i.e. current vs previous of same config)",
-        x_range=FactorRange(*speedup7_factors),
+        x_range=FactorRange(*speedup_factors),
         plot_height=600, plot_width=800)
 
     p.xaxis.axis_label = 'Code version'
     p.yaxis.axis_label = 'Speedup in X'
 
-    p.vbar(x=speedup7_factors, top=speedup7_relative_X, width=1, alpha=0.6)
+    p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.6)
 
     p.y_range.start = 0
-    p.x_range.range_padding = 0.1
+    # p.x_range.range_padding = 0.1
     p.xaxis.major_label_orientation = 1
     p.xgrid.grid_line_color = None
 
@@ -663,14 +672,14 @@ def size_complexity_7():
         p.circle(complexity_size, complexity_time, fill_alpha=1, size=20, color=colors, legend=version)
 
     p.y_range.start = 0
-    p.x_range.range_padding = 0.1
+    # p.x_range.range_padding = 0.1
     p.xaxis.major_label_orientation = 1
     p.xgrid.grid_line_color = None
     p.legend.location = "bottom_right"
 
-    show(p)
+    # show(p)
 
 
-ETA_7()
-speedup_7()
+ETA_plot()
+speedup_plot()
 size_complexity_7()
