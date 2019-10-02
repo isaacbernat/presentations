@@ -150,6 +150,22 @@ for pre, cur in zip(previous, current):
         vs["prev_cO0"] = pre_cO0 / cur_cO0
         vs["prev_cO3"] = pre_cO3 / cur_cO3
 
+speedups_2dec = {}
+for k, version in speedups.items():
+    speedups_2dec[k] = {}
+    for ratio, time in version.items():
+        speedups_2dec[k][ratio] = round(time, 2)
+
+for k, version in summary_dict.items():
+    for lang, run_info in version.items():
+        if not run_info.get(1048576):
+            run_info["eta_MAXN"] = round(run_info["eta_MAXN"], 2)
+            run_info["eta_MAXN_y"] = round(run_info["eta_MAXN_y"], 2)
+
+        run_info["eta_MAX_iter"] = round(run_info["eta_MAX_iter"], 2)
+        run_info["ts_ratio"] = round(run_info["ts_ratio"], 2)
+
+
 print(f"""
 Specifications
 ==============
@@ -220,7 +236,7 @@ Timing
 Speedup
 -------
 ```
-{pformat(speedups)}
+{pformat(speedups_2dec)}
 ```
 """)
 
