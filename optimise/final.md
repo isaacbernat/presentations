@@ -266,7 +266,7 @@ Problem-specific. We save 6/8 computations. Numbers must be coprimes. At most on
 ### C++ 17
 - Can be close to the machine.
 - Tried to be faithful when porting Python to make comparisons fair.
-- g++ (from GNU Compiler Collection) is a production-grade compiler.
+- `g++` (from GNU Compiler Collection) the standard open source compiler.
 - Flags used `"-O0"` and `"-O3"`.
 
 ???

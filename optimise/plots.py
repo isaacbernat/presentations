@@ -1,5 +1,5 @@
-# data taken from time_parser.py/timings.md
 
+# data taken from timings.md (time_parser.py)
 timing = {
     'v00': {'cO0': {1: {256: 2.59, 512: 21.63, 1024: 179.48},
                     'eta_MAXN': 286827022875.19,
@@ -579,6 +579,8 @@ from bokeh.plotting import figure
 from bokeh.models import FactorRange, LinearColorMapper
 from bokeh.io import show, output_file
 
+color_mapper = ["#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666", "#FFFFFF"]
+
 
 def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
              unit="years"):
@@ -613,11 +615,9 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
     p.line(x=[f for f in timing_factors if f[1] == "python3"],
            y=python3_line, color="red", line_width=2)
 
-    show(p)
-
 
 def speedup_plot(vmin=1, vmax=7):
-    output_file(f"plot_speedup{max}.html")
+    output_file(f"plot_speedup{vmax}.html")
 
     langs = ["cO0", "cO3", "pypy3", "python3"]
     speedup_subset = {k: v for k, v in speedup.items() if vmin <= int(k[1:]) <= vmax}
@@ -639,47 +639,44 @@ def speedup_plot(vmin=1, vmax=7):
     p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.6)
 
     p.y_range.start = 0
-    # p.x_range.range_padding = 0.1
     p.xaxis.major_label_orientation = 1
     p.xgrid.grid_line_color = None
 
 
-def size_complexity_7():
+def size_complexity_plot(vmin=1, vmax=7, ratio_base="8"):
 
-    output_file("plot_size_complexity7.html")
+    output_file(f"plot_size_complexity{vmax}.html")
 
-    ts_ratios_7 = {k: v for k, v in ts_ratios.items() if int(k[1:]) <= 7}
+    ts_ratios_subset = {k: v for k, v in ts_ratios.items() if vmin <= int(k[1:]) <= vmax}
     complexity_time = []
     complexity_size = []
     colors = []
-    color_mapper7 = ["#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666", "#FFFFFF"]
 
     p = figure(
-        title="Time vs size for Python3 versions. Log scale; aspect ratio=1/8.",
+        title=f"Time vs size for Python3 versions. Log scale; aspect ratio=1/{ratio_base}.",
         plot_height=600, plot_width=800,
         x_axis_type="log",
         y_axis_type="log",
         match_aspect=True,
-        aspect_scale=1 / 8)
+        aspect_scale=1 / float(ratio_base))
 
     p.xaxis.axis_label = 'Problem size (N))'
     p.yaxis.axis_label = 'Elapsed time (seconds)'
 
-    for version, language in ts_ratios_7.items():
+    for version, language in ts_ratios_subset.items():
         complexity_time = list(language["python3"][1].values())
         complexity_size = list(language["python3"][1].keys())
-        colors = [color_mapper7[int(version[1:])]] * len(language["python3"][1])
+        colors = [color_mapper[int(version[1:])]] * len(language["python3"][1])
         p.circle(complexity_size, complexity_time, fill_alpha=1, size=20, color=colors, legend=version)
 
     p.y_range.start = 0
-    # p.x_range.range_padding = 0.1
     p.xaxis.major_label_orientation = 1
     p.xgrid.grid_line_color = None
     p.legend.location = "bottom_right"
 
-    # show(p)
+    show(p)
 
 
 ETA_plot()
 speedup_plot()
-size_complexity_7()
+size_complexity_plot()
