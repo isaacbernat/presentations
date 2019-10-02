@@ -299,6 +299,13 @@ PyPy is just one of many tools to speedup python.
 
 ???
 
+
+---
+<embed style="margin-left:-2rem" src="plot_size_complexity7.html" width="110%" height="100%"></embed>
+
+
+???
+
 ---
 
 ## v8 Paradigm shift.
