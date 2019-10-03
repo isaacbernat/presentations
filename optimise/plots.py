@@ -613,7 +613,7 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
     p.xgrid.grid_line_color = None
 
     p.line(x=[f for f in timing_factors if f[1] == "python3"],
-           y=python3_line, color="red", line_width=2)
+           y=python3_line, color="red", line_width=6, line_dash='dashed')
 
 
 def speedup_plot(vmin=1, vmax=7):
