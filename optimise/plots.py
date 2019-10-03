@@ -603,7 +603,7 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
         plot_height=600, plot_width=800)
 
     p.xaxis.axis_label = 'Code version'
-    p.yaxis.axis_label = f'Time in {unit}'
+    p.yaxis.axis_label = f'Elapsed time ({unit})'
 
     p.vbar(x=timing_factors, top=timing_ETA, width=1, alpha=0.6)
 
@@ -615,6 +615,7 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
 
     p.line(x=[f for f in timing_factors if f[1] == "python3"],
            y=python3_line, color="red", line_width=6, line_dash='dashed')
+    p.title.text_font_size = '21pt'
 
     show(p)
 
@@ -632,12 +633,12 @@ def speedup_plot(vmin=1, vmax=7):
         speedup_relative_X += [info[f"prev_{l}"] for l in langs]
 
     p = figure(
-        title="Incremental speedups (i.e. current vs previous of same config)",
+        title="Incremental speedups (i.e. current vs previous)",
         x_range=FactorRange(*speedup_factors),
         plot_height=600, plot_width=800)
 
     p.xaxis.axis_label = 'Code version'
-    p.yaxis.axis_label = 'Speedup in X'
+    p.yaxis.axis_label = 'X times faster'
 
     p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.6)
 
@@ -645,6 +646,7 @@ def speedup_plot(vmin=1, vmax=7):
     p.xaxis.major_label_orientation = 1
     p.xgrid.grid_line_color = None
     p.toolbar.autohide = True
+    p.title.text_font_size = '21pt'
 
     show(p)
 
@@ -659,7 +661,7 @@ def size_complexity_plot(vmin=1, vmax=7, ratio_base="8"):
     colors = []
 
     p = figure(
-        title=f"Time vs size for Python3 versions. Log scale; aspect ratio=1/{ratio_base}.",
+        title=f"Time vs size for Python3. Log scale; aspect ratio=1/{ratio_base}.",
         plot_height=600, plot_width=800,
         x_axis_type="log",
         y_axis_type="log",
@@ -680,6 +682,10 @@ def size_complexity_plot(vmin=1, vmax=7, ratio_base="8"):
     p.xgrid.grid_line_color = None
     p.toolbar.autohide = True
     p.legend.location = "bottom_right"
+    p.legend.label_text_font_size = '18pt'
+    p.legend.glyph_height = 45
+    p.legend.glyph_width = 45
+    p.title.text_font_size = '21pt'
 
     show(p)
 

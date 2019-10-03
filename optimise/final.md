@@ -309,7 +309,6 @@ PyPy is just one of many tools to speedup python.
 ---
 
 ## v8 Paradigm shift.
-### V7 vs V6 speedup: 4.15x
 
 <div style="margin-left:-4rem" ><img src="./img_v08i.py.png" height="90%" width="90%"/></div>
 
@@ -321,14 +320,6 @@ Significant speedups can be achieved using non-incremental approaches. In this c
 Didn't know if I should call it "paradigm shift", "do research", or "full rewrite".
 
 People get attached to code, and there is this sunk cost fallacy which prevents people from discarding and recognised the "wasted effort" when that would be the more effective approach.
-
----
-
-## v8 Paradigm shift.
-
-# TODO SPLIT PREVIOUS SLIDE INTO 2
-
-???
 
 Significant speedups can be achieved using non-incremental approaches. In this case we use a calculation based on Euclid's formula to generate primitive pythagorean triples.
 
