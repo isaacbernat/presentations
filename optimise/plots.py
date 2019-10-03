@@ -582,6 +582,11 @@ from bokeh.io import show, output_file
 color_mapper = ["#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E", "#E6AB02", "#A6761D", "#666666", "#FFFFFF"]
 
 
+def common_plot_cfg(plot):
+    # TODO refactor
+    pass
+
+
 def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
              unit="years"):
     output_file(f"plot_eta{vmax}.html")
@@ -608,7 +613,6 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
     p.vbar(x=timing_factors, top=timing_ETA, width=1, alpha=0.6)
 
     p.y_range.start = 0
-    # p.x_range.range_padding = 0.1
     p.xaxis.major_label_orientation = 1
     p.xgrid.grid_line_color = None
     p.toolbar.autohide = True
@@ -616,6 +620,10 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
     p.line(x=[f for f in timing_factors if f[1] == "python3"],
            y=python3_line, color="red", line_width=6, line_dash='dashed')
     p.title.text_font_size = '21pt'
+
+    p.xaxis.axis_label_text_font_size = '18pt'
+    p.yaxis.axis_label_text_font_size = '18pt'
+    p.yaxis.major_label_text_font_size = '15pt'
 
     show(p)
 
@@ -647,6 +655,10 @@ def speedup_plot(vmin=1, vmax=7):
     p.xgrid.grid_line_color = None
     p.toolbar.autohide = True
     p.title.text_font_size = '21pt'
+
+    p.xaxis.axis_label_text_font_size = '18pt'
+    p.yaxis.axis_label_text_font_size = '18pt'
+    p.yaxis.major_label_text_font_size = '15pt'
 
     show(p)
 
@@ -686,6 +698,11 @@ def size_complexity_plot(vmin=1, vmax=7, ratio_base="8"):
     p.legend.glyph_height = 45
     p.legend.glyph_width = 45
     p.title.text_font_size = '21pt'
+
+    p.xaxis.axis_label_text_font_size = '18pt'
+    p.yaxis.axis_label_text_font_size = '18pt'
+    p.yaxis.major_label_text_font_size = '15pt'
+    p.xaxis.major_label_text_font_size = '15pt'
 
     show(p)
 
