@@ -611,9 +611,12 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
     # p.x_range.range_padding = 0.1
     p.xaxis.major_label_orientation = 1
     p.xgrid.grid_line_color = None
+    p.toolbar.autohide = True
 
     p.line(x=[f for f in timing_factors if f[1] == "python3"],
            y=python3_line, color="red", line_width=6, line_dash='dashed')
+
+    show(p)
 
 
 def speedup_plot(vmin=1, vmax=7):
@@ -641,6 +644,9 @@ def speedup_plot(vmin=1, vmax=7):
     p.y_range.start = 0
     p.xaxis.major_label_orientation = 1
     p.xgrid.grid_line_color = None
+    p.toolbar.autohide = True
+
+    show(p)
 
 
 def size_complexity_plot(vmin=1, vmax=7, ratio_base="8"):
@@ -672,6 +678,7 @@ def size_complexity_plot(vmin=1, vmax=7, ratio_base="8"):
     p.y_range.start = 0
     p.xaxis.major_label_orientation = 1
     p.xgrid.grid_line_color = None
+    p.toolbar.autohide = True
     p.legend.location = "bottom_right"
 
     show(p)
