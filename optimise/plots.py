@@ -1,10 +1,13 @@
 from bokeh.plotting import figure
-from bokeh.models import FactorRange, LinearColorMapper
+from bokeh.models import FactorRange
 from bokeh.io import show, output_file
 
 
 color_mapper = ["#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E",
                 "#E6AB02", "#A6761D", "#666666", "#FFFFFF"]
+
+langs = ["cO0", "cO3", "pypy3", "python3"]
+colors_by_lang = [color_mapper[l] for _ in range(10) for l in range(len(langs))]
 
 # data taken from timings.md (time_parser.py)
 timing = {
@@ -625,7 +628,8 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
     p.xaxis.axis_label = 'Code version'
     p.yaxis.axis_label = f'Elapsed time ({unit})'
 
-    p.vbar(x=timing_factors, top=timing_ETA, width=1, alpha=0.6)
+    p.vbar(x=timing_factors, top=timing_ETA, width=1, alpha=0.8,
+           color=colors_by_lang)
 
     p.line(x=[f for f in timing_factors if f[1] == "python3"],
            y=python3_line, color="red", line_width=6, line_dash='dashed')
@@ -655,14 +659,16 @@ def speedup_plot(vmin=1, vmax=7, init="v00"):
     p.xaxis.axis_label = 'Code version'
     p.yaxis.axis_label = 'X times faster'
 
-    p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.6)
+    p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.8,
+           color=colors_by_lang)
 
     common_plot_cfg(p)
 
     show(p)
 
 
-def size_complexity_plot(vmin=1, vmax=7, ratio_base="8", index=1, legend_loc="bottom_right"):
+def size_complexity_plot(vmin=1, vmax=7, ratio_base="8", index=1,
+                         legend_loc="bottom_right"):
 
     output_file(f"plot_size_complexity{vmax}.html")
 
@@ -708,4 +714,5 @@ size_complexity_plot()
 
 ETA_plot(vmin=8, vmax=14, eta="eta_MAX_iter", title_sufix="100k N<=2^20", unit="seconds")
 speedup_plot(vmin=9, vmax=12, init="v08")
+# TODO add timing for v13 C++
 size_complexity_plot(vmin=8, vmax=14, ratio_base=None, index=1048576, legend_loc="top_right")
