@@ -639,10 +639,9 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
     show(p)
 
 
-def speedup_plot(vmin=1, vmax=7, init="v00"):
+def speedup_prev_plot(vmin=1, vmax=7, init="v00"):
     output_file(f"plot_speedup{vmax}.html")
 
-    langs = ["cO0", "cO3", "pypy3", "python3"]
     speedup_subset = {k: v for k, v in speedup.items()
                       if vmin <= int(k[1:]) <= vmax}
     speedup_factors = [(init, l) for l in langs]
@@ -708,11 +707,42 @@ def size_complexity_plot(vmin=1, vmax=7, ratio_base="8", index=1,
     show(p)
 
 
+def speedup_vs_plot(vmin=0, vmax=12):
+    output_file(f"plot_speedup_vs{vmax}.html")
+
+    vs = ["vs_python3_pypy3", "vs_python3_cO3"]
+    speedup_subset = {k: v for k, v in speedup.items()
+                      if vmin <= int(k[1:]) <= vmax}
+    speedup_factors = []
+    speedup_relative_X = []
+
+    for version, info in speedup_subset.items():
+        speedup_factors += [(version, l.split("_")[-1]) for l in vs]
+        speedup_relative_X += [info[l] for l in vs]
+
+    p = figure(
+        title="Relative speedups (i.e. Python3 vs (PyPy3/g++ -O3))",
+        x_range=FactorRange(*speedup_factors))
+
+    p.xaxis.axis_label = 'Code version'
+    p.yaxis.axis_label = 'X times faster'
+
+    p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.8,
+           color=["red", "blue"] * 13)
+
+    common_plot_cfg(p)
+
+    show(p)
+
+
 ETA_plot()
-speedup_plot()
+speedup_prev_plot()
 size_complexity_plot()
 
 ETA_plot(vmin=8, vmax=14, eta="eta_MAX_iter", title_sufix="100k N<=2^20", unit="seconds")
-speedup_plot(vmin=9, vmax=12, init="v08")
+speedup_prev_plot(vmin=9, vmax=12, init="v08")
 # TODO add timing for v13 C++
 size_complexity_plot(vmin=8, vmax=14, ratio_base=None, index=1048576, legend_loc="top_right")
+
+speedup_vs_plot()
+# TODO add timing for v13 C++
