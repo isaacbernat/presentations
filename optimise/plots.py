@@ -591,6 +591,7 @@ ts_ratios = {
 def common_plot_cfg(p):
     p.title.text_font_size = '21pt'
     p.y_range.start = 0
+    # p.x_range.start = 0
     p.xaxis.major_label_orientation = 1
     p.xgrid.grid_line_color = None
     p.toolbar.autohide = True
@@ -634,13 +635,13 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
     show(p)
 
 
-def speedup_plot(vmin=1, vmax=7):
+def speedup_plot(vmin=1, vmax=7, init="v00"):
     output_file(f"plot_speedup{vmax}.html")
 
     langs = ["cO0", "cO3", "pypy3", "python3"]
     speedup_subset = {k: v for k, v in speedup.items()
                       if vmin <= int(k[1:]) <= vmax}
-    speedup_factors = [("v00", l) for l in langs]
+    speedup_factors = [(init, l) for l in langs]
     speedup_relative_X = [1, 1, 1, 1]
 
     for version, info in speedup_subset.items():
@@ -661,7 +662,7 @@ def speedup_plot(vmin=1, vmax=7):
     show(p)
 
 
-def size_complexity_plot(vmin=1, vmax=7, ratio_base="8"):
+def size_complexity_plot(vmin=1, vmax=7, ratio_base="8", index=1, legend_loc="bottom_right"):
 
     output_file(f"plot_size_complexity{vmax}.html")
 
@@ -672,24 +673,25 @@ def size_complexity_plot(vmin=1, vmax=7, ratio_base="8"):
     colors = []
 
     p = figure(
-        title="Time vs size for Python3."
-        f" Log scale; aspect ratio=1/{ratio_base}.",
+        title="Time vs size for Python3. Log scale",
         x_axis_type="log",
-        y_axis_type="log",
-        match_aspect=True,
-        aspect_scale=1 / float(ratio_base))
+        y_axis_type="log")
+    if ratio_base:
+        p.match_aspect = True
+        p.aspect_scale = 1 / float(ratio_base)
+        p.title.text += f"; aspect ratio=1/{ratio_base}."
 
     p.xaxis.axis_label = 'Problem size (N))'
     p.yaxis.axis_label = 'Elapsed time (seconds)'
 
     for version, language in ts_ratios_subset.items():
-        complexity_time = list(language["python3"][1].values())
-        complexity_size = list(language["python3"][1].keys())
-        colors = [color_mapper[int(version[1:])]] * len(language["python3"][1])
+        complexity_time = list(language["python3"][index].values())
+        complexity_size = list(language["python3"][index].keys())
+        colors = [color_mapper[int(version[1:]) - vmin]] * len(language["python3"][index])
         p.circle(complexity_size, complexity_time, fill_alpha=1, size=20,
                  color=colors, legend=version)
 
-    p.legend.location = "bottom_right"
+    p.legend.location = legend_loc
     p.legend.label_text_font_size = '18pt'
     p.legend.glyph_height = 45
     p.legend.glyph_width = 45
@@ -703,3 +705,7 @@ def size_complexity_plot(vmin=1, vmax=7, ratio_base="8"):
 ETA_plot()
 speedup_plot()
 size_complexity_plot()
+
+ETA_plot(vmin=8, vmax=14, eta="eta_MAX_iter", title_sufix="100k N<=2^20", unit="seconds")
+speedup_plot(vmin=9, vmax=12, init="v08")
+size_complexity_plot(vmin=8, vmax=14, ratio_base=None, index=1048576, legend_loc="top_right")

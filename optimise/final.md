@@ -494,6 +494,27 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 
 ... but wait, in this case the lru_cache was actually more expensive than calculating it each time! We won't be adding that "optimisation" (also always remember to measure!)
 
+
+---
+<embed style="margin-left:-2rem" src="plot_eta14.html" width="110%" height="100%"></embed>
+
+
+???
+
+
+---
+<embed style="margin-left:-2rem" src="plot_speedup12.html" width="110%" height="100%"></embed>
+
+
+???
+
+
+---
+<embed style="margin-left:-2rem" src="plot_size_complexity14.html" width="110%" height="100%"></embed>
+
+
+???
+
 ---
 
 ## v1337 The end is just another beginning
