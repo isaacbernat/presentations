@@ -266,7 +266,7 @@ Problem-specific. We save 6/8 computations. Numbers must be coprimes. At most on
 ### C++ 17
 - Can be close to the machine.
 - Tried to be faithful when porting Python to make comparisons fair.
-- g++ (from GNU Compiler Collection) is a production-grade compiler.
+- `g++` (from GNU Compiler Collection) the standard open source compiler.
 - Flags used `"-O0"` and `"-O3"`.
 
 ???
@@ -287,7 +287,7 @@ PyPy is just one of many tools to speedup python.
 
 ---
 <!-- <object type="text/html" width="100%" height="100%", data="timing7.html"/> -->
-<embed style="margin-left:-2rem" src="plot_timing7.html" width="110%" height="100%"></embed>
+<embed style="margin-left:-2rem" src="plot_eta7.html" width="110%" height="100%"></embed>
 
 
 ???
@@ -309,7 +309,6 @@ PyPy is just one of many tools to speedup python.
 ---
 
 ## v8 Paradigm shift.
-### V7 vs V6 speedup: 4.15x
 
 <div style="margin-left:-4rem" ><img src="./img_v08i.py.png" height="90%" width="90%"/></div>
 
@@ -321,14 +320,6 @@ Significant speedups can be achieved using non-incremental approaches. In this c
 Didn't know if I should call it "paradigm shift", "do research", or "full rewrite".
 
 People get attached to code, and there is this sunk cost fallacy which prevents people from discarding and recognised the "wasted effort" when that would be the more effective approach.
-
----
-
-## v8 Paradigm shift.
-
-# TODO SPLIT PREVIOUS SLIDE INTO 2
-
-???
 
 Significant speedups can be achieved using non-incremental approaches. In this case we use a calculation based on Euclid's formula to generate primitive pythagorean triples.
 
