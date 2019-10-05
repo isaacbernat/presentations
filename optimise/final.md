@@ -380,13 +380,12 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 ---
 
 ## Interlude: Profiling
+### V11 vs V10 speedup: 1.01x
 
 #### Amdahl's law*
 - The non-optimised part sets an upper bound on speedup.
-- Optimising code which takes 1/3 of time won't make the code faster than 1.5x.
+- Fragments which take 1/3 of time will NEVER be faster than 1.5x.
 - Useful to choose where to focus on and the potential upside.
-
-#### github.com/vpelletier/pprofile
 
 <div style="margin-left:-4rem" ><img src="./img_profilingi.png" height="100%"/></div>
 
@@ -412,6 +411,8 @@ References: Amdahl's law http://demonstrations.wolfram.com/AmdahlsLaw/
 
 ## Interlude: Profiling
 
+### `github.com/vpelletier/pprofile`
+
 <div style="margin-left:-4rem" ><img src="./img_profilingii.png" width="110%"/></div>
 
 ???
@@ -429,7 +430,6 @@ this profiles also supports statistical mode
 ---
 
 ## v12 Memoisation (without r, no typo here).
-### V11 vs V10 speedup: 1.01x
 
 <div style="margin-left:-4rem" ><img src="./img_v12i.py.png" width="100%"/></div>
 
