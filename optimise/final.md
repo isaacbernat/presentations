@@ -2,7 +2,7 @@
 
 "An algorithm must be seen to be believed" - *Donald Knuth, 1968*
 
-<div style="text-align: center"><img src="./img_timeline.png" width="80%" height="80%"/></div>
+<div style="text-align: center"><img src="./images/img_timeline.png" width="80%" height="80%"/></div>
 
 ---
 
@@ -35,13 +35,13 @@ The % is the approximate relative duration.
 
 ## Problem definition.
 
-<div style="margin-left:-4rem" ><img src="./img_problem_definition.png" width="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_problem_definition.png" width="110%"/></div>
 
 ---
 
 ## Solution samples.
 
-<div style="margin-left:-4rem" ><img src="./img_solutions.py.png" width="95%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_solutions.py.png" width="95%"/></div>
 
 ---
 
@@ -85,7 +85,7 @@ optimise time, vs memory, a specific shared resource, etc.
 ## v0 Baseline.
 ### `ETA N=2^20:` 98.263 years `; ETA 100k N<=2^20:` >1 Bn
 
-<div style="margin-left:-4rem" ><img src="./img_v00i.py.png" width="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v00i.py.png" width="110%"/></div>
 
 ???
 
@@ -99,7 +99,7 @@ But before we evaluate how good/bad the code is... let's see how gcd is calculat
 
 ## v0 Baseline.
 
-<div ><img src="./img_v00ii.py.png" height="100%"/></div>
+<div ><img src="./images/img_v00ii.py.png" height="100%"/></div>
 
 ???
 
@@ -109,7 +109,7 @@ Well known Euclidean algorithm that does the job. The first version would probab
 
 ## v1 Don't reinvent the wheel.
 
-<div ><img src="./img_v01.py.png" height="100%"/></div>
+<div ><img src="./images/img_v01.py.png" height="100%"/></div>
 
 ???
 
@@ -124,7 +124,7 @@ If the functionality needed can be found in a trusted library it's probably a go
 ## v2 Peephole optimization/strength reduction.
 ### V1 vs V0 speedup: 1.61x
 
-<div style="margin-left:-4rem" ><img src="./img_v02i.py.png" width="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v02i.py.png" width="110%"/></div>
 
 ???
 ### ETA V1 N=2^20: 60.943 years
@@ -133,7 +133,7 @@ If the functionality needed can be found in a trusted library it's probably a go
 
 ## v2 Peephole optimization/strength reduction.
 
-<div ><img src="./img_v02ii.py.png" width="100%"/></div>
+<div ><img src="./images/img_v02ii.py.png" width="100%"/></div>
 
 ???
 
@@ -149,7 +149,7 @@ Overly generic functions tend to be more expensive than specific ones.
 ## v3 Short-circuit evaluation.
 ### V2 vs V1 speedup: 2.19x
 
-<div style="margin-left:-4rem" ><img src="./img_v03i.py.png" width="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v03i.py.png" width="110%"/></div>
 
 ???
 ### ETA V2 N=2^20: 27.714 years
@@ -162,14 +162,14 @@ Further references: https://docs.python.org/3/library/stdtypes.html#boolean-oper
 
 ## v3 Short-circuit evaluation.
 
-<div style="margin-left:-4rem" ><img src="./img_v03ii.py.png" width="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v03ii.py.png" width="110%"/></div>
 
 ---
 
 ## v4 Search space reduction.
 ### V3 vs V2 speedup: 2.58x
 
-<div style="margin-left:-4rem" ><img src="./img_v04i.py.png" width="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v04i.py.png" width="110%"/></div>
 
 
 ???
@@ -181,14 +181,14 @@ Avoid going through ranges we know won't satisfy the condition and enforce restr
 
 ## v4 Search space reduction.
 
-<div style="margin-left:-4rem" ><img src="./img_v04ii.py.png" width="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v04ii.py.png" width="110%"/></div>
 
 ---
 
 ## v5 Code hoisting.
 ### V4 vs V3 speedup: 3.56x
 
-<div style="margin-left:-4rem" ><img src="./img_v05i.py.png" width="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v05i.py.png" width="110%"/></div>
 
 ???
 ### ETA V4 N=2^20: 3012 years
@@ -199,14 +199,14 @@ Moving results of known calculations (invariants) outside loops.
 
 ## v5 Code hoisting.
 
-<div style="margin-left:-4rem" ><img src="./img_v05ii.py.png" height="95%" width="95%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v05ii.py.png" height="95%" width="95%"/></div>
 
 ---
 
 ## v6 Function calls vs inline code.
 ### V5 vs V4 speedup: 1.83x
 
-<div style="margin-left:-4rem" ><img src="./img_v06i.py.png" height="100%" width="100%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v06i.py.png" height="100%" width="100%"/></div>
 
 ???
 ### ETA V5 N=2^20: 1647 years
@@ -217,13 +217,13 @@ This may not hold true in newer Python versions, but variables in functions load
 
 ## v6 Function calls vs inline code.
 
-<div style="margin-left:-4rem" ><img src="./img_v06ii.py.png" height="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v06ii.py.png" height="110%"/></div>
 
 ---
 
 ## v6 Function calls vs inline code.
 
-<div style="margin-left:-4rem" ><img src="./img_v06iii.py.png" width="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v06iii.py.png" width="110%"/></div>
 
 ???
 
@@ -240,7 +240,7 @@ References:
 ## v7 Code specialisation
 ### V6 vs V5 speedup: 2.03x
 
-<div style="margin-left:-4rem" ><img src="./img_v07i.py.png" width="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v07i.py.png" width="110%"/></div>
 
 ???
 ### ETA V6 N=2^20: 811 years
@@ -249,7 +249,7 @@ Problem-specific. We save 6/8 computations. Numbers must be coprimes. At most on
 
 ---
 
-<div style="margin-left:-4rem" ><img src="./img_v07ii.py.png" height="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v07ii.py.png" height="110%"/></div>
 
 ???
 
@@ -310,7 +310,7 @@ PyPy is just one of many tools to speedup python.
 
 ## v8 Paradigm shift.
 
-<div style="margin-left:-4rem" ><img src="./img_v08i.py.png" height="90%" width="90%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v08i.py.png" height="90%" width="90%"/></div>
 
 ???
 ### ETA V7 N=2^20: 195 years. v0 was 98.263. That's >500x total!
@@ -328,7 +328,7 @@ Significant speedups can be achieved using non-incremental approaches. In this c
 ## v9 Early loop termination.
 ### V8 vs V7 speedup: 9 172 593 998x; N=2^20: 1.1s (v7 ETA 195years)
 
-<div style="margin-left:-4rem" ><img src="./img_v09i.py.png" width="100%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v09i.py.png" width="100%"/></div>
 
 ???
 ### V8 ETA 100k N>=2^20: 67.165s
@@ -339,14 +339,14 @@ Significant speedups can be achieved using non-incremental approaches. In this c
 
 ## v9 Early loop termination.
 
-<div style="margin-left:-4rem" ><img src="./img_v09ii.py.png" width="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v09ii.py.png" width="110%"/></div>
 
 ---
 
 ## v10 Expensive vs cheap ops.
 ### V9 vs V8 speedup: 14.82x
 
-<div style="margin-left:-4rem" ><img src="./img_v10i.py.png" width="100%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v10i.py.png" width="100%"/></div>
 
 ???
 ### V9 ETA 100k N>=2^20: 4531s
@@ -357,14 +357,14 @@ A few SQRTs can save many squares here.
 
 ## v10 Expensive vs cheap ops.
 
-<div style="margin-left:-4rem" ><img src="./img_v10ii.py.png" width="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v10ii.py.png" width="110%"/></div>
 
 ---
 
 ## v11 Mind types.
 ### V10 vs V9 speedup: 1.28x
 
-<div style="margin-left:-4rem" ><img src="./img_v11i.py.png" width="100%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v11i.py.png" width="100%"/></div>
 
 ???
 ### V10 ETA 100k N>=2^20: 3531s
@@ -375,7 +375,7 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 
 ## v11 Mind types.
 
-<div style="margin-left:-4rem" ><img src="./img_v11ii.py.png" width="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v11ii.py.png" width="110%"/></div>
 
 ---
 
@@ -387,7 +387,7 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 - Fragments which take 1/3 of time will NEVER be faster than 1.5x.
 - Useful to choose where to focus on and the potential upside.
 
-<div style="margin-left:-4rem" ><img src="./img_profilingi.png" height="100%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_profilingi.png" height="100%"/></div>
 
 
 ???
@@ -413,7 +413,7 @@ References: Amdahl's law http://demonstrations.wolfram.com/AmdahlsLaw/
 
 ### `github.com/vpelletier/pprofile`
 
-<div style="margin-left:-4rem" ><img src="./img_profilingii.png" width="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_profilingii.png" width="110%"/></div>
 
 ???
 
@@ -431,7 +431,7 @@ this profiles also supports statistical mode
 
 ## v12 Memoisation (without r, no typo here).
 
-<div style="margin-left:-4rem" ><img src="./img_v12i.py.png" width="100%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v12i.py.png" width="100%"/></div>
 
 ???
 ### V11 ETA 100k N>=2^20: 3513s
@@ -442,14 +442,14 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 
 ## v12 Memoisation.
 
-<div style="margin-left:-4rem" ><img src="./img_v12ii.py.png" height="110%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v12ii.py.png" height="110%"/></div>
 
 ---
 
 ## v13 Reuse results.
 ### V12 vs V11 speedup: 0.81x
 
-<div style="margin-left:-4rem" ><img src="./img_v13i.py.png" width="100%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v13i.py.png" width="100%"/></div>
 
 ???
 ### V12 ETA 100k N>=2^20: 4297s
@@ -458,7 +458,7 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 
 ---
 
-<div style="margin-left:-4rem" ><img src="./img_v13ii.py.png" height="85%" width="85%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v13ii.py.png" height="85%" width="85%"/></div>
 
 
 ---
@@ -466,7 +466,7 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 ## v14 Reduce memory footprint.
 ### V13 vs V12 speedup: 3978.92x
 
-<div style="margin-left:-4rem" ><img src="./img_v14i.py.png" width="100%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v14i.py.png" width="100%"/></div>
 
 ???
 ### V13 ETA 100k N>=2^20: 1.08s
@@ -477,7 +477,7 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 
 ## v14 Reduce memory footprint.
 
-<div style="margin-left:-4rem" ><img src="./img_v14ii.py.png" height="85%" width="85%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v14ii.py.png" height="85%" width="85%"/></div>
 
 ???
 
@@ -485,7 +485,7 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 
 ## The end? (V14 vs V13 speedup: 1.77x)
 
-<div style="margin-left:-4rem" ><img src="./img_v15i.py.png" height="95%" width="95%"/></div>
+<div style="margin-left:-4rem" ><img src="./images/img_v15i.py.png" height="95%" width="95%"/></div>
 
 ???
 ### V14.py ETA 100k N>=2^20: 0.61s
