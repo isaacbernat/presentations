@@ -525,24 +525,22 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 
 ## v1337 The end is just another beginning
 
-## TODOOOOO (alt C with optimisations)
-python is simpler and shorter
- 0.6 Kib vs  15 Kib
-30 lines vs 140 lines
+- `v14.py` vs `1337.cpp`
+    - 0.6 Kib vs  15 Kib
+    - 30 lines vs 140 lines
+    - Readability, maintainability, portability... not easily measured.
+
 ### Noteworthy C++ optimisations:
 - vectorisation
-- memoisation of GCD using chars (43x on v12)
+- memoisation of `GCD` (43x on v12)
 - smaller memory footprint (e.g. `chars` for `gcd(m, n) == 1`)
     - bithacks and masks has even smaller footprint!
 - `struct union` to reuse all memory allocated for `GCD == 1` for results, even when they have different data types.
     - 4 `char` -> 1 `int`, so it fits!
-- read and store many input entries while calculating the results in parallel (using threads).
+- read input entries while calculating the results in parallel (using threads).
 - do so in bulk (128 entries at a time)
 - reading/writing on a shared memory buffer simulataneously for a smaller memory footprint.
 
-### non-noteworthy (compiler should do):
-- do while (vs for loop)
-- preincrement (vs postincrement, e.g. ++i vs i++)
 
 ???
 Many other interesting techniques
@@ -557,16 +555,12 @@ Many other interesting techniques
 - loop fusion/fission
 - and many more! (for fun check LEA for multiplications on x86)
 
----
-
-## More charts and some conclusions
-- e.g. memoisation in C++ vs Python (using arrays, not maps though)
-
-???
-
-## TODO ADD THEM!!
 ### V1337.c  ETA 100k N>=2^20: 0.02s
 ### V9001.c  ETA 100k N>=2^20: 0.03s
+
+### non-noteworthy (compiler should do):
+- do while (vs for loop)
+- preincrement (vs postincrement, e.g. ++i vs i++)
 
 ---
 
