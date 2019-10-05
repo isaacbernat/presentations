@@ -50,7 +50,7 @@ The % is the approximate relative duration.
 - Code is run using python3.7 using this **2012 laptop**.
 - Best of **5 runs** for each algorithm and input.
 - Increase problem size until set takes **>600 seconds**.
-- **Discard** problem sizes with time **< 0.3 seconds**.
+- **Discard** problem sizes with time **< 0.15 seconds**.
 - Calculate **ETA using** time complexity estimation of **biggest 3 inputs**.
 - e.g. `if size*2 -> time*8 then complexity=O(n^3)` because (2^3 -> 8).
 
