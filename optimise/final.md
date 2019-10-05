@@ -503,7 +503,7 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 
 
 ---
-<embed style="margin-left:-2rem" src="plot_speedup12.html" width="110%" height="100%"></embed>
+<embed style="margin-left:-2rem" src="plot_speedup13.html" width="110%" height="100%"></embed>
 
 
 ???
@@ -516,7 +516,7 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 ???
 
 ---
-<embed style="margin-left:-2rem" src="plot_speedup_vs12.html" width="110%" height="100%"></embed>
+<embed style="margin-left:-2rem" src="plot_speedup_vs13.html" width="110%" height="100%"></embed>
 
 
 ???
