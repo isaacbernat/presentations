@@ -275,7 +275,15 @@ timing = {
                         'eta_MAXN': 'N/A',
                         'eta_MAX_iter': 1.08,
                         'ts_ratio': 1.12}},
-    'v14': {'pypy3': {1: {262144: 0.31, 524288: 0.31, 1048576: 0.31},
+    'v14': {'cO0': {1048576: {1000: 0.75, 10000: 0.76, 100000: 0.9},
+                    'eta_MAXN': 'N/A',
+                    'eta_MAX_iter': 0.9,
+                    'ts_ratio': 1.1},
+            'cO3': {1048576: {1000: 0.16, 10000: 0.15, 100000: 0.22},
+                    'eta_MAXN': 'N/A',
+                    'eta_MAX_iter': 0.22,
+                    'ts_ratio': 1.22},
+            'pypy3': {1: {262144: 0.31, 524288: 0.31, 1048576: 0.31},
                       1048576: {1000: 0.34, 10000: 0.37, 100000: 0.49},
                       'eta_MAXN': 'N/A',
                       'eta_MAX_iter': 0.49,
@@ -285,6 +293,7 @@ timing = {
                         'eta_MAXN': 'N/A',
                         'eta_MAX_iter': 0.61,
                         'ts_ratio': 1.24}}}
+
 
 speedup = {'v00': {'total_cO0': 1.0,
                    'total_cO3': 1.0,
@@ -492,11 +501,20 @@ speedup = {'v00': {'total_cO0': 1.0,
                    'vs_cO3_pypy3': 13.6,
                    'vs_python3_cO3': 21.6,
                    'vs_python3_pypy3': 1.59},
-           'v14': {'prev_pypy3': 1.39,
+           'v14': {'prev_cO0': 0.08,
+                   'prev_cO3': 0.23,
+                   'prev_pypy3': 1.39,
                    'prev_python3': 1.77,
+                   'total_cO0': 3.186966920835487e+16,
+                   'total_cO3': 5.453514370639338e+16,
                    'total_pypy3': 6.353425082448829e+16,
                    'total_python3': 5.080078809155841e+17,
+                   'total_vs_python3_cO3': 1.4085673061750287e+18,
                    'total_vs_python3_pypy3': 6.324179742010333e+17,
+                   'vs_cO0_pypy3': 0.54,
+                   'vs_cO3_cO0': 4.09,
+                   'vs_cO3_pypy3': 2.23,
+                   'vs_python3_cO3': 2.77,
                    'vs_python3_pypy3': 1.24}}
 
 # From time_parser but using more data points than above
@@ -602,6 +620,8 @@ ts_ratios = {
                               10000: 0.89,
                               100000: 1.08}}},
     'v14': {
+        'cO0': {1048576: {100: 0.75, 1000: 0.75, 10000: 0.76, 100000: 0.9}},
+        'cO3': {1048576: {100: 0.16, 1000: 0.16, 10000: 0.15, 100000: 0.22}},
         'pypy3': {1: {131072: 0.31, 262144: 0.31, 524288: 0.31, 1048576: 0.31},
                   1048576: {100: 0.31, 1000: 0.34, 10000: 0.37, 100000: 0.49}},
         'python3': {1: {131072: 0.41, 262144: 0.4, 524288: 0.41, 1048576: 0.4},
@@ -728,7 +748,7 @@ def size_complexity_plot(vmin=1, vmax=7, ratio_base="8", index=1,
     show(p)
 
 
-def speedup_vs_plot(vmin=0, vmax=13):
+def speedup_vs_plot(vmin=0, vmax=14):
     output_file(f"plot_speedup_vs{vmax}.html")
 
     vs = ["vs_python3_pypy3", "vs_python3_cO3"]
@@ -762,7 +782,7 @@ size_complexity_plot()
 
 ETA_plot(vmin=8, vmax=14, eta="eta_MAX_iter",
          title_sufix="100k N<=2^20", unit="seconds")
-speedup_prev_plot(vmin=9, vmax=13, init="v08")
+speedup_prev_plot(vmin=9, vmax=14, init="v08")
 size_complexity_plot(vmin=8, vmax=14, ratio_base=None,
                      index=1048576, legend_loc="top_right")
 
