@@ -19,7 +19,7 @@ def preprocess():
             if y > xxN:
                 break
             RESULT[(xx + y * y - 1) // 4] += 1
-    for i in range(1, int(MAXN / 4) + 1):
+    for i in range(1, MAXN // 4 + 1):
         RESULT[i] += RESULT[i - 1]
 
 

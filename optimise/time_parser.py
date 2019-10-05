@@ -9,9 +9,30 @@ MAX_ITERS = 100000
 FIRST = "v00"
 ETA = "eta_MAX_iter"
 
+
+def round_speedups(digits=2):
+    rounded = {}
+    for k, version in speedups.items():
+        rounded[k] = {}
+        for ratio, time in version.items():
+            rounded[k][ratio] = round(time, digits)
+    return rounded
+
+
+def round_summary_dict(digits=2):
+    for k, version in summary_dict.items():
+        for lang, run_info in version.items():
+            if not run_info.get(1048576):
+                run_info["eta_MAXN"] = round(run_info["eta_MAXN"], digits)
+                run_info["eta_MAXN_y"] = round(run_info["eta_MAXN_y"], digits)
+
+            run_info["eta_MAX_iter"] = round(run_info["eta_MAX_iter"], digits)
+            run_info["ts_ratio"] = round(run_info["ts_ratio"], digits)
+
+
 df = pd.read_csv("times.csv").drop(columns=['machine', 'date'])
-# get rows with tests >= 0.3 second
-df = df[(df.runtime >= 0.3)]
+# get rows with tests >= 0.15 second
+df = df[(df.runtime >= 0.15)]
 # group by "run type"
 group_df = df.groupby(['file_name', 'maxN', 'entries', 'runner'])
 # get the fastest of each run type only, slower times are overhead
@@ -150,21 +171,8 @@ for pre, cur in zip(previous, current):
         vs["prev_cO0"] = pre_cO0 / cur_cO0
         vs["prev_cO3"] = pre_cO3 / cur_cO3
 
-speedups_2dec = {}
-for k, version in speedups.items():
-    speedups_2dec[k] = {}
-    for ratio, time in version.items():
-        speedups_2dec[k][ratio] = round(time, 2)
-
-for k, version in summary_dict.items():
-    for lang, run_info in version.items():
-        if not run_info.get(1048576):
-            run_info["eta_MAXN"] = round(run_info["eta_MAXN"], 2)
-            run_info["eta_MAXN_y"] = round(run_info["eta_MAXN_y"], 2)
-
-        run_info["eta_MAX_iter"] = round(run_info["eta_MAX_iter"], 2)
-        run_info["ts_ratio"] = round(run_info["ts_ratio"], 2)
-
+speedups_2dec = round_speedups()
+round_summary_dict()
 
 print(f"""
 Specifications

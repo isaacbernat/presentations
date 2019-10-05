@@ -1,10 +1,14 @@
 from bokeh.plotting import figure
-from bokeh.models import FactorRange, LinearColorMapper
+from bokeh.models import FactorRange
 from bokeh.io import show, output_file
 
 
 color_mapper = ["#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E",
                 "#E6AB02", "#A6761D", "#666666", "#FFFFFF"]
+
+langs = ["cO0", "cO3", "pypy3", "python3"]
+colors_by_lang = [color_mapper[l] for _ in range(10)
+                  for l in range(len(langs))]
 
 # data taken from timings.md (time_parser.py)
 timing = {
@@ -240,10 +244,10 @@ timing = {
                     'eta_MAXN': 'N/A',
                     'eta_MAX_iter': 59.45,
                     'ts_ratio': 9.95},
-            'cO3': {1048576: {10000: 1.54, 100000: 15.46},
+            'cO3': {1048576: {1000: 0.16, 10000: 1.54, 100000: 15.46},
                     'eta_MAXN': 'N/A',
                     'eta_MAX_iter': 15.46,
-                    'ts_ratio': 10.04},
+                    'ts_ratio': 9.83},
             'pypy3': {1: {2: 0.45, 524288: 0.33, 1048576: 0.41},
                       1048576: {100: 3.84, 1000: 35.01, 10000: 327.67},
                       'eta_MAXN': 'N/A',
@@ -253,7 +257,15 @@ timing = {
                         'eta_MAXN': 'N/A',
                         'eta_MAX_iter': 4297.23,
                         'ts_ratio': 9.96}},
-    'v13': {'pypy3': {1: {262144: 0.51, 524288: 0.51, 1048576: 0.51},
+    'v13': {'cO0': {1048576: {1000: 0.03, 10000: 0.03, 100000: 0.07},
+                    'eta_MAXN': 'N/A',
+                    'eta_MAX_iter': 0.07,
+                    'ts_ratio': 1.67},
+            'cO3': {1048576: {1000: 0.02, 10000: 0.02, 100000: 0.05},
+                    'eta_MAXN': 'N/A',
+                    'eta_MAX_iter': 0.05,
+                    'ts_ratio': 1.75},
+            'pypy3': {1: {262144: 0.51, 524288: 0.51, 1048576: 0.51},
                       1048576: {1000: 0.54, 10000: 0.56, 100000: 0.68},
                       'eta_MAXN': 'N/A',
                       'eta_MAX_iter': 0.68,
@@ -263,7 +275,15 @@ timing = {
                         'eta_MAXN': 'N/A',
                         'eta_MAX_iter': 1.08,
                         'ts_ratio': 1.12}},
-    'v14': {'pypy3': {1: {262144: 0.31, 524288: 0.31, 1048576: 0.31},
+    'v14': {'cO0': {1048576: {1000: 0.75, 10000: 0.76, 100000: 0.9},
+                    'eta_MAXN': 'N/A',
+                    'eta_MAX_iter': 0.9,
+                    'ts_ratio': 1.1},
+            'cO3': {1048576: {1000: 0.16, 10000: 0.15, 100000: 0.22},
+                    'eta_MAXN': 'N/A',
+                    'eta_MAX_iter': 0.22,
+                    'ts_ratio': 1.22},
+            'pypy3': {1: {262144: 0.31, 524288: 0.31, 1048576: 0.31},
                       1048576: {1000: 0.34, 10000: 0.37, 100000: 0.49},
                       'eta_MAXN': 'N/A',
                       'eta_MAX_iter': 0.49,
@@ -273,6 +293,7 @@ timing = {
                         'eta_MAXN': 'N/A',
                         'eta_MAX_iter': 0.61,
                         'ts_ratio': 1.24}}}
+
 
 speedup = {'v00': {'total_cO0': 1.0,
                    'total_cO3': 1.0,
@@ -465,17 +486,35 @@ speedup = {'v00': {'total_cO0': 1.0,
                    'vs_cO3_pypy3': 195.8,
                    'vs_python3_cO3': 277.96,
                    'vs_python3_pypy3': 1.42},
-           'v13': {'prev_pypy3': 4451.62,
+           'v13': {'prev_cO0': 849.29,
+                   'prev_cO3': 309.2,
+                   'prev_pypy3': 4451.62,
                    'prev_python3': 3978.92,
+                   'total_cO0': 4.097528898217055e+17,
+                   'total_cO3': 2.399546323081308e+17,
                    'total_pypy3': 4.578203368235185e+16,
                    'total_python3': 2.869303771838021e+17,
+                   'total_vs_python3_cO3': 6.197696147170126e+18,
                    'total_vs_python3_pypy3': 4.557129519978033e+17,
+                   'vs_cO0_pypy3': 9.71,
+                   'vs_cO3_cO0': 1.4,
+                   'vs_cO3_pypy3': 13.6,
+                   'vs_python3_cO3': 21.6,
                    'vs_python3_pypy3': 1.59},
-           'v14': {'prev_pypy3': 1.39,
+           'v14': {'prev_cO0': 0.08,
+                   'prev_cO3': 0.23,
+                   'prev_pypy3': 1.39,
                    'prev_python3': 1.77,
+                   'total_cO0': 3.186966920835487e+16,
+                   'total_cO3': 5.453514370639338e+16,
                    'total_pypy3': 6.353425082448829e+16,
                    'total_python3': 5.080078809155841e+17,
+                   'total_vs_python3_cO3': 1.4085673061750287e+18,
                    'total_vs_python3_pypy3': 6.324179742010333e+17,
+                   'vs_cO0_pypy3': 0.54,
+                   'vs_cO3_cO0': 4.09,
+                   'vs_cO3_pypy3': 2.23,
+                   'vs_python3_cO3': 2.77,
                    'vs_python3_pypy3': 1.24}}
 
 # From time_parser but using more data points than above
@@ -568,6 +607,8 @@ ts_ratios = {
                               1000: 42.88,
                               10000: 431.46}}},
     'v13': {
+        'cO0': {1048576: {100: 0.03, 1000: 0.03, 10000: 0.03, 100000: 0.07}},
+        'cO3': {1048576: {100: 0.02, 1000: 0.02, 10000: 0.02, 100000: 0.05}},
         'pypy3': {1: {131072: 0.51, 262144: 0.51, 524288: 0.51, 1048576: 0.51},
                   1048576: {100: 0.51, 1000: 0.54, 10000: 0.56, 100000: 0.68}},
         'python3': {1: {131072: 0.87,
@@ -579,6 +620,8 @@ ts_ratios = {
                               10000: 0.89,
                               100000: 1.08}}},
     'v14': {
+        'cO0': {1048576: {100: 0.75, 1000: 0.75, 10000: 0.76, 100000: 0.9}},
+        'cO3': {1048576: {100: 0.16, 1000: 0.16, 10000: 0.15, 100000: 0.22}},
         'pypy3': {1: {131072: 0.31, 262144: 0.31, 524288: 0.31, 1048576: 0.31},
                   1048576: {100: 0.31, 1000: 0.34, 10000: 0.37, 100000: 0.49}},
         'python3': {1: {131072: 0.41, 262144: 0.4, 524288: 0.41, 1048576: 0.4},
@@ -591,6 +634,7 @@ ts_ratios = {
 def common_plot_cfg(p):
     p.title.text_font_size = '21pt'
     p.y_range.start = 0
+    # p.x_range.start = 0
     p.xaxis.major_label_orientation = 1
     p.xgrid.grid_line_color = None
     p.toolbar.autohide = True
@@ -624,7 +668,8 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
     p.xaxis.axis_label = 'Code version'
     p.yaxis.axis_label = f'Elapsed time ({unit})'
 
-    p.vbar(x=timing_factors, top=timing_ETA, width=1, alpha=0.6)
+    p.vbar(x=timing_factors, top=timing_ETA, width=1, alpha=0.8,
+           color=colors_by_lang)
 
     p.line(x=[f for f in timing_factors if f[1] == "python3"],
            y=python3_line, color="red", line_width=6, line_dash='dashed')
@@ -634,13 +679,12 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
     show(p)
 
 
-def speedup_plot(vmin=1, vmax=7):
+def speedup_prev_plot(vmin=1, vmax=7, init="v00"):
     output_file(f"plot_speedup{vmax}.html")
 
-    langs = ["cO0", "cO3", "pypy3", "python3"]
     speedup_subset = {k: v for k, v in speedup.items()
                       if vmin <= int(k[1:]) <= vmax}
-    speedup_factors = [("v00", l) for l in langs]
+    speedup_factors = [(init, l) for l in langs]
     speedup_relative_X = [1, 1, 1, 1]
 
     for version, info in speedup_subset.items():
@@ -654,14 +698,16 @@ def speedup_plot(vmin=1, vmax=7):
     p.xaxis.axis_label = 'Code version'
     p.yaxis.axis_label = 'X times faster'
 
-    p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.6)
+    p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.8,
+           color=colors_by_lang)
 
     common_plot_cfg(p)
 
     show(p)
 
 
-def size_complexity_plot(vmin=1, vmax=7, ratio_base="8"):
+def size_complexity_plot(vmin=1, vmax=7, ratio_base="8", index=1,
+                         legend_loc="bottom_right"):
 
     output_file(f"plot_size_complexity{vmax}.html")
 
@@ -672,24 +718,26 @@ def size_complexity_plot(vmin=1, vmax=7, ratio_base="8"):
     colors = []
 
     p = figure(
-        title="Time vs size for Python3."
-        f" Log scale; aspect ratio=1/{ratio_base}.",
+        title="Time vs size for Python3. Log scale",
         x_axis_type="log",
-        y_axis_type="log",
-        match_aspect=True,
-        aspect_scale=1 / float(ratio_base))
+        y_axis_type="log")
+    if ratio_base:
+        p.match_aspect = True
+        p.aspect_scale = 1 / float(ratio_base)
+        p.title.text += f"; aspect ratio=1/{ratio_base}."
 
     p.xaxis.axis_label = 'Problem size (N))'
     p.yaxis.axis_label = 'Elapsed time (seconds)'
 
     for version, language in ts_ratios_subset.items():
-        complexity_time = list(language["python3"][1].values())
-        complexity_size = list(language["python3"][1].keys())
-        colors = [color_mapper[int(version[1:])]] * len(language["python3"][1])
+        complexity_time = list(language["python3"][index].values())
+        complexity_size = list(language["python3"][index].keys())
+        colors = [color_mapper[int(version[1:]) - vmin]] * len(
+            language["python3"][index])
         p.circle(complexity_size, complexity_time, fill_alpha=1, size=20,
                  color=colors, legend=version)
 
-    p.legend.location = "bottom_right"
+    p.legend.location = legend_loc
     p.legend.label_text_font_size = '18pt'
     p.legend.glyph_height = 45
     p.legend.glyph_width = 45
@@ -700,6 +748,44 @@ def size_complexity_plot(vmin=1, vmax=7, ratio_base="8"):
     show(p)
 
 
+def speedup_vs_plot(vmin=0, vmax=14):
+    output_file(f"plot_speedup_vs{vmax}.html")
+
+    vs = ["vs_python3_pypy3", "vs_python3_cO3"]
+    speedup_subset = {k: v for k, v in speedup.items()
+                      if vmin <= int(k[1:]) <= vmax}
+    speedup_factors = []
+    speedup_relative_X = []
+
+    for version, info in speedup_subset.items():
+        speedup_factors += [(version, l.split("_")[-1]) for l in vs]
+        speedup_relative_X += [info[l] for l in vs]
+
+    p = figure(
+        title="Relative speedups (i.e. Python3 vs (PyPy3/g++ -O3))",
+        x_range=FactorRange(*speedup_factors))
+
+    p.xaxis.axis_label = 'Code version'
+    p.yaxis.axis_label = 'X times faster'
+
+    p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.8,
+           color=["red", "blue"] * (vmax + 1))
+
+    common_plot_cfg(p)
+
+    show(p)
+
+
 ETA_plot()
-speedup_plot()
+speedup_prev_plot()
 size_complexity_plot()
+
+ETA_plot(vmin=8, vmax=14, eta="eta_MAX_iter",
+         title_sufix="100k N<=2^20", unit="seconds")
+speedup_prev_plot(vmin=9, vmax=14, init="v08")
+size_complexity_plot(vmin=8, vmax=14, ratio_base=None,
+                     index=1048576, legend_loc="top_right")
+
+speedup_vs_plot()
+
+# TODO add timing and version for C++ using maps (14)!
