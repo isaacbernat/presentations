@@ -637,7 +637,7 @@ ts_ratios = {
 
 
 def common_plot_cfg(p, legend=langs, legend_position="top_right", color=None):
-    p.title.text_font_size = '24pt'
+    p.title.text_font_size = '21pt'
     p.y_range.start = 0
     # p.x_range.start = 0
     p.xaxis.major_label_orientation = 1
@@ -658,10 +658,10 @@ def common_plot_cfg(p, legend=langs, legend_position="top_right", color=None):
                color="color", legend="types",
                source=data)
 
-        p.legend.location = legend_position
-        p.legend.label_text_font_size = '21pt'
-        p.legend.glyph_height = 45
-        p.legend.glyph_width = 45
+    p.legend.location = legend_position
+    p.legend.label_text_font_size = '21pt'
+    p.legend.glyph_height = 45
+    p.legend.glyph_width = 45
 
 
 def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
@@ -688,7 +688,7 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
     p.yaxis.axis_label = f'Elapsed time ({unit})'
 
     p.vbar(x=timing_factors, top=timing_ETA, width=1, alpha=0.8,
-           color=colors_by_lang)
+           color=colors_by_lang[:len(timing_factors)])
 
     p.line(x=[f for f in timing_factors if f[1] == "python3"],
            y=python3_line, color="red", line_width=6, line_dash='dashed')
@@ -718,7 +718,7 @@ def speedup_prev_plot(vmin=1, vmax=7, init="v00"):
     p.yaxis.axis_label = 'X times faster'
 
     p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.8,
-           color=colors_by_lang)
+           color=colors_by_lang[:len(speedup_factors)])
 
     common_plot_cfg(p, legend_position="top_left")
 
@@ -740,10 +740,6 @@ def size_complexity_plot(vmin=1, vmax=7, ratio_base="8", index=1,
         title="Time vs size for Python3. Log scale",
         x_axis_type="log",
         y_axis_type="log")
-    if ratio_base:
-        p.match_aspect = True
-        p.aspect_scale = 1 / float(ratio_base)
-        p.title.text += f"; aspect ratio=1/{ratio_base}."
 
     p.xaxis.axis_label = 'Problem size (N))'
     p.yaxis.axis_label = 'Elapsed time (seconds)'
@@ -754,15 +750,14 @@ def size_complexity_plot(vmin=1, vmax=7, ratio_base="8", index=1,
         colors = [color_mapper[int(version[1:]) - vmin]] * len(
             language["python3"][index])
         p.circle(complexity_size, complexity_time, fill_alpha=1, size=20,
-                 color=colors, legend=version)
+                 color=colors[:len(complexity_size)], legend=version)
 
-    p.legend.location = legend_loc
-    p.legend.label_text_font_size = '18pt'
-    p.legend.glyph_height = 45
-    p.legend.glyph_width = 45
+    common_plot_cfg(p, legend=None, legend_position=legend_loc)
 
-    common_plot_cfg(p, legend=None)
-    p.xaxis.major_label_text_font_size = '15pt'
+    if ratio_base:
+        p.match_aspect = True
+        p.aspect_scale = 1 / float(ratio_base)
+        p.title.text += f"; aspect ratio=1/{ratio_base}."
 
     show(p)
 
@@ -819,14 +814,11 @@ def outline():
         'angle', include_zero=True), end_angle=cumsum('angle'),
         line_color="white", fill_color='color', legend='section', source=data)
 
+    common_plot_cfg(p, legend=[])
     p.axis.axis_label = None
     p.axis.visible = False
     p.grid.grid_line_color = None
-
-    p.title.text_font_size = '24pt'
-    p.legend.label_text_font_size = '21pt'
-    p.legend.glyph_height = 45
-    p.legend.glyph_width = 45
+    p.y_range.start = None
 
     show(p)
 
