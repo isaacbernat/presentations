@@ -2,6 +2,11 @@ from bokeh.plotting import figure
 from bokeh.models import FactorRange
 from bokeh.io import show, output_file
 
+# These 3 imports below are just needed for the outline
+from bokeh.transform import cumsum
+from math import pi
+import pandas as pd
+
 
 color_mapper = ["#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E",
                 "#E6AB02", "#A6761D", "#666666", "#FFFFFF"]
@@ -776,6 +781,42 @@ def speedup_vs_plot(vmin=0, vmax=14):
     show(p)
 
 
+def outline():
+    output_file(f"outline.html")
+
+    x = {
+        "Problem definition": 12,
+        "Optimisations I": 27,
+        "Compilers": 10,
+        "Optimisations II": 13,
+        "Profilers": 5,
+        "Optimisations III": 11,
+        "Conclusions": 21
+    }
+
+    data = pd.Series(x).reset_index(name='time').rename(
+        columns={'index': 'section'})
+    data['angle'] = data['time'] / data['time'].sum() * 2 * pi
+    data['color'] = [color_mapper[i % 2 or i] for i in range(len(x))]
+    p = figure(plot_width=800, title="Outline", toolbar_location=None,
+               tools="hover", tooltips="@section: @time", x_range=(-0.5, 1.0))
+
+    p.wedge(x=0, y=0, radius=0.4, start_angle=cumsum(
+        'angle', include_zero=True), end_angle=cumsum('angle'),
+        line_color="white", fill_color='color', legend='section', source=data)
+
+    p.axis.axis_label = None
+    p.axis.visible = False
+    p.grid.grid_line_color = None
+
+    p.title.text_font_size = '24pt'
+    p.legend.label_text_font_size = '21pt'
+    p.legend.glyph_height = 45
+    p.legend.glyph_width = 45
+
+    show(p)
+
+
 ETA_plot()
 speedup_prev_plot()
 size_complexity_plot()
@@ -785,7 +826,6 @@ ETA_plot(vmin=8, vmax=14, eta="eta_MAX_iter",
 speedup_prev_plot(vmin=9, vmax=14, init="v08")
 size_complexity_plot(vmin=8, vmax=14, ratio_base=None,
                      index=1048576, legend_loc="top_right")
-
 speedup_vs_plot()
 
-# TODO add timing and version for C++ using maps (14)!
+outline()

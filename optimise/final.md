@@ -6,7 +6,13 @@
 
 ---
 
-# Outline
+<embed style="margin-left:-2rem" src="outline.html" width="110%" height="100%"></embed>
+
+???
+- This is how the presentation is structured.
+- The timing is quite tight, so let's not waste more here?
+- Within each section I will advance **chronologically**.
+
 
 ### 12% Part 1 Problem definition.
 ### 27% Part 2 Optimisations I (0-7).
@@ -17,11 +23,6 @@
 ### 21% Part 7 Recap and closing remarks.
 
 The % is the approximate relative duration.
-
-???
-- This is how the presentation is structured.
-- The timing is quite tight, so let's not waste more here?
-- Within each section I will advance **chronologically**.
 
 - 3.5m Part 1 Problem definition.
 - 8.0m Part 2 Optimisations I (0-7).
