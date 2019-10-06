@@ -636,8 +636,8 @@ ts_ratios = {
                               100000: 0.61}}}}
 
 
-def common_plot_cfg(p):
-    p.title.text_font_size = '21pt'
+def common_plot_cfg(p, legend=langs, legend_position="top_right", color=None):
+    p.title.text_font_size = '24pt'
     p.y_range.start = 0
     # p.x_range.start = 0
     p.xaxis.major_label_orientation = 1
@@ -648,6 +648,20 @@ def common_plot_cfg(p):
     p.yaxis.major_label_text_font_size = '15pt'
     p.plot_height = 600
     p.plot_width = 800
+
+    if legend:
+        data = dict(types=legend, values=range(len(legend)),
+                    color=colors_by_lang[:len(legend)])
+        if color:
+            data["color"] = color
+        p.vbar(x="types", top="values", width=0, alpha=0.8,
+               color="color", legend="types",
+               source=data)
+
+        p.legend.location = legend_position
+        p.legend.label_text_font_size = '21pt'
+        p.legend.glyph_height = 45
+        p.legend.glyph_width = 45
 
 
 def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
@@ -706,7 +720,7 @@ def speedup_prev_plot(vmin=1, vmax=7, init="v00"):
     p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.8,
            color=colors_by_lang)
 
-    common_plot_cfg(p)
+    common_plot_cfg(p, legend_position="top_left")
 
     show(p)
 
@@ -747,7 +761,7 @@ def size_complexity_plot(vmin=1, vmax=7, ratio_base="8", index=1,
     p.legend.glyph_height = 45
     p.legend.glyph_width = 45
 
-    common_plot_cfg(p)
+    common_plot_cfg(p, legend=None)
     p.xaxis.major_label_text_font_size = '15pt'
 
     show(p)
@@ -776,7 +790,7 @@ def speedup_vs_plot(vmin=0, vmax=14):
     p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.8,
            color=["red", "blue"] * (vmax + 1))
 
-    common_plot_cfg(p)
+    common_plot_cfg(p, legend=["PyPy3", "cO3"], color=["red", "blue"])
 
     show(p)
 
