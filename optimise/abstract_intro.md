@@ -1,2 +1,0 @@
-FROM >1 BILLION YEARS TO <1 SECOND
-Adding resources to speed up processes isn't always feasible. This talk will present a simple problem and how to achieve >10^15x speedups on a regular laptop. Be warned, as overall time is reduced, minuscule overheads become gigantic. Nevertheless, most techniques can still be effective in more general contexts.
