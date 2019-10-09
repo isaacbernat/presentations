@@ -4,15 +4,19 @@
 
 <div style="text-align: center"><img src="./images/img_timeline.png" width="80%" height="80%"/></div>
 
+???
+## Put time in context. The Solar System is less than 5 Billion years old. 
+
+Imagine a program that takes longer than that to run in a regular laptop like this. Now imagine that program can be optimised to take just a few milliseconds. Imagine no more :D  
+
 ---
 
 <embed style="margin-left:-2rem" src="outline.html" width="110%" height="100%"></embed>
 
 ???
-- This is how the presentation is structured.
-- The timing is quite tight, so let's not waste more here?
-- Within each section I will advance **chronologically**.
-
+- The focus on the presentation is practical. I'll try to introduce tools or theory only when needed.
+- The pie chart is an estimate on how long each section will take.
+- Timing is tight, so let's not waste more here!
 
 ### 12% Part 1 Problem definition.
 ### 27% Part 2 Optimisations I (0-7).
@@ -38,11 +42,20 @@ The % is the approximate relative duration.
 
 <div style="margin-left:-4rem" ><img src="./images/img_problem_definition.png" width="110%"/></div>
 
+???
+## Simple: we read an integer and we write an integer.
+
 ---
 
-## Solution samples.
+## Solutions (first 48 samples).
 
 <div style="margin-left:-4rem" ><img src="./images/img_solutions.py.png" width="95%"/></div>
+
+???
+## N is the input and r is the result
+## The amount of triplets IS the result. 
+## E.g. up until 5 result is 0.
+## The lowest triplet contains a 5. The next one a 13...
 
 ---
 
@@ -64,8 +77,8 @@ The % is the approximate relative duration.
 
 - The laptop **specs** can be found in the **github url**. Just a **new laptop** would probably be a **good speedup** ;D.
 - Best of 5 runs (extra time is overhead from OS, etc).
-- 600s should be big enough to provide robust numbers.
-- Small times have higher variablity non dependent on algorithm.
+- 600s should be big enough to provide robust numbers and minimise the noise.
+- Small times have higher variablity non-dependent on algorithm.
 - We don't have billions of years to wait and get result, but we want to compare different algorithms that are much faster and can't use the same input.
 
 - Feel free to replicate the experiments. If on a different machine they may vary accordingly, but I think should be within the same order of magnitude?
@@ -81,6 +94,10 @@ optimise time, vs memory, a specific shared resource, etc.
 #### E.g. if the code now takes half the time it is 2x (1/0.5). If it takes 75% the original time it is 1.33x (1/0.75).
 ### Compare Python to Python but also PyPy to PyPy for extra fun!
 
+???
+## Alt: piece of paper
+If you don't want to use the url above, even a piece of paper can be fun. But then it will be harder for other people to compare to you :P
+
 ---
 
 ## v0 Baseline.
@@ -89,8 +106,6 @@ optimise time, vs memory, a specific shared resource, etc.
 <div style="margin-left:-4rem" ><img src="./images/img_v00i.py.png" width="110%"/></div>
 
 ???
-
-## TODO embed/remind the original problem again!
 
 A naive solution would be something like the one above. One could have used a set and put all triplets in it instead of making x < y < z (to avoid repetitions) and then returning the length of the set. It felt more natural to me to add the check and use a counter, since only the amount is needed.
 
@@ -103,8 +118,8 @@ But before we evaluate how good/bad the code is... let's see how gcd is calculat
 <div ><img src="./images/img_v00ii.py.png" height="100%"/></div>
 
 ???
-
-Well known Euclidean algorithm that does the job. The first version would probably be good enough and look reasonable for most cases, but it can be further simplified as we see below (and use less variables, assignments, etc).
+## Euclidean Algorithm
+The classic algorithm does the job. The first version would probably be good enough and look reasonable for most cases, but it can be further simplified as we see below (and use less variables, assignments, etc).
 
 ---
 
@@ -115,8 +130,6 @@ Well known Euclidean algorithm that does the job. The first version would probab
 ???
 
 ### ASK ABOUT TIME ESTIMATING SPEEDUP
-
-Well known algorithm that does the job. The first version would probably be good enough for most cases, but it can be further simplified as we see below.
 
 If the functionality needed can be found in a trusted library it's probably a good idea to try that first before reimplementing it (and not just for performance reasons).
 
@@ -212,7 +225,7 @@ Moving results of known calculations (invariants) outside loops.
 ???
 ### ETA V5 N=2^20: 1647 years
 
-This may not hold true in newer Python versions, but variables in functions load faster, and this makes the extra function call overhead negligible. Always measure instead of relying only in intuitions.
+This may not hold true in future Python versions, but variables in functions load faster, and this makes the extra function call overhead negligible. Always measure instead of relying only in intuitions.
 
 ---
 
@@ -246,7 +259,7 @@ References:
 ???
 ### ETA V6 N=2^20: 811 years
 
-Problem-specific. We save 6/8 computations. Numbers must be coprimes. At most one number in the triplet can be pair. This let's us increment loops by 2 to keep variables either pair or odd as required.
+Problem-specific. We save 6/8 computations. Numbers must be coprimes. At most one number in the triplet can be even (divisible by 2). This let's us increment loops by 2 to keep variables either even or odd as required.
 
 ---
 
@@ -266,7 +279,7 @@ Problem-specific. We save 6/8 computations. Numbers must be coprimes. At most on
 
 ### C++ 17
 - Can be close to the machine.
-- Tried to be faithful when porting Python to make comparisons fair.
+- Tried to be faithful when porting Python to keep comparisons fair.
 - `g++` (from GNU Compiler Collection) the standard open source compiler.
 - Flags used `"-O0"` and `"-O3"`.
 
@@ -280,8 +293,8 @@ PyPy is just one of many tools to speedup python.
 ### there are others, but the presentation is already quite long as it is.
 
 ## C++
-- Tried to be as faithful as possible when porting code to the original python source. Some idioms are not available and forced it to make it differently, of course.
-- But I ported it to C++ 17, so I could use the built-in gcd library and compare it with the first optimisation (i.e. don't reinvent the wheel!).
+- Tried to be as faithful as possible when porting code from the original python source. Some idioms are not available and forced a different implementation, of course.
+- I ported it to C++ 17, so I could use the built-in gcd library and compare it with the v1 optimisation (i.e. don't reinvent the wheel!).
 - g++ (from GNU Compiler Collection) is a production-grade compiler used and relied upon by many. We'll use it in our tests.
 - I used -O0 and -O3 optimisation levels. But many more useful optimisation flags exist (e.g. march) that may increase speedup even more.
 
@@ -320,9 +333,7 @@ Significant speedups can be achieved using non-incremental approaches. In this c
 
 Didn't know if I should call it "paradigm shift", "do research", or "full rewrite".
 
-People get attached to code, and there is this sunk cost fallacy which prevents people from discarding and recognised the "wasted effort" when that would be the more effective approach.
-
-Significant speedups can be achieved using non-incremental approaches. In this case we use a calculation based on Euclid's formula to generate primitive pythagorean triples.
+People get attached to code, and there is this sunk cost fallacy which prevents people from discarding and recognising the "wasted effort" when that would be the more effective approach.
 
 ---
 
@@ -540,7 +551,7 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
     - 4 `char` -> 1 `int`, so it fits!
 - read input entries while calculating the results in parallel (using threads).
 - do so in bulk (128 entries at a time)
-- reading/writing on a shared memory buffer simulataneously for a smaller memory footprint.
+- reading/writing on a shared memory buffer simultaneously for a smaller memory footprint.
 
 
 ???
