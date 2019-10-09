@@ -2,6 +2,11 @@ from bokeh.plotting import figure
 from bokeh.models import FactorRange
 from bokeh.io import show, output_file
 
+# These 3 imports below are just needed for the outline
+from bokeh.transform import cumsum
+from math import pi
+import pandas as pd
+
 
 color_mapper = ["#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E",
                 "#E6AB02", "#A6761D", "#666666", "#FFFFFF"]
@@ -631,7 +636,7 @@ ts_ratios = {
                               100000: 0.61}}}}
 
 
-def common_plot_cfg(p):
+def common_plot_cfg(p, legend=langs, legend_position="top_right", color=None):
     p.title.text_font_size = '21pt'
     p.y_range.start = 0
     # p.x_range.start = 0
@@ -643,6 +648,20 @@ def common_plot_cfg(p):
     p.yaxis.major_label_text_font_size = '15pt'
     p.plot_height = 600
     p.plot_width = 800
+
+    if legend:
+        data = dict(types=legend, values=range(len(legend)),
+                    color=colors_by_lang[:len(legend)])
+        if color:
+            data["color"] = color
+        p.vbar(x="types", top="values", width=0, alpha=0.8,
+               color="color", legend="types",
+               source=data)
+
+    p.legend.location = legend_position
+    p.legend.label_text_font_size = '21pt'
+    p.legend.glyph_height = 45
+    p.legend.glyph_width = 45
 
 
 def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
@@ -669,7 +688,7 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
     p.yaxis.axis_label = f'Elapsed time ({unit})'
 
     p.vbar(x=timing_factors, top=timing_ETA, width=1, alpha=0.8,
-           color=colors_by_lang)
+           color=colors_by_lang[:len(timing_factors)])
 
     p.line(x=[f for f in timing_factors if f[1] == "python3"],
            y=python3_line, color="red", line_width=6, line_dash='dashed')
@@ -699,9 +718,9 @@ def speedup_prev_plot(vmin=1, vmax=7, init="v00"):
     p.yaxis.axis_label = 'X times faster'
 
     p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.8,
-           color=colors_by_lang)
+           color=colors_by_lang[:len(speedup_factors)])
 
-    common_plot_cfg(p)
+    common_plot_cfg(p, legend_position="top_left")
 
     show(p)
 
@@ -721,10 +740,6 @@ def size_complexity_plot(vmin=1, vmax=7, ratio_base="8", index=1,
         title="Time vs size for Python3. Log scale",
         x_axis_type="log",
         y_axis_type="log")
-    if ratio_base:
-        p.match_aspect = True
-        p.aspect_scale = 1 / float(ratio_base)
-        p.title.text += f"; aspect ratio=1/{ratio_base}."
 
     p.xaxis.axis_label = 'Problem size (N))'
     p.yaxis.axis_label = 'Elapsed time (seconds)'
@@ -735,15 +750,14 @@ def size_complexity_plot(vmin=1, vmax=7, ratio_base="8", index=1,
         colors = [color_mapper[int(version[1:]) - vmin]] * len(
             language["python3"][index])
         p.circle(complexity_size, complexity_time, fill_alpha=1, size=20,
-                 color=colors, legend=version)
+                 color=colors[:len(complexity_size)], legend=version)
 
-    p.legend.location = legend_loc
-    p.legend.label_text_font_size = '18pt'
-    p.legend.glyph_height = 45
-    p.legend.glyph_width = 45
+    common_plot_cfg(p, legend=None, legend_position=legend_loc)
 
-    common_plot_cfg(p)
-    p.xaxis.major_label_text_font_size = '15pt'
+    if ratio_base:
+        p.match_aspect = True
+        p.aspect_scale = 1 / float(ratio_base)
+        p.title.text += f"; aspect ratio=1/{ratio_base}."
 
     show(p)
 
@@ -771,7 +785,40 @@ def speedup_vs_plot(vmin=0, vmax=14):
     p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.8,
            color=["red", "blue"] * (vmax + 1))
 
-    common_plot_cfg(p)
+    common_plot_cfg(p, legend=["PyPy3", "cO3"], color=["red", "blue"])
+
+    show(p)
+
+
+def outline():
+    output_file(f"outline.html")
+
+    x = {
+        "Problem definition": 12,
+        "Optimisations I": 27,
+        "Compilers": 10,
+        "Optimisations II": 13,
+        "Profilers": 5,
+        "Optimisations III": 11,
+        "Conclusions": 21
+    }
+
+    data = pd.Series(x).reset_index(name='time').rename(
+        columns={'index': 'section'})
+    data['angle'] = data['time'] / data['time'].sum() * 2 * pi
+    data['color'] = [color_mapper[i % 2 or i] for i in range(len(x))]
+    p = figure(plot_width=800, title="Outline", toolbar_location=None,
+               tools="hover", tooltips="@section: @time", x_range=(-0.5, 1.0))
+
+    p.wedge(x=0, y=0, radius=0.4, start_angle=cumsum(
+        'angle', include_zero=True), end_angle=cumsum('angle'),
+        line_color="white", fill_color='color', legend='section', source=data)
+
+    common_plot_cfg(p, legend=[])
+    p.axis.axis_label = None
+    p.axis.visible = False
+    p.grid.grid_line_color = None
+    p.y_range.start = None
 
     show(p)
 
@@ -785,7 +832,6 @@ ETA_plot(vmin=8, vmax=14, eta="eta_MAX_iter",
 speedup_prev_plot(vmin=9, vmax=14, init="v08")
 size_complexity_plot(vmin=8, vmax=14, ratio_base=None,
                      index=1048576, legend_loc="top_right")
-
 speedup_vs_plot()
 
-# TODO add timing and version for C++ using maps (14)!
+outline()
