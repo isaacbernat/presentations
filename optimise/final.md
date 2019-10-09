@@ -5,13 +5,13 @@
 <div style="text-align: center"><img src="./images/img_timeline.png" width="80%" height="80%"/></div>
 
 ???
-## Put time in context. The Solar System is less than 5 Billion years old. 
+## Put time in context. The Solar System is less than 5 Billion years old.
 
-Imagine a program that takes longer than that to run in a regular laptop like this. Now imagine that program can be optimised to take just a few milliseconds. Imagine no more :D  
+Imagine a program that takes longer than that to run in a regular laptop like this. Now imagine that program can be optimised to take just a few milliseconds. Imagine no more :D
 
 ---
 
-<embed style="margin-left:-2rem" src="outline.html" width="110%" height="100%"></embed>
+<embed style="margin-left:-2rem" src="plots/outline.html" width="110%" height="100%"></embed>
 
 ???
 - The focus on the presentation is practical. I'll try to introduce tools or theory only when needed.
@@ -53,7 +53,7 @@ The % is the approximate relative duration.
 
 ???
 ## N is the input and r is the result
-## The amount of triplets IS the result. 
+## The amount of triplets IS the result.
 ## E.g. up until 5 result is 0.
 ## The lowest triplet contains a 5. The next one a 13...
 
@@ -300,22 +300,22 @@ PyPy is just one of many tools to speedup python.
 
 
 ---
-<!-- <object type="text/html" width="100%" height="100%", data="timing7.html"/> -->
-<embed style="margin-left:-2rem" src="plot_eta7.html" width="110%" height="100%"></embed>
+<!-- <object type="text/html" width="100%" height="100%", data="plots/timing7.html"/> -->
+<embed style="margin-left:-2rem" src="plots/plot_eta7.html" width="110%" height="100%"></embed>
 
 
 ???
 
 
 ---
-<embed style="margin-left:-2rem" src="plot_speedup7.html" width="110%" height="100%"></embed>
+<embed style="margin-left:-2rem" src="plots/plot_speedup7.html" width="110%" height="100%"></embed>
 
 
 ???
 
 
 ---
-<embed style="margin-left:-2rem" src="plot_size_complexity7.html" width="110%" height="100%"></embed>
+<embed style="margin-left:-2rem" src="plots/plot_size_complexity7.html" width="110%" height="100%"></embed>
 
 
 ???
@@ -508,27 +508,27 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
 
 
 ---
-<embed style="margin-left:-2rem" src="plot_eta14.html" width="110%" height="100%"></embed>
+<embed style="margin-left:-2rem" src="plots/plot_eta14.html" width="110%" height="100%"></embed>
 
 
 ???
 
 
 ---
-<embed style="margin-left:-2rem" src="plot_speedup14.html" width="110%" height="100%"></embed>
+<embed style="margin-left:-2rem" src="plots/plot_speedup14.html" width="110%" height="100%"></embed>
 
 
 ???
 
 
 ---
-<embed style="margin-left:-2rem" src="plot_size_complexity14.html" width="110%" height="100%"></embed>
+<embed style="margin-left:-2rem" src="plots/plot_size_complexity14.html" width="110%" height="100%"></embed>
 
 
 ???
 
 ---
-<embed style="margin-left:-2rem" src="plot_speedup_vs14.html" width="110%" height="100%"></embed>
+<embed style="margin-left:-2rem" src="plots/plot_speedup_vs14.html" width="110%" height="100%"></embed>
 
 
 ???
@@ -543,8 +543,8 @@ Avoid int to float castings in the loop. Even if it quacks like a duck, there ar
     - Readability, maintainability, portability... not easily measured.
 
 ### Noteworthy C++ optimisations:
-- vectorisation
-- memoisation of `GCD` (43x on v12)
+- vectorisation (via SIMD (Single-instruction multiple-data))
+- memoisation of `GCD` (already 43x on v12)
 - smaller memory footprint (e.g. `chars` for `gcd(m, n) == 1`)
     - bithacks and masks has even smaller footprint!
 - `struct union` to reuse all memory allocated for `GCD == 1` for results, even when they have different data types.
