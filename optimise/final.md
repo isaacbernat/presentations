@@ -5,36 +5,17 @@
 <div style="text-align: center"><img src="./images/img_timeline.png" width="80%" height="80%"/></div>
 
 ???
-## Put time in context. The Solar System is less than 5 Billion years old.
 
-Imagine a program that takes longer than that to run in a regular laptop like this. Now imagine that program can be optimised to take just a few milliseconds. Imagine no more :D
+## Context 5 billion years
+Good morning! I choose this image of the timeline of Earth to put things in context. 5 billion years is a long time... Way too long to wait for a computation to finish.
 
----
+## With this 2012 laptop and Python it will become <1 second
+Today I am going to present an algorithm in Python3 that takes longer than the existence of the Solar System in this 2012 laptop. I am going to show a dozen optimisation techniques to create an equivalent Python3 program that takes less than 1 second.
 
-<embed style="margin-left:-2rem" src="plots/outline.html" width="110%" height="100%"></embed>
+## Code is usable for real and public in github.
+But rather than just describing them in abstract, I am going to apply them incrementally, so one can see they are effective, can be used together and are adaptable to real problems. All the code and results is in a public github repository for anybody to verify.
 
-???
-- The focus on the presentation is practical. I'll try to introduce tools or theory only when needed.
-- The pie chart is an estimate on how long each section will take.
-- Timing is tight, so let's not waste more here!
-
-### 12% Part 1 Problem definition.
-### 27% Part 2 Optimisations I (0-7).
-### 10% Part 3 Compilers.
-### 13% Part 4 Optimisations II (8-11).
-###  6% Part 5 Profilers.
-### 11% Part 6 Optimisations III (12-14).
-### 21% Part 7 Recap and closing remarks.
-
-The % is the approximate relative duration.
-
-- 3.5m Part 1 Problem definition.
-- 8.0m Part 2 Optimisations I (0-7).
-- 2.5m Part 3 Python vs PyPy vs C++.
-- 4.0m Part 4 Optimisations II (8-11).
-- 1.5m Part 5 Profiling.
-- 3.5m Part 6 Optimisations III (12-14).
-- 6.5m Part 7 Recap and closing remarks.
+Let's move on!
 
 ---
 
@@ -43,7 +24,17 @@ The % is the approximate relative duration.
 <div style="margin-left:-4rem" ><img src="./images/img_problem_definition.png" width="110%"/></div>
 
 ???
-## Simple: we read an integer and we write an integer.
+## Simple: read an integer and write an integer.
+The input consists of positive integers up to 1.05M
+
+## Output: read the list.
+Emphasis on UNIQUE equation solutions.
+
+## No precalculation
+There is a strict limit on the source size. Precalculating 1M results and simply printing them is not a valid "fast solution".
+
+## Size of input
+To simplify we will only consider N=2^20 at the beginning, but later we will assume the input to be 100k random numbers < 2^20.
 
 ---
 
@@ -52,10 +43,15 @@ The % is the approximate relative duration.
 <div style="margin-left:-4rem" ><img src="./images/img_solutions.py.png" width="95%"/></div>
 
 ???
-## N is the input and r is the result
-## The amount of triplets IS the result.
-## E.g. up until 5 result is 0.
-## The lowest triplet contains a 5. The next one a 13...
+A sample of the first 50 solutions will probably help make the previous description easier to understand.
+
+## Columns X, Y, and Z
+They represent the unique triplets which fulfill all the restrictions we describer previously. Sorted by number, from small to large.
+
+## Result columns. N -> input; r -> result
+When N is < 5 the result is 0. We can see no triplet exists with a Z smaller than 5. The next triplet has Z = 13. That means the result from 5 to 12 will be 1. And so on.
+
+Here one can see a pattern 4...8...4...8... but it gets more complicated after 48
 
 ---
 
@@ -74,13 +70,25 @@ The % is the approximate relative duration.
 - Summary, ratios and more at `timings.md`.
 
 ???
+## Specs and details on github
+- More complete details on the laptop specs and how I measured the time are available in a public github repository, along with the code.
 
+## Complexity esimation
+- But before I go on, one may wonder how I estimated times greater than years. I calculated the biggest N possible under 10 minutes and then I interpolated the result with the 3 previous biggest Ns. For example:
+    - N=100, t=1min;
+    - N=200, t=8min;
+    - N=400, t=64min;
+
+We could infer that N X 2 -> t X 8;. That would be a cubic complexity. It would be linear if N X 2 -> t X 2, but this case the relation is bigger than that. For each different version we calculate the progression and scale it up to N=2^20 and then 100k Ns
+
+PD: Yes, I know, one easy speedup would be getting a new laptop ;D
+
+## More details below
 - The laptop **specs** can be found in the **github url**. Just a **new laptop** would probably be a **good speedup** ;D.
 - Best of 5 runs (extra time is overhead from OS, etc).
 - 600s should be big enough to provide robust numbers and minimise the noise.
 - Small times have higher variablity non-dependent on algorithm.
 - We don't have billions of years to wait and get result, but we want to compare different algorithms that are much faster and can't use the same input.
-
 - Feel free to replicate the experiments. If on a different machine they may vary accordingly, but I think should be within the same order of magnitude?
 optimise time, vs memory, a specific shared resource, etc.
 
@@ -95,6 +103,10 @@ optimise time, vs memory, a specific shared resource, etc.
 ### Compare Python to Python but also PyPy to PyPy for extra fun!
 
 ???
+Before we start reading code, to make it a better learning experience, I'd suggest you to either go to that URL and fill the form as we go or to take a piece of paper and write down notes. I'd like you to estimate the magnitude of the speedup for each optimisation introduced relative to the previous code. You can assume we are using the latest Python and/or PyPy.
+
+The way to write it is the following (E.g. if the code now takes half the time it is 2x (1/0.5). If it takes 75% the original time it is 1.33x (1/0.75).)
+
 ## Alt: piece of paper
 If you don't want to use the url above, even a piece of paper can be fun. But then it will be harder for other people to compare to you :P
 
@@ -107,9 +119,13 @@ If you don't want to use the url above, even a piece of paper can be fun. But th
 
 ???
 
-A naive solution would be something like the one above. One could have used a set and put all triplets in it instead of making x < y < z (to avoid repetitions) and then returning the length of the set. It felt more natural to me to add the check and use a counter, since only the amount is needed.
+Let's begin! The execution for this code is around 100k years for N=2^20. Definitely more than 1 Billion years for 100k random Ns.
 
-But before we evaluate how good/bad the code is... let's see how gcd is calculated, that's important too!
+A naive solution would be something like the one we see. We go through all X, Y and Z up to N and for each check that they are coprime, their square sums follow the equation and that X < Y < Z.
+
+That last part is to avoid repetitions, since swapping X for Y the equation would still be valid but we don't want to count that. We could have also put the triplets in a set and simply do `len()`on it. Consider this already an optimisation if you may. We are only interested in the amount no which exact triplets.
+
+But before we evaluate how good/bad the code is... we need to see it all, right? How is gcd (Greatest Common Divisor) calculated?
 
 ---
 
@@ -119,7 +135,7 @@ But before we evaluate how good/bad the code is... let's see how gcd is calculat
 
 ???
 ## Euclidean Algorithm
-The classic algorithm does the job. The first version would probably be good enough and look reasonable for most cases, but it can be further simplified as we see below (and use less variables, assignments, etc).
+The classic algorithm does the job. In this example we use the first version with a temporary variable, which is not as efficient the second, but good enough for our case.
 
 ---
 
@@ -129,9 +145,10 @@ The classic algorithm does the job. The first version would probably be good eno
 
 ???
 
-### ASK ABOUT TIME ESTIMATING SPEEDUP
+# v1
+If the functionality needed can be found in a trusted library, it's a good idea to try that before considering reimplementing it (and not just for performance reasons).
 
-If the functionality needed can be found in a trusted library it's probably a good idea to try that first before reimplementing it (and not just for performance reasons).
+### ASK ABOUT TIME ESTIMATING SPEEDUP
 
 ---
 
@@ -141,6 +158,9 @@ If the functionality needed can be found in a trusted library it's probably a go
 <div style="margin-left:-4rem" ><img src="./images/img_v02i.py.png" width="110%"/></div>
 
 ???
+This technique is about replacing overly generic functions by more specific ones. For example in binary integer arithmetic, we know that multiplication by a power of 2 can be expressed as a simple "shift" operation. E.g. multiplication by 16 (2^4) means moving 4 bits to the left. For most architectures this is computed faster.
+
+
 ### ETA V1 N=2^20: 60.943 years
 
 ---
@@ -151,12 +171,10 @@ If the functionality needed can be found in a trusted library it's probably a go
 
 ???
 
-Overly generic functions tend to be more expensive than specific ones.
+The affect code is highlighted:
 - Exponentiation is generic and expensive.
 - Squaring is specific and cheap.
-- We can see the difference in CPython bytecode (more on that later)
-- Peephole usually consists on replacing a few instructions for equivalent ones that are cheaper for a given architecture (e.g. `y = x * 15` -> `y = (x << 4) - x`)
-- Strength reduction is a more generic name for a process of replacing expensive operations for equivalent ones that are cheaper, but that usually involves transforming nested loops, looking at induction variables and invariants.
+- We can see the difference clearly in CPython bytecode (more on that later), the most significant change being POWER vs MULTIPLY
 
 ---
 
@@ -168,7 +186,9 @@ Overly generic functions tend to be more expensive than specific ones.
 ???
 ### ETA V2 N=2^20: 27.714 years
 
-Arrange parameters so the ones more likely to fail (and/or cheaper to compute) are evaluated first (last in case of OR chains). Keep in mind that it may affect branch prediction on modern CPUs.
+As we can see, the exponentiation is replaced by multiplication now.
+
+From a logic point of view, the order does not matter. But most computers execute code sequentially. That is, one condition must be evaluated first, then a second one and so on. If the first results false, the next one doesn't need to be evaluated as the whole condition will be False. If the first is True then the second one needs to be evaluated. The reverse process would be applicable for chained OR conditions.
 
 Further references: https://docs.python.org/3/library/stdtypes.html#boolean-operations-and-or-not
 
@@ -177,6 +197,11 @@ Further references: https://docs.python.org/3/library/stdtypes.html#boolean-oper
 ## v3 Short-circuit evaluation.
 
 <div style="margin-left:-4rem" ><img src="./images/img_v03ii.py.png" width="110%"/></div>
+
+???
+Short-circuiting consists on arranging parameters so the ones more likely to fail (and/or cheaper to compute) are evaluated first (last in case of OR chains). Keep in mind that it may affect branch prediction on modern CPUs.
+
+In our example we move the expensive gcd to the end and the cheap integer comparison first.
 
 ---
 
@@ -189,13 +214,17 @@ Further references: https://docs.python.org/3/library/stdtypes.html#boolean-oper
 ???
 ### ETA V3 N=2^20: 10.717 years
 
-Avoid going through ranges we know won't satisfy the condition and enforce restrictions earlier (4b is a tiny refactor):
+A way to speed up code is to avoid checking conditions that we know beforehand are not going to be satisfied. Here we are going to avoid going through ranges partially by enforcing restrictions earlier.
 
 ---
 
 ## v4 Search space reduction.
 
 <div style="margin-left:-4rem" ><img src="./images/img_v04ii.py.png" width="110%"/></div>
+
+???
+
+In our case we want Y > X and Z > Y. We can start the ranges with those initial values instead of 0. This way we avoid many comparisons that we know will be false.
 
 ---
 
@@ -207,13 +236,17 @@ Avoid going through ranges we know won't satisfy the condition and enforce restr
 ???
 ### ETA V4 N=2^20: 3012 years
 
-Moving results of known calculations (invariants) outside loops.
+Similar to previous optimisation, this one consists on moving calculations that we know will not change within a loop outside. These kind of expressions are known as invariants.
 
 ---
 
 ## v5 Code hoisting.
 
 <div style="margin-left:-4rem" ><img src="./images/img_v05ii.py.png" height="95%" width="95%"/></div>
+
+???
+
+As long as Y does not change, Y x Y won't change too. Same reasoning may be applied for X.
 
 ---
 
@@ -225,13 +258,15 @@ Moving results of known calculations (invariants) outside loops.
 ???
 ### ETA V5 N=2^20: 1647 years
 
-This may not hold true in future Python versions, but variables in functions load faster, and this makes the extra function call overhead negligible. Always measure instead of relying only in intuitions.
+Programs are divided into scopes. Every time a function is called there is a context change. Part of the current state needs to be saved and not affected by "code executed in function". Usually all this is kept in a stack in memory that needs to be restored when the function returns. But talking about the details here is out of the scope (pun intended ;D). The point is that each function call incurs overheads.
 
 ---
 
 ## v6 Function calls vs inline code.
 
 <div style="margin-left:-4rem" ><img src="./images/img_v06ii.py.png" height="110%"/></div>
+
+In our case the change is to make the calculation of N be a function instead of part of the "main" script code. A side-effect is that it makes the code more structured and readable too.
 
 ---
 
@@ -241,9 +276,9 @@ This may not hold true in future Python versions, but variables in functions loa
 
 ???
 
-They make no guarantees that the transformation from Python code to the intermediate bytcode used by CPython will be compatible/the same between versions (implementation may change), so, use it at your own risk.
+No guarantees are made that the transformation from Python code to the intermediate bytcode used by CPython will be compatible/or the same between versions (implementation may change), so keep that present. Here we see that STORE_NAME and LOAD_NAME are replaced by STORE_FAST and LOAD_FAST using the `dis` disassembler package. This change has implications on execution time that may or may not compensate the extra function call overhead. What do you think? Always measure instead of relying in intuitions only.
 
-Apparently this behaviour has been true at least since 2014 in python 2.7 and is still true today (current version of python 3.7.4).
+Apparently this `dis` behaviour has been true at least since 2014 in python 2.7 and is still true today (current version of python 3.7.4).
 
 References:
 - https://stackoverflow.com/questions/21107131/why-mesh-python-code-slower-than-decomposed-one
