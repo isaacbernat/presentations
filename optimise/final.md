@@ -316,7 +316,7 @@ One condition that must be fulfilled is that X, Y and Z must all be co-prime. Th
 ### C++ 17
 - Can be close to the machine.
 - Tried to be faithful when porting Python to keep comparisons fair.
-- `g++` (from GNU Compiler Collection) the standard open source compiler.
+- `clang` comparable in performance to `g++` (from GNU Compiler Collection).
 - Flags used `"-O0"` and `"-O3"`.
 
 ???
@@ -329,7 +329,7 @@ PyPy is just one of many tools to speedup python execution. This presentation is
 
 ## C++
 - I added ports to C++ to compare along with PyPy because it's a popular language that can get quite close to machine code and is used were performance is critical. C++ may be better suited than Python for some tasks. It's worth comparing if it's the case here.
-- Many more optimisation flags could be applied beyond the -O0 and -O3, but I wanted to keep it simple and close to the original python code. 
+- Many more optimisation flags could be applied beyond the -O0 and -O3, but I wanted to keep it simple and close to the original python code.
 
 ---
 <!-- <object type="text/html" width="100%" height="100%", data="plots/timing7.html"/> -->
@@ -365,7 +365,7 @@ One thing all versions have in common though is the base algorithm. The code com
 <div style="margin-left:-4rem" ><img src="./images/img_v08i.py.png" height="90%" width="90%"/></div>
 
 ???
-### ETA V7 N=2^20: 195 years. v0 was 98.263. 
+### ETA V7 N=2^20: 195 years. v0 was 98.263.
 
 We saw Python3 went from 100k years to 200. A 500x speedup. v7 in C++ O3 would take 1.4 years. That's a 70.000x speedup! But we can do better!
 
@@ -400,7 +400,7 @@ How can we top that? Terminating a loop early, when we know a condition will not
 
 ???
 
-We know that `(x*x) + (y*y)` must be smaller than N. Therefore making the number of iterations for X or Y upper bound to `sqrt(N)` will yield the same results, because all iterations with Y or X bigger than max_iter won't be valid. 
+We know that `(x*x) + (y*y)` must be smaller than N. Therefore making the number of iterations for X or Y upper bound to `sqrt(N)` will yield the same results, because all iterations with Y or X bigger than max_iter won't be valid.
 
 `sqrt(N) * sqrt(N) = N`. We could even make `max_iter` even tighter, because X can be at most half of that, but saving these computations is already enough to showcase this optimisation. How big of a speedup to you estimate?
 
@@ -433,7 +433,7 @@ Here we combine code hoisting with strength reduction and replace a few SQRTs wh
 <div style="margin-left:-4rem" ><img src="./images/img_v11i.py.png" width="100%"/></div>
 
 ???
-1.28x... not as big as other speedups we've seen. Let's see if we can do better. 
+1.28x... not as big as other speedups we've seen. Let's see if we can do better.
 
 Python is known for duck typing. That means that 2 different types with a suitable properties/methods will be treated the same way. But even if it quacks like a duck, there are different kinds of ducks (i.e. implicit type conversions).
 
@@ -447,7 +447,7 @@ Python is known for duck typing. That means that 2 different types with a suitab
 
 ???
 
-Y, the results from range are integers. xxN, the result of a SQRT is a floating point number. Integers can be compared to floating point numbers, but there is a conversion that must be performed (even if implicit). Otherwise is comparing apples to pears (or apples to oranges if you prefer).  
+Y, the results from range are integers. xxN, the result of a SQRT is a floating point number. Integers can be compared to floating point numbers, but there is a conversion that must be performed (even if implicit). Otherwise is comparing apples to pears (or apples to oranges if you prefer).
 
 If we make the conversion explicit and we hoist it outside of the loop we will be saving a conversion every iteration.
 
@@ -465,7 +465,7 @@ Ok, how fast do we get now?
 <div style="margin-left:-4rem" ><img src="./images/img_profilingi.png" height="100%"/></div>
 
 ???
-Previous speedup was... modest (<1%). Time measurement doesn't need to be a black box. We can determine the upper bound of an optimisation before actually coding and testing it. For that we will use profilers. They can be invaluable to find what to optimise next. 
+Previous speedup was... modest (<1%). Time measurement doesn't need to be a black box. We can determine the upper bound of an optimisation before actually coding and testing it. For that we will use profilers. They can be invaluable to find what to optimise next.
 
 ### Amdahl's law
 - The original Amdahl's quote is about parallellisable code, but the same principle can be applied here.
@@ -489,9 +489,9 @@ References: Amdahl's law http://demonstrations.wolfram.com/AmdahlsLaw/
 ???
 The github link above is the public repository where you can find the source code for pprofile.
 
-The image shown is a simplified output, but enough to see how it works. For example, line 16 takes 27% of the runtime. That is checking if X and Y are coprime. That's the line where most time is spent, therefore a good candidate to be optimised! 
+The image shown is a simplified output, but enough to see how it works. For example, line 16 takes 27% of the runtime. That is checking if X and Y are coprime. That's the line where most time is spent, therefore a good candidate to be optimised!
 
-Before we go on, a brief comment on 
+Before we go on, a brief comment on
 ### statistical vs deterministic profilers
 - det: have big overheads. Therefore are not suitable for production.
 In our case the profiled code becomes 50x slower. With N = 2^20 the code took 0.06s, while profiled 2.73s. For 100 random Ns it went from 3.26s to 154s.
@@ -530,11 +530,11 @@ In our case we know the input consists of 100k random numbers up to N=2^20. Ther
 ???
 ### V12 ETA 100k N>=2^20: 4297s
 
-... using that cache is actually slower than re-calculating each time the GCD! 
+... using that cache is actually slower than re-calculating each time the GCD!
 
 One possibility is that the info we wanted to store was too big and couldn't fit in the lower level caches. When an operation looks for information in a cache but is not there, the extra cost to go to a higher level cache (processors often have several levels) or main memory is >10x slower than the initial reading cost.
 
-A workaround for that would be to memoise only a subset of GCDs, those combinations of numbers which were the most costly to computations. But maybe this means that GCD was simply not expensive enough to be worthy of memoisation... In any case, we won't be adding this one to our code, since it would slow it down! 
+A workaround for that would be to memoise only a subset of GCDs, those combinations of numbers which were the most costly to computations. But maybe this means that GCD was simply not expensive enough to be worthy of memoisation... In any case, we won't be adding this one to our code, since it would slow it down!
 
 Always remember to measure instead of relying on intuition alone!
 
@@ -579,7 +579,7 @@ Therefore we are going to focus on using less memory if possible. When the proce
 ???
 Ok, the theory on why we want to do that is clear, but... how do we actually achieve it? These triplets have an interesting property. If we recall when we checked the solution samples at the beginning, we noticed a pattern. A simple version of that pattern holds true, and that is that the number of triplets only can change every 4 increases of N. That is, possible number of combination changes are N=1,5,9,13,17,21...
 
-With that information we can save 75% of memory usage. How much of that will that translate into speedup and saved time? 
+With that information we can save 75% of memory usage. How much of that will that translate into speedup and saved time?
 
 ---
 
@@ -588,27 +588,29 @@ With that information we can save 75% of memory usage. How much of that will tha
 <div style="margin-left:-4rem" ><img src="./images/img_v15i.py.png" height="95%" width="95%"/></div>
 
 ???
-### V14.py ETA 100k N>=2^20: 0.61s
-### V13.py ETA 100k N>=2^20: 1.08s
-### V13.c  ETA 100k N>=2^20: 0.05s
+### V14.py ETA 100k N>=2^20: 0.61s <- python
+### V14.py ETA 100k N>=2^20: 0.49s <-pypy
+### V13.c  ETA 100k N>=2^20: 0.05s <- O3
 
-TODO SHOW how the code looks after all optimisations
+We've been going on for a while. This is how the code looks like now (minus blank spaces). So there was a price to pay to get faster runtimes after all. Apart from obvious development time... now the code is more brittle, harder to maintain, had more dependencies, etc.
+
+It is slower for very small Ns than less optimised versions. But not only that. Was it really a requirement that it should take < 1s? Was maybe < 1 minute ok? Before knowing we can afford the price to pay, we first must know that it does not come for free!
+
 
 ---
 <embed style="margin-left:-2rem" src="plots/plot_eta14.html" width="110%" height="100%"></embed>
 
 
 ???
-
-TODO EXPLAIN CHART
+These are the updated timings. We are measuring 100k Ns, not just 1 like before. We need to zoom out so much to see the last values under 1 second. I think the next one is easier to interpret.
 
 ---
 <embed style="margin-left:-2rem" src="plots/plot_speedup14.html" width="110%" height="100%"></embed>
 
-
 ???
+Why does v13 python relative speedup (reusing calculations) seem so much better than C? Because if we look at v12 (memoisation), there is a 50x speedup for C whereas using python it actually slowed down the code. So that teaches us once again to measure instead of just rely on intuitions.
 
-TODO EXPLAIN CHART
+Another interesting optimisation is v14 to reduce memory footprint. If we try to do it with maps in C, the manner more closely analogous to python (rather than using arrays), it turns out the code becomes many times slower instead of being faster! This extra abstraction comes with a big performance hit for this kind of problems.
 
 
 ---
@@ -617,8 +619,9 @@ TODO EXPLAIN CHART
 
 ???
 
-TODO EXPLAIN CHART
+In this chart we can see how v13 and v14 cost is almost constant relative to the amount of entries N calculated. that is because we calculated all possible values up to N=2^20 anyway, and the extra overhead for extra N is just the cost of I/O
 
+The other algorithms have a linear cost. Duplicating the size of the problem duplicates the running time. Here the ratio of x and y axis is 1 to 1.
 
 ---
 <embed style="margin-left:-2rem" src="plots/plot_speedup_vs14.html" width="110%" height="100%"></embed>
@@ -626,7 +629,7 @@ TODO EXPLAIN CHART
 
 ???
 
-TODO EXPLAIN CHART
+Before closing I wanted to show a new type of chart. Here we compare the runing times of Python3 vs PyPy and O3. As we can see PyPy is always faster than python. Somethimes >200x (v4), but sometimes a measly 1.25x (v14). The similar fact holds true for O3 being faster compared to PyPy. >100x (v12) yet sometimes only 1.4x (v07). So even when performance is critical, one must to consider that simply porting python code to C may not be the magical solution to all their problems. The range of speedups may vary wildly.
 
 
 ---
@@ -651,9 +654,11 @@ TODO EXPLAIN CHART
 
 
 ???
-TODO flesh out buller points into readable text
+Just for fun I created a "13 plus" version (named 1337), which is the code for 13.c with a few more optimisations, to see how far it went. Well, it goes from 0.05 seconds to 0.02 . But in this cade "no code is faster than no code", because an empty python program with no code already takes 0.02 seconds to run in this laptop. Feel free to look at it. Many of the optimisations I wrote are not achievable in python... and really the obtained final speedup is not that big, so at this point one can think... is it really worth it? To name a few, these are the optimisations.
 
-Many other interesting techniques
+My friend Matte here coded another version using a completely different paradigm which is about as fast but much less hacky. Feel free to compare it as well.
+
+Many other interesting techniques that could be applied
 - threads (for calculations too, splitting a big task)
 - branch predictions (especially important on pipeline processors)
 - conditional move (both computed, but hit rate independent)
@@ -668,7 +673,7 @@ Many other interesting techniques
 ### V1337.c  ETA 100k N>=2^20: 0.02s
 ### V9001.c  ETA 100k N>=2^20: 0.03s
 
-### non-noteworthy (compiler should do):
+### non-noteworthy optimisations done (compiler should do too):
 - do while (vs for loop)
 - preincrement (vs postincrement, e.g. ++i vs i++)
 
@@ -686,14 +691,13 @@ Many other interesting techniques
 
 ???
 
-TODO revise pitfalls
 #### Amdahl: If the code optimised takes only 1% of time, even if it's n^3 to n optimisation speedup will be <1%
 
 #### Still dev: code may change. Optimisations may not even apply after the refactored version with the correct logic is delivered. That's wasted effort/development time.
 
-#### Proper measurement. Timings should be taken several times to avoid outliers, also the machine load and state should be as close as possible as the state that is compared with. Usage should be as close to production/reality as possible. That includes other programs running.
+#### Proper measurement. Timings should be taken several times to avoid outliers, also the machine load, specs and state should be as close as possible as the state that is compared with. Usage should be as close to production/reality as possible. That includes other programs running.
 
-#### One may forget to be thorough on results, just looking at time.
+#### One may forget to be thorough on results, just looking at time. Maybe some corner case fails and goes unnoticed.
 
 #### Hard to know the effects of each specific one. Maybe one actually makes the code slower, but when put together is not noticeable.
 
@@ -713,7 +717,7 @@ TODO revise pitfalls
 
 ???
 
-TODO explain methodology
+Self-explanatory
 
 ---
 
@@ -733,7 +737,13 @@ TODO explain methodology
 TODO make notes more readable
 
 ### For once I have not highlighted the most (in)famous part of the quote about "premature optimization is the root of all evil". I think he meant that one should focus on bottlenecks when doing **incremental optimisations**. Note that he talks about "small efficiencies". I think optimisations which change time complexity, say from N^3 to N^2 won't be in the same league and should be considered (considered != automatically applied, for small Ns the difference won't probably matter, there are also setup times, etc. and keep in mind Amdahl!).
-### So... always measure! I hope writing down and checking speedups helped you see how much off one may be!
+
+### So... always measure! I hope the exercise of writing down estimations and checking how off your speedups were with reality helped you loose your overconfidence and see the light!
+
 ### All quotes above taken from here. GOTO statements are not a hot topic anymore, but there are yet more still valid quotes in that paper surrounding the topic of code optimisation.
-### 12% improvement on what? A specific routine? The whole system? Just so you see I am not a Knuth fanboy I added a quote on optimisation I disagree with. I think software engineering is special in that "waiting two years for a more powerful computer to become available" or more recently "scaling up on instances" might be seen as a legit improvement by many. Bigger and easier than 12% for sure... He goes on that he wouldn't probably bother for such optimisations on one-time-jobs, but wouldn't deny them to prepare quality software. On that second part I do agree :D
+
+### 12% improvement on what? A specific routine? The whole system? Just so you see I am not a Knuth fanboy I added a quote on optimisation I disagree with. I think software engineering is special in that "waiting two years for a more powerful computer to become available" or more recently "scaling up on instances" might be seen as a legit improvement by many. Bigger and easier than 12% for sure... The full quote goes on that he wouldn't probably bother for such optimisations on one-time-jobs, but wouldn't deny them to prepare quality software. On that second part I do agree :D
+
 A good article on the topic: http://www.joshbarczak.com/blog/?p=580
+
+Thanks for your time, I hope you liked the presentation!
