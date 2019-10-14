@@ -507,7 +507,8 @@ In our case the profiled code becomes 50x slower. With N = 2^20 the code took 0.
 ???
 ### V11 ETA 100k N>=2^20: 3513s
 
-TODO EXPLAIN MEMOISATION
+Memoisation (without R) consists on storing the results of expensive computations (e.g. function calls) and return the cached version when the same input occurs again.
+
 ---
 
 ## v12 Memoisation.
@@ -515,7 +516,9 @@ TODO EXPLAIN MEMOISATION
 <div style="margin-left:-4rem" ><img src="./images/img_v12ii.py.png" height="110%"/></div>
 
 ???
-TODO EXPLAIN MEMOISATION IN THIS CONTEXT
+In our case we know the input consists of 100k random numbers up to N=2^20. Therefore we know most pairs of primes will be evaluated thousands times. An efficient cache should be able to write once and retrieve these values faster than it takes to compute the GCD (Greatest Common Divisor) again and again.
+
+`functools` provides this handy decorator `lru_cache` that we are going to use to store the results of the memoised GCD instead of implementing our own solution (a simple dictionary would work).
 
 ---
 
@@ -527,18 +530,29 @@ TODO EXPLAIN MEMOISATION IN THIS CONTEXT
 ???
 ### V12 ETA 100k N>=2^20: 4297s
 
-... but wait, in this case the lru_cache was actually more expensive than calculating it each time! We won't be adding that "optimisation" (also always remember to measure!)
+... using that cache is actually slower than re-calculating each time the GCD! 
 
-???
-TODO EXPLAIN REUSE RESULTS
+One possibility is that the info we wanted to store was too big and couldn't fit in the lower level caches. When an operation looks for information in a cache but is not there, the extra cost to go to a higher level cache (processors often have several levels) or main memory is >10x slower than the initial reading cost.
+
+A workaround for that would be to memoise only a subset of GCDs, those combinations of numbers which were the most costly to computations. But maybe this means that GCD was simply not expensive enough to be worthy of memoisation... In any case, we won't be adding this one to our code, since it would slow it down! 
+
+Always remember to measure instead of relying on intuition alone!
+
+But there are more partial computations which are expensive and are recalculated thousands of times, since the input is 100k random Ns. That's what we try to fix here.
 
 ---
 
 <div style="margin-left:-4rem" ><img src="./images/img_v13ii.py.png" height="85%" width="85%"/></div>
 
-
 ???
-TODO EXPLAIN REUSE RESULTS IN THIS CONTEXT
+
+Instead of calculating the result every time on demand, we are going to calculate all possible results from 0 to 2^20 and store them in a cache. But that would be calculating 1M results, which is more than the 100k random initial numbers. That will be more expensive to calculate you may say!
+
+But if we reuse the partial results in a clever way we can simply calculate ONCE the value for 2^20. Instead of having a variable to acumulate the number of combinations, we store each new combination on an array corresponding to the current value of N we are iterating. At the end we calculate N by adding all the values from 0 up to N. For example for N=5 we would have added N=4 + N=5. But N=4 would be N=3 + N=4. And so on.
+
+Does this make sense? I hope so, because now I would ask you to estimate a speedup ;D
+
+TODO re-read text above and check that the explanation is clear and easy to understand.
 
 ---
 
@@ -548,10 +562,13 @@ TODO EXPLAIN REUSE RESULTS IN THIS CONTEXT
 <div style="margin-left:-4rem" ><img src="./images/img_v14i.py.png" width="100%"/></div>
 
 ???
-### V13 ETA 100k N>=2^20: 1.08s
+4000x, that was a nice speedup. Why is so? Basically because now the algorithm has a cost which is relatively constant. It does not depend too much on the size of N. One would even be tempted to call the cost constant.
 
-???
-TODO EXPLAIN MEMORY FOOTPRINT. HOW CALLS TO MEMORY GET A WHOLE LINE, DATA LOCALITY, ETC.
+Calculating 100 values or 1000 has approximately the same cost, as the same amount of computations is required. There is still an overhead of I/O, reading and writing results, reading and writing memory, etc. but the cost of reading 1000 values from a dictionary is small compared to the computational cost of calculating those results 1000 times. This is why the speedup is so great. If we only wanted to calculate only one or a few small Ns this solution would actually be much slower, not faster.
+
+Therefore we are going to focus on using less memory if possible. When the processor asks for a memory position, it not only gets the position asked, but also the ones that are adjacent. This is because of the principle of data locality which states that memory positions tend to be accessed sequentially (e.g. when iterating an array). Using less memory will make our arrays more likely to fit in lower level caches.
+
+### V13 ETA 100k N>=2^20: 1.08s
 
 ---
 
@@ -560,7 +577,9 @@ TODO EXPLAIN MEMORY FOOTPRINT. HOW CALLS TO MEMORY GET A WHOLE LINE, DATA LOCALI
 <div style="margin-left:-4rem" ><img src="./images/img_v14ii.py.png" height="85%" width="85%"/></div>
 
 ???
-TODO EXPLAIN MEMORY FOOTPRINT. HOW CALLS TO MEMORY GET A WHOLE LINE, DATA LOCALITY, ETC. IN THIS CONTEXT
+Ok, the theory on why we want to do that is clear, but... how do we actually achieve it? These triplets have an interesting property. If we recall when we checked the solution samples at the beginning, we noticed a pattern. A simple version of that pattern holds true, and that is that the number of triplets only can change every 4 increases of N. That is, possible number of combination changes are N=1,5,9,13,17,21...
+
+With that information we can save 75% of memory usage. How much of that will that translate into speedup and saved time? 
 
 ---
 
