@@ -46,7 +46,7 @@ To simplify we will only consider N=2^20 at the beginning, but later we will ass
 A sample of the first 50 solutions will probably help make the previous description easier to understand.
 
 ## Columns X, Y, and Z
-They represent the unique triplets which fulfill all the restrictions we describer previously. Sorted by number, from small to large.
+They represent the unique triplets which fulfill all the restrictions we described previously. Sorted by number, from small to large.
 
 ## Result columns. N -> input; r -> result
 When N is < 5 the result is 0. We can see no triplet exists with a Z smaller than 5. The next triplet has Z = 13. That means the result from 5 to 12 will be 1. And so on.
@@ -265,6 +265,8 @@ Programs are divided into scopes. Every time a function is called there is a con
 ## v6 Function calls vs inline code.
 
 <div style="margin-left:-4rem" ><img src="./images/img_v06ii.py.png" height="110%"/></div>
+
+???
 
 In our case the change is to make the calculation of N be a function instead of part of the "main" script code. A side-effect is that it makes the code more structured and readable too.
 
@@ -548,11 +550,9 @@ But there are more partial computations which are expensive and are recalculated
 
 Instead of calculating the result every time on demand, we are going to calculate all possible results from 0 to 2^20 and store them in a cache. But that would be calculating 1M results, which is more than the 100k random initial numbers. That will be more expensive to calculate you may say!
 
-But if we reuse the partial results in a clever way we can simply calculate ONCE the value for 2^20. Instead of having a variable to acumulate the number of combinations, we store each new combination on an array corresponding to the current value of N we are iterating. At the end we calculate N by adding all the values from 0 up to N. For example for N=5 we would have added N=4 + N=5. But N=4 would be N=3 + N=4. And so on.
+But if we reuse the partial results in a clever way we can simply calculate ONCE the value for 2^20. Instead of having a variable to acumulate the number of combinations, we store each new combination on a dictionary corresponding to the current value of N we are iterating. At the end we calculate N by adding all the values from 0 up to N. For example for N=5 we would have added N=4 + N=5. But N=4 would be N=3 + N=4. And so on.
 
 Does this make sense? I hope so, because now I would ask you to estimate a speedup ;D
-
-TODO re-read text above and check that the explanation is clear and easy to understand.
 
 ---
 
@@ -562,7 +562,7 @@ TODO re-read text above and check that the explanation is clear and easy to unde
 <div style="margin-left:-4rem" ><img src="./images/img_v14i.py.png" width="100%"/></div>
 
 ???
-4000x, that was a nice speedup. Why is so? Basically because now the algorithm has a cost which is relatively constant. It does not depend too much on the size of N. One would even be tempted to call the cost constant.
+4000x, that was a nice speedup. Why is so? Basically because now the algorithm has a cost which is relatively constant. It does not depend too much on the size of N. We are always calculating 1.05M anyway. One would even be tempted to call the cost constant.
 
 Calculating 100 values or 1000 has approximately the same cost, as the same amount of computations is required. There is still an overhead of I/O, reading and writing results, reading and writing memory, etc. but the cost of reading 1000 values from a dictionary is small compared to the computational cost of calculating those results 1000 times. This is why the speedup is so great. If we only wanted to calculate only one or a few small Ns this solution would actually be much slower, not faster.
 
@@ -608,7 +608,7 @@ These are the updated timings. We are measuring 100k Ns, not just 1 like before.
 <embed style="margin-left:-2rem" src="plots/plot_speedup14.html" width="110%" height="100%"></embed>
 
 ???
-Why does v13 python relative speedup (reusing calculations) seem so much better than C? Because if we look at v12 (memoisation), there is a 50x speedup for C whereas using python it actually slowed down the code. So that teaches us once again to measure instead of just rely on intuitions.
+Why does v13 python relative speedup (reusing calculations) seem so much better than C? Because if we look at v12 (memoisation), there is a 40x speedup for C whereas using python it actually slowed down the code. So that teaches us once again to measure instead of just rely on intuitions.
 
 Another interesting optimisation is v14 to reduce memory footprint. If we try to do it with maps in C, the manner more closely analogous to python (rather than using arrays), it turns out the code becomes many times slower instead of being faster! This extra abstraction comes with a big performance hit for this kind of problems.
 
