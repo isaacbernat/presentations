@@ -1,5 +1,8 @@
 # From > 1 Billion years to < 1 second
 
+- "longer_version": a version similar to what I presented at Ivbar's lunch and learn. It took about 50 minutes going at a good pace.
+- "pycon_se_2019_version": the version that will be presented at PyCon Sweden 2019 the 1st of October. The least significant optimisation techniques are scrapped. It's more focused on Python3 (the comparison with PyPy and specially C++ is reduced). Plots are removed/rearranged to be less in number along with some other slides.
+
 ## Content
 ### Intro
 Adding resources to speed up processes isn't always feasible. This talk presents a simple problem and how to achieve >10^15x speedups on a regular laptop. Be warned, as overall time is reduced, minuscule overheads become gigantic. Nevertheless, most techniques can still be effective in more general contexts.
@@ -16,10 +19,10 @@ Attendants are encouraged to participate [in a survey and for each presented opt
 
 ## How to run the presentation
 ### If you don't care too much about the format
-[Click here](https://github.com/isaacbernat/presentations/blob/master/optimise/final.md) (just open the markdown file)
+[Click here](https://github.com/isaacbernat/presentations/blob/master/optimise/longer_version/final.md) (just open the markdown file for the "longer version")
 
 ### If you want it to look "good"
-- In a terminal with the same path as this directory type `python3 -m http.server`.
+- In a terminal with the same path as the directory of a presentation type `python3 -m http.server`.
 - Then open in a browser `http://localhost:8000`.
 - Use shift+F for full screen, shift+P for presentation mode. Up and Down to go through slides.
 - For more info https://github.com/gnab/remark
