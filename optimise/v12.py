@@ -3,10 +3,7 @@ from math import gcd
 from math import sqrt
 from functools import lru_cache
 
-
-@lru_cache(maxsize=None)
-def GCD(x, y):
-    return gcd(x, y)
+GCD = lru_cache(maxsize=None)(gcd)
 
 
 def process(N):
