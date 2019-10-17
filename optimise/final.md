@@ -674,19 +674,26 @@ Many other interesting techniques that could be applied
 
 ???
 
-#### Amdahl: If the code optimised takes only 1% of time, even if it's n^3 to n optimisation speedup will be <1%
+#### Amdahl:
+If the code optimised takes only 1% of time, even if it's n^3 to n optimisation speedup will be <1%
 
-#### Still dev: code may change. Optimisations may not even apply after the refactored version with the correct logic is delivered. That's wasted effort/development time.
+#### Still dev:
+code may change. Optimisations may not even apply after the refactored version with the correct logic is delivered. That's wasted effort/development time.
 
-#### Proper measurement. Timings should be taken several times to avoid outliers, also the machine load, specs and state should be as close as possible as the state that is compared with. Usage should be as close to production/reality as possible. That includes other programs running.
+#### Proper measurement:
+Timings should be taken several times to avoid outliers, also the machine load, specs and state should be as close as possible as the state that is compared with. Usage should be as close to production/reality as possible. That includes other programs running.
 
-#### One may forget to be thorough on results, just looking at time. Maybe some corner case fails and goes unnoticed.
+#### One may forget to be thorough on results
+... just looking at time. Maybe some corner case fails and goes unnoticed.
 
-#### Hard to know the effects of each specific one. Maybe one actually makes the code slower, but when put together is not noticeable.
+#### Hard to know the effects of each specific one.
+Maybe one actually makes the code slower, but when put together is not noticeable.
 
-#### Knowing cache sizes to avoid misses (e.g. by accessing matrixes in bocks) can have a big impact on performance. On a higher level, handling slow resources (e.g. disk IO, HTTP requests) asyncronously (if possible). This can go undetected if only measuring CPU time too.
+#### Knowing cache sizes to avoid misses (e.g. by accessing matrixes in bocks) can have a big impact on performance.
+On a higher level, handling slow resources (e.g. disk IO, HTTP requests) asyncronously (if possible). This can go undetected if only measuring CPU time too.
 
-#### Good enough is good enough. Performance requirements are important. E.g. if we only want numbers < 50 the code for v00.py is perfectly fine. In fact is faster than v13.py .
+#### Good enough is good enough.
+Performance requirements are important. E.g. if we only want numbers < 50 the code for v00.py is perfectly fine. In fact is faster than v13.py .
 
 ---
 
@@ -717,15 +724,18 @@ Self-explanatory
 ["Structured Programming with go to Statements"](https://web.archive.org/web/20131023061601/http://cs.sjsu.edu/~mak/CS185C/KnuthStructuredProgrammingGoTo.pdf) (page 8 of the pdf)
 
 ???
-TODO make notes more readable
 
-### For once I have not highlighted the most (in)famous part of the quote about "premature optimization is the root of all evil". I think he meant that one should focus on bottlenecks when doing **incremental optimisations**. Note that he talks about "small efficiencies". I think optimisations which change time complexity, say from N^3 to N^2 won't be in the same league and should be considered (considered != automatically applied, for small Ns the difference won't probably matter, there are also setup times, etc. and keep in mind Amdahl!).
+### For once I have not highlighted the most (in)famous part of the quote
+... about "premature optimization is the root of all evil". I think he meant that one should focus on bottlenecks when doing **incremental optimisations**. Note that he talks about "small efficiencies". I think optimisations which change time complexity, say from N^3 to N^2 won't be in the same league and should be considered (considered != automatically applied, for small Ns the difference won't probably matter, there are also setup times, etc. and keep in mind Amdahl!).
 
-### So... always measure! I hope the exercise of writing down estimations and checking how off your speedups were with reality helped you loose your overconfidence and see the light!
+### So... always measure!
+I hope the exercise of writing down estimations and checking how off your speedups were with reality helped you loose your overconfidence and see the light!
 
-### All quotes above taken from here. GOTO statements are not a hot topic anymore, but there are yet more still valid quotes in that paper surrounding the topic of code optimisation.
+### All quotes above taken from here: "GOTO statements
+... are not a hot topic anymore, but there are yet more still valid quotes in that paper surrounding the topic of code optimisation.
 
-### 12% improvement on what? A specific routine? The whole system? Just so you see I am not a Knuth fanboy I added a quote on optimisation I disagree with. I think software engineering is special in that "waiting two years for a more powerful computer to become available" or more recently "scaling up on instances" might be seen as a legit improvement by many. Bigger and easier than 12% for sure... The full quote goes on that he wouldn't probably bother for such optimisations on one-time-jobs, but wouldn't deny them to prepare quality software. On that second part I do agree :D
+### 12% improvement on what?
+A specific routine? The whole system? Just so you see I am not a Knuth fanboy I added a quote on optimisation I disagree with. I think software engineering is special in that "waiting two years for a more powerful computer to become available" or more recently "scaling up on instances" might be seen as a legit improvement by many. Bigger and easier than 12% for sure... The full quote goes on that he wouldn't probably bother for such optimisations on one-time-jobs, but wouldn't deny them to prepare quality software. On that second part I do agree :D
 
 A good article on the topic: http://www.joshbarczak.com/blog/?p=580
 
