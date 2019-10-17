@@ -336,11 +336,11 @@ Just running v0 with PyPy instead of Python3 we already get a 10x speedup. Quite
 <embed style="margin-left:-2rem" src="plots/plot_speedup7.html" width="110%" height="100%"></embed>
 
 ???
-Here we have a similar plot with speedups. We see v3 (shortcircuit evaluation) has a huge impact >100x for PyPy and >200x for C -O3 compared to their previous O3 and PyPy versions respectively. Compared to Python3 v0 would be 1300x and 7300x respectively already!
+Here we have a similar plot with speedups. We see v3 (shortcircuit evaluation) has a huge impact >100x for PyPy and >200x for C++ -O3 compared to their previous O3 and PyPy versions respectively. Compared to Python3 v0 would be 1300x and 7300x respectively already!
 
 We got a nice 2x for Python, but... gets dwarved next to it. So much we need to zoom in to actually see it. Why the big difference? Well, because compilers are quite clever at optimising code and can take a bigger advantage.
 
-That's also why v1-v2 (change exponentiation to multiplication) and v4-v5 (moving the calculations outside the loops) are big gains for CPython but measly gains for PyPy and C. The compilers were already similar optimisations.
+That's also why v1-v2 (change exponentiation to multiplication) and v4-v5 (moving the calculations outside the loops) are big gains for CPython but measly gains for PyPy and C++. The compilers were already similar optimisations.
 
 ---
 <embed style="margin-left:-2rem" src="plots/plot_size_complexity7.html" width="110%" height="100%"></embed>
@@ -572,9 +572,9 @@ With that information we can save 75% of memory usage. How much of that will tha
 <div style="margin-left:-4rem" ><img src="./images/img_v15i.py.png" height="95%" width="95%"/></div>
 
 ???
-### V14.py ETA 100k N>=2^20: 0.61s <- python
-### V14.py ETA 100k N>=2^20: 0.49s <-pypy
-### V13.c  ETA 100k N>=2^20: 0.05s <- O3
+### V14.py  ETA 100k N>=2^20: 0.61s <-python
+### V14.py  ETA 100k N>=2^20: 0.49s <-pypy
+### V13.cpp ETA 100k N>=2^20: 0.05s <-O3
 
 We've been going on for a while. This is how the code looks like now (minus blank spaces). So there was a price to pay to get faster runtimes after all. Apart from obvious development time... now the code is more brittle, harder to maintain, had more dependencies, etc.
 
@@ -592,9 +592,9 @@ These are the updated timings. We are measuring 100k Ns, not just 1 like before.
 <embed style="margin-left:-2rem" src="plots/plot_speedup14.html" width="110%" height="100%"></embed>
 
 ???
-Why does v13 python relative speedup (reusing calculations) seem so much better than C? Because if we look at v12 (memoisation), there is a 40x speedup for C whereas using python it actually slowed down the code. So that teaches us once again to measure instead of just rely on intuitions.
+Why does v13 python relative speedup (reusing calculations) seem so much better than C++? Because if we look at v12 (memoisation), there is a 40x speedup for C++ whereas using python it actually slowed down the code. So that teaches us once again to measure instead of just rely on intuitions.
 
-Another interesting optimisation is v14 to reduce memory footprint. If we try to do it with maps in C, the manner more closely analogous to python (rather than using arrays), it turns out the code becomes many times slower instead of being faster! This extra abstraction comes with a big performance hit for this kind of problems.
+Another interesting optimisation is v14 to reduce memory footprint. If we try to do it with maps in C++, the manner more closely analogous to python (rather than using arrays), it turns out the code becomes many times slower instead of being faster! This extra abstraction comes with a big performance hit for this kind of problems.
 
 
 ---
@@ -613,8 +613,7 @@ The other algorithms have a linear cost. Duplicating the size of the problem dup
 
 ???
 
-Before closing I wanted to show a new type of chart. Here we compare the runing times of Python3 vs PyPy and O3. As we can see PyPy is always faster than python. Somethimes >200x (v4), but sometimes a measly 1.25x (v14). The similar fact holds true for O3 being faster compared to PyPy. >100x (v12) yet sometimes only 1.4x (v07). So even when performance is critical, one must to consider that simply porting python code to C may not be the magical solution to all their problems. The range of speedups may vary wildly.
-
+Before closing I wanted to show a new type of chart. Here we compare the runing times of Python3 vs PyPy and O3. As we can see PyPy is always faster than python. Somethimes >200x (v4), but sometimes a measly 1.25x (v14). The similar fact holds true for O3 being faster compared to PyPy. >100x (v12) yet sometimes only 1.4x (v07). So even when performance is critical, one must to consider that simply porting python code to C++ may not be the magical solution to all their problems. The range of speedups may vary wildly.
 
 ---
 
@@ -638,7 +637,7 @@ Before closing I wanted to show a new type of chart. Here we compare the runing 
 
 
 ???
-Just for fun I created a "13 plus" version (named 1337), which is the code for 13.c with a few more optimisations, to see how far it went. Well, it goes from 0.05 seconds to 0.02 . But in this cade "no code is faster than no code", because an empty python program with no code already takes 0.02 seconds to run in this laptop. Feel free to look at it. Many of the optimisations I wrote are not achievable in python... and really the obtained final speedup is not that big, so at this point one can think... is it really worth it? To name a few, these are the optimisations.
+Just for fun I created a "13 plus" version (named 1337), which is the code for 13.cpp with a few more optimisations, to see how far it went. Well, it goes from 0.05 seconds to 0.02 . But in this cade "no code is faster than no code", because an empty python program with no code already takes 0.02 seconds to run in this laptop. Feel free to look at it. Many of the optimisations I wrote are not achievable in python... and really the obtained final speedup is not that big, so at this point one can think... is it really worth it? To name a few, these are the optimisations.
 
 My friend Matte here coded another version using a completely different paradigm which is about as fast but much less hacky. Feel free to compare it as well.
 
@@ -654,8 +653,8 @@ Many other interesting techniques that could be applied
 - loop fusion/fission
 - and many more! (for fun check LEA for multiplications on x86)
 
-### V1337.c  ETA 100k N>=2^20: 0.02s
-### V9001.c  ETA 100k N>=2^20: 0.03s
+### V1337.cpp  ETA 100k N>=2^20: 0.02s
+### V9001.cpp  ETA 100k N>=2^20: 0.03s
 
 ### non-noteworthy optimisations done (compiler should do too):
 - do while (vs for loop)
