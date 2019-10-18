@@ -709,49 +709,12 @@ def speedup_prev_plot(vmin=1, vmax=7, init="v00"):
         x_range=FactorRange(*speedup_factors))
 
     p.xaxis.axis_label = 'Code version'
-    p.yaxis.axis_label = 'X times faster'
+    p.yaxis.axis_label = 'X speedup'
 
     p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.8,
            color=colors_by_lang[:len(speedup_factors)])
 
     common_plot_cfg(p, legend_position="top_left")
-
-    show(p)
-
-
-def size_complexity_plot(vmin=1, vmax=7, ratio_base="8", index=1,
-                         legend_loc="bottom_right"):
-
-    output_file(f"plot_size_complexity{vmax}.html")
-
-    ts_ratios_subset = {k: v for k, v in ts_ratios.items()
-                        if vmin <= int(k[1:]) <= vmax}
-    complexity_time = []
-    complexity_size = []
-    colors = []
-
-    p = figure(
-        title="Time vs size for Python3. Log scale",
-        x_axis_type="log",
-        y_axis_type="log")
-
-    p.xaxis.axis_label = 'Problem size (N))'
-    p.yaxis.axis_label = 'Elapsed time (seconds)'
-
-    for version, language in ts_ratios_subset.items():
-        complexity_time = list(language["python3"][index].values())
-        complexity_size = list(language["python3"][index].keys())
-        colors = [color_mapper[int(version[1:]) - vmin]] * len(
-            language["python3"][index])
-        p.circle(complexity_size, complexity_time, fill_alpha=1, size=20,
-                 color=colors[:len(complexity_size)], legend=version)
-
-    common_plot_cfg(p, legend=None, legend_position=legend_loc)
-
-    if ratio_base:
-        p.match_aspect = True
-        p.aspect_scale = 1 / float(ratio_base)
-        p.title.text += f"; aspect ratio=1/{ratio_base}."
 
     show(p)
 
@@ -774,23 +737,74 @@ def speedup_vs_plot(vmin=0, vmax=14):
         x_range=FactorRange(*speedup_factors))
 
     p.xaxis.axis_label = 'Code version'
-    p.yaxis.axis_label = 'X times faster'
+    p.yaxis.axis_label = 'X speedup'
 
     p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.8,
            color=["red", "blue"] * (vmax + 1))
 
-    common_plot_cfg(p, legend=["PyPy", "clangO3"], color=["red", "blue"])
+    common_plot_cfg(p, legend=["PyPy", "C++"], color=["red", "blue"])
+
+    show(p)
+
+
+def size_complexity_subplot(p, vmin, vmax, index, color, legend):
+    ts_ratios_subset = {k: v for k, v in ts_ratios.items()
+                        if vmin <= int(k[1:]) <= vmax}
+    complexity_time = []
+    complexity_size = []
+
+    for version, language in ts_ratios_subset.items():
+        complexity_size = list(language["python3"][index].values())
+        complexity_time = [k for k in language["python3"][index].keys()]
+        p.circle(complexity_size, complexity_time, fill_alpha=1, size=20,
+                 color=color, legend=legend)
+
+        p.line(x=complexity_size,
+               y=complexity_time,
+               color=color,
+               line_width=6,
+               line_dash='dashed')
+
+    p.legend.location = "top_center"
+    p.legend.label_text_font_size = '21pt'
+    p.legend.glyph_height = 45
+    p.legend.glyph_width = 45
+
+
+def size_complexity_plot():
+    output_file(f"plot_size_complexity_all_scaled.html")
+    p = figure(
+        title="Time vs size for Python3. Log scale",
+        x_axis_type="log",
+        y_axis_type="log")
+
+    p.xaxis.axis_label = 'Elapsed time (seconds)'
+    p.yaxis.axis_label = 'Problem size'
+
+    common_plot_cfg(p, legend=None)
+    size_complexity_subplot(
+        p, vmin=0, vmax=7, index=1,
+        color="blue", legend="v0-v7 (size of N)")
+    size_complexity_subplot(
+        p, vmin=8, vmax=12, index=1048576,
+        color="red", legend="v8-v12 (x*N<=10^6)")
+    size_complexity_subplot(
+        p, vmin=13, vmax=14, index=1048576,
+        color="magenta", legend="v13-v14 (x*N<=10^6)")
+
+    p.xaxis.axis_label_text_font_size = '18pt'
+    p.yaxis.axis_label_text_font_size = '18pt'
+    p.yaxis.major_label_text_font_size = '15pt'
+    p.xaxis.major_label_text_font_size = '15pt'
 
     show(p)
 
 
 ETA_plot()
 speedup_prev_plot()
-size_complexity_plot()
 
 ETA_plot(vmin=8, vmax=14, eta="eta_MAX_iter",
          title_sufix="100k N<=2^20", unit="seconds")
 speedup_prev_plot(vmin=9, vmax=14, init="v08")
-size_complexity_plot(vmin=8, vmax=14, ratio_base=None,
-                     index=1048576, legend_loc="top_right")
 speedup_vs_plot()
+size_complexity_plot()

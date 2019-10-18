@@ -343,12 +343,6 @@ We got a nice 2x for Python, but... gets dwarved next to it. So much we need to 
 That's also why v1-v2 (change exponentiation to multiplication) and v4-v5 (moving the calculations outside the loops) are big gains for CPython but measly gains for PyPy and C++. The compilers were already similar optimisations.
 
 ---
-<embed style="margin-left:-2rem" src="plots/plot_size_complexity7.html" width="110%" height="100%"></embed>
-
-???
-One thing all versions have in common though is the base algorithm. The code complexity is close to O(n^3) as we can see in this graph. Both axis are logarithmic, but the y axis ratio is 1/8 compared to x. This is why all the data points look nicely arranged in a 45 degree gradient. We can see how doubling the size of N increased by approx. 8 the execution time for all algorithms seen so far. And this is because even we did many incremental optimisations, the essence of the algorithm has remained the same.
-
----
 
 ## v8 Paradigm shift.
 
@@ -598,10 +592,14 @@ Another interesting optimisation is v14 to reduce memory footprint. If we try to
 
 
 ---
-<embed style="margin-left:-2rem" src="plots/plot_size_complexity14.html" width="110%" height="100%"></embed>
-
+<embed style="margin-left:-2rem" src="plots/plot_size_complexity_all_scaled.html" width="110%" height="100%"></embed>
 
 ???
+
+TODO rewrite comments on complexity chart
+
+One thing all versions have in common though is the base algorithm. The code complexity is close to O(n^3) as we can see in this graph. Both axis are logarithmic, but the y axis ratio is 1/8 compared to x. This is why all the data points look nicely arranged in a 45 degree gradient. We can see how doubling the size of N increased by approx. 8 the execution time for all algorithms seen so far. And this is because even we did many incremental optimisations, the essence of the algorithm has remained the same.
+
 
 In this chart we can see how v13 and v14 cost is almost constant relative to the amount of entries N calculated. that is because we calculated all possible values up to N=2^20 anyway, and the extra overhead for extra N is just the cost of I/O
 
