@@ -527,18 +527,15 @@ def common_plot_cfg(p, legend=langs, legend_position="top_right", color=None):
     p.y_range.start = 0
     # p.x_range.start = 0
     p.xaxis.major_label_orientation = 1
-    p.xgrid.grid_line_color = None
-    p.toolbar.autohide = True
-    p.xaxis.axis_label_text_font_size = '18pt'
-    p.yaxis.axis_label_text_font_size = '18pt'
-    p.yaxis.major_label_text_font_size = '15pt'
-    p.plot_height = 600
-    p.plot_width = 800
-
     p.xaxis.axis_label_text_font_size = '18pt'
     p.yaxis.axis_label_text_font_size = '18pt'
     p.yaxis.major_label_text_font_size = '15pt'
     p.xaxis.major_label_text_font_size = '15pt'
+
+    p.xgrid.grid_line_color = None
+    p.toolbar.autohide = True
+    p.plot_height = 600
+    p.plot_width = 800
 
     if legend:
         data = dict(types=legend, values=range(len(legend)),
@@ -641,6 +638,7 @@ def speedup_vs_plot(vmin=0, vmax=14):
            color=["red", "blue"] * (vmax + 1))
 
     common_plot_cfg(p, legend=["PyPy", "C++"], color=["red", "blue"])
+    p.xaxis.major_label_text_font_size = '0pt'
 
     show(p)
 
@@ -699,11 +697,11 @@ def size_complexity_plot():
 
 
 ETA_plot()
-# speedup_prev_plot()
+speedup_prev_plot()
 
 ETA_plot(vmin=8, vmax=14, eta="eta_MAX_iter",
-         title_sufix="100k N<=2^20", unit="seconds",
-         color=["magenta", "red", "blue"], legend=["cO3", "pypy", "python3"])
-# speedup_prev_plot(vmin=9, vmax=14, init="v08")
-# speedup_vs_plot()
-# size_complexity_plot()
+         # title_sufix="100k N<=2^20", unit="seconds",
+         # color=["magenta", "red", "blue"], legend=["cO3", "pypy", "python3"])
+speedup_prev_plot(vmin=9, vmax=14, init="v08")
+speedup_vs_plot()
+size_complexity_plot()
