@@ -322,10 +322,10 @@ PyPy is just one of many tools to speedup python execution. This presentation is
 - Many more optimisation flags could be applied beyond the -O0 and -O3, but I wanted to keep it simple and close to the original python code.
 
 ---
-<!-- <object type="text/html" width="100%" height="100%", data="plots/timing7.html"/> -->
 <embed style="margin-left:-2rem" src="plots/plot_eta7.html" width="110%" height="100%"></embed>
 
 ???
+# TODO rewrite comments to match updated plot
 Now that we've introduced what to compare Python3 to, let's see how we did. We went from N=2^20 = 100k years (v0) to under 200 years (v7). That's a total 500x speedup. Not bad right?
 
 We see the C++ port without optimisation flags is about as fast as PyPy in these examples. Using -O3 makes it about twice as fast as them.
@@ -580,6 +580,9 @@ It is slower for very small Ns than less optimised versions. But not only that. 
 
 
 ???
+# TODO mention that CO0 vs CO3 range from 1.5x to 6x
+# TODO rewrite comments to match updated plot
+
 These are the updated timings. We are measuring 100k Ns, not just 1 like before. We need to zoom out so much to see the last values under 1 second. I think the next one is easier to interpret.
 
 ---
@@ -595,8 +598,7 @@ Another interesting optimisation is v14 to reduce memory footprint. If we try to
 <embed style="margin-left:-2rem" src="plots/plot_size_complexity_all_scaled.html" width="110%" height="100%"></embed>
 
 ???
-
-TODO rewrite comments on complexity chart
+# TODO rewrite comments on complexity chart
 
 One thing all versions have in common though is the base algorithm. The code complexity is close to O(n^3) as we can see in this graph. Both axis are logarithmic, but the y axis ratio is 1/8 compared to x. This is why all the data points look nicely arranged in a 45 degree gradient. We can see how doubling the size of N increased by approx. 8 the execution time for all algorithms seen so far. And this is because even we did many incremental optimisations, the essence of the algorithm has remained the same.
 
