@@ -593,6 +593,7 @@ Why does v13 python relative speedup (reusing calculations) seem so much better 
 
 Another interesting optimisation is v14 to reduce memory footprint. If we try to do it with maps in C++, the manner more closely analogous to python (rather than using arrays), it turns out the code becomes many times slower instead of being faster! This extra abstraction comes with a big performance hit for this kind of problems.
 
+C++ with map is 0.22, unordered map is 0.13 but v13 is still 0.05! TODO rephrase that!
 
 ---
 <embed style="margin-left:-2rem" src="plots/plot_size_complexity_all_scaled.html" width="110%" height="100%"></embed>
