@@ -587,17 +587,18 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
     show(p)
 
 
-def speedup_prev_plot(vmin=1, vmax=7, init="v00"):
+def speedup_prev_plot(vmin=1, vmax=7, init="v00", color=["red", "blue"],
+    legend=["pypy", "python3"]):
     output_file(f"plot_speedup{vmax}.html")
 
     speedup_subset = {k: v for k, v in speedup.items()
                       if vmin <= int(k[1:]) <= vmax}
-    speedup_factors = [(init, l) for l in langs]
-    speedup_relative_X = [1, 1, 1, 1]
+    speedup_factors = [(init, l) for l in legend]
+    speedup_relative_X = [1] * len(legend)
 
     for version, info in speedup_subset.items():
-        speedup_factors += [(version, l) for l in langs]
-        speedup_relative_X += [info[f"prev_{l}"] for l in langs]
+        speedup_factors += [(version, l) for l in legend]
+        speedup_relative_X += [info[f"prev_{l}"] for l in legend]
 
     p = figure(
         title="Incremental speedups (i.e. current vs previous)",
@@ -606,10 +607,11 @@ def speedup_prev_plot(vmin=1, vmax=7, init="v00"):
     p.xaxis.axis_label = 'Code version'
     p.yaxis.axis_label = 'X speedup'
 
+    colors_by_lang = color * 10
     p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.8,
            color=colors_by_lang[:len(speedup_factors)])
 
-    common_plot_cfg(p, legend_position="top_left")
+    common_plot_cfg(p, legend=legend, color=color, legend_position="top_left")
 
     show(p)
 
@@ -700,8 +702,10 @@ ETA_plot()
 speedup_prev_plot()
 
 ETA_plot(vmin=8, vmax=14, eta="eta_MAX_iter",
-         # title_sufix="100k N<=2^20", unit="seconds",
-         # color=["magenta", "red", "blue"], legend=["cO3", "pypy", "python3"])
-speedup_prev_plot(vmin=9, vmax=14, init="v08")
+         title_sufix="100k N<=2^20", unit="seconds",
+         color=["magenta", "red", "blue"], legend=["cO3", "pypy", "python3"])
+speedup_prev_plot(
+    vmin=9, vmax=14, init="v08",
+    color=["magenta", "red", "blue"], legend=["cO3", "pypy", "python3"])
 speedup_vs_plot()
 size_complexity_plot()
