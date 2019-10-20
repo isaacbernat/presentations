@@ -301,47 +301,42 @@ One condition that must be fulfilled is that X, Y and Z must all be co-prime. Th
 
 ### PyPy
 - JIT (just in time). Can take into account real-time usage data.
-- Replace `"python3"` with `"pypy3"`
+- Replace `"python3"` with `"pypy3"` when running a program.
 - Many other "python-based" options are avialable: e.g. Numba, Cython...
 
 ### C++ 17
-- Can be close to the machine.
-- Tried to be faithful when porting Python to keep comparisons fair.
+- Closer to the actual hardware than Python.
+- Ported all versions being faithful to Python implementation.
 - `clang` comparable in performance to `g++` (from GNU Compiler Collection).
-- Flags used `"-O0"` and `"-O3"`.
+- `"-O3"` the only optimisation flag used here.
 
 ???
 The real speedup is quite close to the theoretical one. We saved 6/8 iterations and that means it would do 25% of the calculations. That would be 4x speedup.
 
 ### Definition
-Compilers are programs which translate a source language (e.g. python) into another (e.g. bytecode). They also can apply optimisations, analysing the whole source code and how it behaves.
+Compilers are programs which translate code from a source language (e.g. Python) into another (e.g. cpython bytecode). They often apply non result-changing optimisations, analysing the whole program and how it behaves.
 
 PyPy is just one of many tools to speedup python execution. This presentation is already quite long so we won't be covering them.
 
-## C++
-- I added ports to C++ to compare along with PyPy because it's a popular language that can get quite close to machine code and is used were performance is critical. C++ may be better suited than Python for some tasks. It's worth comparing if it's the case here.
-- Many more optimisation flags could be applied beyond the -O0 and -O3, but I wanted to keep it simple and close to the original python code.
+## C++ 17
+- I added ports to C++ to compare performance along with PyPy. I chose C++ because it's a popular language where performance is critical. C++ may be better suited than Python for some tasks. It's worth comparing if it's the case here and by how much.
+- Other obvious flags would be `march`, but I wanted to keep the changes with original Python implementation minimal so the comparison was as fair as possible.
 
 ---
 <embed style="margin-left:-2rem" src="plots/plot_eta7.html" width="110%" height="100%"></embed>
 
 ???
-# TODO rewrite comments to match updated plot
-Now that we've introduced what to compare Python3 to, let's see how we did. We went from N=2^20 = 100k years (v0) to under 200 years (v7). That's a total 500x speedup. Not bad right?
+These are the estimated times to compute N=2^20 for Python3 (blue) and PyPy (red) - we'll cover C++ later. Python went 100k years (v0) to under 200 years (v7). That's a total 500x speedup. Not bad right?
 
-We see the C++ port without optimisation flags is about as fast as PyPy in these examples. Using -O3 makes it about twice as fast as them.
-
-Just running v0 with PyPy instead of Python3 we already get a 10x speedup. Quite nice but far from 500x we achieved. The "magic" comes in v3, when C++ and PyPy plots disappear.
+But, just running v0 with PyPy instead of Python3 we already get a 10x speedup "for free". Still far from the 500x we achieved, but there is some "magic" going on in v3 that makes PyPy plot disappear. Let's focus on that.
 
 ---
 <embed style="margin-left:-2rem" src="plots/plot_speedup7.html" width="110%" height="100%"></embed>
 
 ???
-Here we have a similar plot with speedups. We see v3 (shortcircuit evaluation) has a huge impact >100x for PyPy and >200x for C++ -O3 compared to their previous O3 and PyPy versions respectively. Compared to Python3 v0 would be 1300x and 7300x respectively already!
+Here instead of total time we have speedup compared to previous version. We see v3 (shortcircuit evaluation) has a huge impact >110x for PyPy, which dwarves the already nice 2.5x Python3 speedup. So much we need to **zoom in (to 6x)** to actually see it. Why the big difference? Well, because compilers are quite clever at optimising code and can take a bigger advantage of small changes like this.
 
-We got a nice 2x for Python, but... gets dwarved next to it. So much we need to zoom in to actually see it. Why the big difference? Well, because compilers are quite clever at optimising code and can take a bigger advantage.
-
-That's also why v1-v2 (change exponentiation to multiplication) and v4-v5 (moving the calculations outside the loops) are big gains for CPython but measly gains for PyPy and C++. The compilers were already similar optimisations.
+That's also why v2 (vs v1, change exponentiation to multiplication) and v6 (vs v5, puting the code inside a function) are big gains for CPython but make PyPy be even slower. The compilers were already doing similar optimisations and we just got in their way!
 
 ---
 
@@ -353,11 +348,11 @@ That's also why v1-v2 (change exponentiation to multiplication) and v4-v5 (movin
 
 ???
 
-We saw Python3 went from 100k years to 200. A 500x speedup. v7 in C++ O3 would take 1.4 years. That's a 70.000x speedup! But we can do better!
+We saw Python3 went from 100k years to 200. A 500x speedup. Python v0 vs **PyPy v7 is >46000x speedup**, it would take 2.1 years.
 
-People tend to get attached to code, and there is a limit on how one can improve an algorithm incrementally. There is this sunk cost fallacy which prevents people from discard something and starting from scratch. That would be recognising "wasted effort" and that can be hard to accept.
+People tend to get attached to code, and there is a limit on how one can improve an algorithm incrementally. There is this sunk cost fallacy which prevents people from discarding something and starting from scratch. That would be recognising "wasted effort" and that can be hard to accept.
 
-"Paradigm shift" or "full rewrite" would both describe this approach. In our case this algorithm is based on Euclid's formula to generate primitive pythagorean triples and is quite different (read formula out loud here).
+"Paradigm shift" or "full rewrite" would both describe this approach. In our case this algorithm is based on Euclid's formula to generate primitive pythagorean triplets and is quite different (read formula out loud here).
 
 Being so different also makes speedup estimation harder but try anyway, it's fun ;D
 
@@ -399,6 +394,8 @@ We know that `(x*x) + (y*y)` must be smaller than N. Therefore making the number
 <div style="margin-left:-4rem" ><img src="./images/img_v10i.py.png" width="100%"/></div>
 
 ???
+
+## This and next optimisation are quite small. Also they share quite a few traits with strength reduction and code hoisting. Probably will skip if running out of time at PyCon
 
 Replacing an operation for another is not always obvious there will be a gain, like the case of strength reduction changing exponentiation by multiplication.
 
@@ -458,7 +455,7 @@ Previous speedup was... modest (<1%). Time measurement doesn't need to be a blac
 References: Amdahl's law http://demonstrations.wolfram.com/AmdahlsLaw/
 
 ### pprofile
-- easy to install with pip and easy to use. Just adding the code to be profiled as a context manager, as seen in the screen is enough.
+- easy to install with pip and easy to use. Just adding the code to be profiled as a context manager (as seen on the screen) is enough.
 - it allows line-by-line profiling (cProfile, python's standard granularity is functions. Too broad for us).
 - has a deterministic mode (good for tasks that take few seconds). Also a statistical one.
 
@@ -477,10 +474,10 @@ The image shown is a simplified output, but enough to see how it works. For exam
 
 Before we go on, a brief comment on
 ### statistical vs deterministic profilers
-- det: have big overheads. Therefore are not suitable for production.
+- **det:** have big overheads. Therefore are not suitable for production.
 In our case the profiled code becomes 50x slower. With N = 2^20 the code took 0.06s, while profiled 2.73s. For 100 random Ns it went from 3.26s to 154s.
 
-- stat: needs long run times to be reliable. At fixed intervals evaluates what part of code is being run.
+- **stat:** needs long run times to be reliable. At fixed intervals evaluates what part of code is being run.
 
 ---
 
@@ -502,7 +499,7 @@ Memoisation (without R) consists on storing the results of expensive computation
 ???
 In our case we know the input consists of 100k random numbers up to N=2^20. Therefore we know most pairs of primes will be evaluated thousands times. An efficient cache should be able to write once and retrieve these values faster than it takes to compute the GCD (Greatest Common Divisor) again and again.
 
-`functools` provides this handy decorator `lru_cache` that we are going to use to store the results of the memoised GCD instead of implementing our own solution (a simple dictionary would work).
+`functools` provides this handy `lru_cache` that we are going to use to store the results of the memoised GCD instead of implementing our own solution (a simple dictionary would work).
 
 ---
 
@@ -567,66 +564,81 @@ With that information we can save 75% of memory usage. How much of that will tha
 <div style="margin-left:-4rem" ><img src="./images/img_v15i.py.png" height="95%" width="95%"/></div>
 
 ???
-### V14.py  ETA 100k N>=2^20: 0.61s <-python
-### V14.py  ETA 100k N>=2^20: 0.49s <-pypy
-### V13.cpp ETA 100k N>=2^20: 0.05s <-O3
-
 We've been going on for a while. This is how the code looks like now (minus blank spaces). So there was a price to pay to get faster runtimes after all. Apart from obvious development time... now the code is more brittle, harder to maintain, had more dependencies, etc.
-
-It is slower for very small Ns than less optimised versions. But not only that. Was it really a requirement that it should take < 1s? Was maybe < 1 minute ok? Before knowing we can afford the price to pay, we first must know that it does not come for free!
-
 
 ---
 <embed style="margin-left:-2rem" src="plots/plot_eta14.html" width="110%" height="100%"></embed>
 
-
 ???
-# TODO mention that CO0 vs CO3 range from 1.5x to 6x
-# TODO rewrite comments to match updated plot
+These are the updated timings. We are measuring 100k Ns, not just 1N like before.
 
-These are the updated timings. We are measuring 100k Ns, not just 1 like before. We need to zoom out so much to see the last values under 1 second. I think the next one is easier to interpret.
+### V14.py  ETA 100k N>=2^20: 0.61s <-python
+### V14.py  ETA 100k N>=2^20: 0.49s <-pypy (N.b. PyPy has a more expensive start time than Python)
+### V13.cpp ETA 100k N>=2^20: 0.05s <-O3
+
+Here we introduce C++ ported versions, because it is relevant how faster a mere port can be.
+
+We need to zoom out so much to see the last values under 1 second. I think the next one is easier to interpret.
 
 ---
 <embed style="margin-left:-2rem" src="plots/plot_speedup14.html" width="110%" height="100%"></embed>
 
 ???
-Why does v13 python relative speedup (reusing calculations) seem so much better than C++? Because if we look at v12 (memoisation), there is a 40x speedup for C++ whereas using python it actually slowed down the code. So that teaches us once again to measure instead of just rely on intuitions.
+Why does v13 python relative speedup (reusing calculations) seem so much better than C++? Because if we look at v12 (memoisation), there is a 43x speedup for C++ whereas using Python it actually slowed down the code. That teaches us once again to measure instead of just rely on intuitions.
 
-Another interesting optimisation is v14 to reduce memory footprint. If we try to do it with maps in C++, the manner more closely analogous to python (rather than using arrays), it turns out the code becomes many times slower instead of being faster! This extra abstraction comes with a big performance hit for this kind of problems.
+Another interesting optimisation is v14 to reduce memory footprint. If we try to do it with maps in C++, the manner more closely analogous to Python (rather than using arrays), it turns out the code becomes many times slower instead of being faster! This extra abstraction comes with a big performance hit for this kind of problems.
 
-C++ with map is 0.22, unordered map is 0.13 but v13 is still 0.05! TODO rephrase that!
+Speedups for C++ v13-14 with O3
+- **v13 array           0.05s** (using more memory than needed)
+- **v14 map             0.22s** (as shown in th chart)
+- **v14 unordered_map   0.13s** (more similar to Python dicts)
 
 ---
 <embed style="margin-left:-2rem" src="plots/plot_size_complexity_all_scaled.html" width="110%" height="100%"></embed>
 
 ???
-# TODO rewrite comments on complexity chart
+The computational-complexity is probably the most important factor when optimising problems with big inputs. Our implementations fall in 3 groups of similar gradients:
+- BLUE ~CUBIC. O(n^3). A problem 2x as big will take 8x as long time.
+- RED ~LINEAR. O(n). A problem 2x as big will take 2x as long time.
+- MAGENTA ~CONSTANT. O(1). A problem 2x as big will take the same time.
 
-One thing all versions have in common though is the base algorithm. The code complexity is close to O(n^3) as we can see in this graph. Both axis are logarithmic, but the y axis ratio is 1/8 compared to x. This is why all the data points look nicely arranged in a 45 degree gradient. We can see how doubling the size of N increased by approx. 8 the execution time for all algorithms seen so far. And this is because even we did many incremental optimisations, the essence of the algorithm has remained the same.
 
+Here we show the size-cost of all versions. We should note that both axes have a logarithmic scale so we could fit all lines in a single chart. Furthermore, algorithms from v08 to v14 use the **amount of Ns** with values up to 1M instead of a single N, because the 9 Bnx speedup from v7 to v8 is too big otherwise. So you may imagine the real "size" of RED and MAGENTA groups being 1M times (or 10^6) bigger.
 
-In this chart we can see how v13 and v14 cost is almost constant relative to the amount of entries N calculated. that is because we calculated all possible values up to N=2^20 anyway, and the extra overhead for extra N is just the cost of I/O
+The cost of v13-14 is constant up to >10.000s of N<=10^6. After that point the cost of I/O starts being significant compared to that of calculations, and of course, adding more entries will take more time reading and writing the values.
 
-The other algorithms have a linear cost. Duplicating the size of the problem duplicates the running time. Here the ratio of x and y axis is 1 to 1.
+But even the fastest constant algorithm is slower for very small Ns than less optimised versions. It has a fix cost the others don't.
+
+But not only that. Was it really a requirement that it should take < 1s? Was maybe < 1 minute ok? If it's a batch process maybe is fine. Before knowing we can afford the price to pay, we first must know that it does not come for free!
 
 ---
 <embed style="margin-left:-2rem" src="plots/plot_speedup_vs14.html" width="110%" height="100%"></embed>
 
-
 ???
+As the last plot, here we compare the runing times of Python3 vs PyPy and C++ O3.
+### PyPy is always faster than Python.
+- `>200x` (v4)
+- `1.25x` (v14)
 
-Before closing I wanted to show a new type of chart. Here we compare the runing times of Python3 vs PyPy and O3. As we can see PyPy is always faster than python. Somethimes >200x (v4), but sometimes a measly 1.25x (v14). The similar fact holds true for O3 being faster compared to PyPy. >100x (v12) yet sometimes only 1.4x (v07). So even when performance is critical, one must to consider that simply porting python code to C++ may not be the magical solution to all their problems. The range of speedups may vary wildly.
+### C++ O3 is always faster than PyPy.
+- `>100x` (v12)
+- `1.4x` (v07)
+
+So even when performance is critical, one must know that simply porting Python code to C++ may not be the magical solution to all their problems. The range of speedups may vary wildly and one must always measure and consider alternatives.
+
+ N.b. we didn't show **CO0 and CO3**, different optimisation flags, but using one or another provides a speedup **between 1.5x and 6x** for these 14 versions. **PyPy** on some occasions is **faster than CO0**.
 
 ---
 
 ## v1337 The end is just another beginning
 
 - `v14.py` vs `1337.cpp`
-    - 0.6 Kib vs  15 Kib
-    - 30 lines vs 140 lines
+    -  0.6 sec vs  0.02 sec (`hello_world.py` is already 0.02 sec)
+    -  0.6 Kib vs  15 Kib
+    - 30 lines vs  140 lines
     - Readability, maintainability, portability... not easily measured.
 
-### Noteworthy C++ optimisations:
+### Noteworthy C++ optimisations used:
 - vectorisation (via SIMD (Single-instruction multiple-data))
 - memoisation of `GCD` (already 43x on v12)
 - smaller memory footprint (e.g. `chars` for `gcd(m, n) == 1`)
@@ -639,11 +651,11 @@ Before closing I wanted to show a new type of chart. Here we compare the runing 
 
 
 ???
-Just for fun I created a "13 plus" version (named 1337), which is the code for 13.cpp with a few more optimisations, to see how far it went. Well, it goes from 0.05 seconds to 0.02 . But in this cade "no code is faster than no code", because an empty python program with no code already takes 0.02 seconds to run in this laptop. Feel free to look at it. Many of the optimisations I wrote are not achievable in python... and really the obtained final speedup is not that big, so at this point one can think... is it really worth it? To name a few, these are the optimisations.
+Just for fun I created a "13 plus" version (named 1337), which is the code for 13.cpp with more optimisations, to see how far it went. Well, it goes **from 0.05 seconds to 0.02** . But is really "no code faster than no code"? hello_world.py is already 0.02s! Many of the optimisations I wrote are not achievable in Python... and really the obtained final speedup is not that big, so at this point one can think... is it really worth it? To name a few, these are the optimisations (see list above).
 
-My friend Matte here coded another version using a completely different paradigm which is about as fast but much less hacky. Feel free to compare it as well.
+My friend Matte here coded another version (9001.cpp) using a completely different paradigm which is about as fast but much less hacky. Feel free to review it as well.
 
-Many other interesting techniques that could be applied
+Many other interesting techniques that could be further applied
 - threads (for calculations too, splitting a big task)
 - branch predictions (especially important on pipeline processors)
 - conditional move (both computed, but hit rate independent)
@@ -653,12 +665,12 @@ Many other interesting techniques that could be applied
 - pre-compute vs do it on demand
 - bit hacks
 - loop fusion/fission
-- and many more! (for fun check LEA for multiplications on x86)
+- and many more! [for fun check LEA for multiplications on x86](https://stackoverflow.com/questions/46480579/how-to-multiply-a-register-by-37-using-only-2-consecutive-leal-instructions-in-x)
 
-### V1337.cpp  ETA 100k N>=2^20: 0.02s
-### V9001.cpp  ETA 100k N>=2^20: 0.03s
+### V1337.cpp  ETA 100k N>=2^20: ~0.02s
+### V9001.cpp  ETA 100k N>=2^20: ~0.03s
 
-### non-noteworthy optimisations done (compiler should do too):
+### non-noteworthy optimisations used (compiler should do too):
 - do while (vs for loop)
 - preincrement (vs postincrement, e.g. ++i vs i++)
 
