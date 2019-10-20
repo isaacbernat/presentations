@@ -57,12 +57,14 @@ Here one can see a pattern 4...8...4...8... but it gets more complicated after 4
 
 ## Time measurements.
 #### Timing
-- Code is run using python3.7 using this **2012 laptop**.
+- Code is ran using python3.7 on a **2012 laptop**.
 - Best of **5 runs** for each algorithm and input.
 - Increase problem size until set takes **>600 seconds**.
-- **Discard** problem sizes with time **< 0.15 seconds**.
 - Calculate **ETA using** time complexity estimation of **biggest 3 inputs**.
 - e.g. `if size*2 -> time*8 then complexity=O(n^3)` because (2^3 -> 8).
+    - N=100, t=1min
+    - N=200, t=8min
+    - N=400, t=64min
 
 #### Sources
 - `github.com/isaacbernat/presentations/tree/master/optimise`
@@ -87,7 +89,6 @@ PD: Yes, I know, one easy speedup would be getting a new laptop ;D
 - The laptop **specs** can be found in the **github url**. Just a **new laptop** would probably be a **good speedup** ;D.
 - Best of 5 runs (extra time is overhead from OS, etc).
 - 600s should be big enough to provide robust numbers and minimise the noise.
-- Small times have higher variablity non-dependent on algorithm.
 - We don't have billions of years to wait and get result, but we want to compare different algorithms that are much faster and can't use the same input.
 - Feel free to replicate the experiments. If on a different machine they may vary accordingly, but I think should be within the same order of magnitude?
 optimise time, vs memory, a specific shared resource, etc.
@@ -113,7 +114,7 @@ If you don't want to use the url above, even a piece of paper can be fun. But th
 ---
 
 ## v0 Baseline.
-### `ETA N=2^20:` 98 263 years `; ETA 100k N<=2^20:` >1 Bn
+### `ETA N=2^20:` 98 263 years `; ETA 100k*N<=2^20:` >1 Bn
 
 <div style="margin-left:-4rem" ><img src="./images/img_v00i.py.png" width="110%"/></div>
 
@@ -698,29 +699,15 @@ Performance requirements are important. E.g. if we only want numbers < 50 the co
 
 ---
 
-## Methodology
-### `WHILE` not is_acceptable(performance):
-#### 0. Analyze performance of current code.
-#### 1. Apply ONE optimization.
-#### 2. Check correctness of results.
-#### 3. Analyze performance of the new version.
-#### 4. Decide if the optimization should be included.
-
-???
-
-Self-explanatory
-
----
-
 ## Specials thanks: `github.com/isaacbernat`
 ### Mattias Johansson, Ivbar, LOGEX Group; `github.com/folkol`
 ### David Garcia Villalba, Zhilabs, Samsung; `github.com/dagavi`
 
-"Programmers waste enormous amounts of time thinking about, or worrying about, the speed of noncritical parts of their programs, and these attempts at efficiency actually have a strong negative impact when debugging and maintenance are considered. We should **forget about small efficiencies, say about 97% of the time**: premature optimization is the root of all evil. Yet we should **not pass** up our opportunities in **that critical 3%"** - *Knuth, 1974*
+"Programmers waste enormous amounts of time thinking about, or worrying about, the speed of noncritical parts of their programs, and these attempts at efficiency actually have a strong negative impact when debugging and maintenance are considered. We should **forget about small efficiencies, say about 97% of the time**: premature optimization is the root of all evil. Yet we should **not pass** up our opportunities in **that critical 3%"** - *D. Knuth, 1974*
 
-"It is often a mistake to make **a priori judgements** about what parts of a program are really critical..." - *Knuth, 1974*
+"It is often a mistake to make **a priori judgements** about what parts of a program are really critical..." - *D. Knuth, 1974*
 
-"In established engineering disciplines **a 12 % improvement**, easily obtained, **is never considered marginal** and I believe the same viewpoint should prevail in software engineering" - *Knuth, 1974*
+"In established engineering disciplines **a 12 % improvement**, easily obtained, **is never considered marginal** and I believe the same viewpoint should prevail in software engineering" - *D. Knuth, 1974*
 
 ["Structured Programming with go to Statements"](https://web.archive.org/web/20131023061601/http://cs.sjsu.edu/~mak/CS185C/KnuthStructuredProgrammingGoTo.pdf) (page 8 of the pdf)
 
