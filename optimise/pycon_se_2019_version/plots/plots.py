@@ -1,5 +1,5 @@
 from bokeh.plotting import figure
-from bokeh.models import FactorRange
+from bokeh.models import FactorRange, BasicTickFormatter
 from bokeh.io import show, output_file
 
 color_mapper = ["#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E",
@@ -525,7 +525,7 @@ ts_ratios = {
 def common_plot_cfg(p, legend=langs, legend_position="top_right", color=None):
     p.title.text_font_size = '21pt'
     p.y_range.start = 0
-    # p.x_range.start = 0
+
     p.xaxis.major_label_orientation = 1
     p.xaxis.axis_label_text_font_size = '18pt'
     p.yaxis.axis_label_text_font_size = '18pt'
@@ -546,10 +546,10 @@ def common_plot_cfg(p, legend=langs, legend_position="top_right", color=None):
                color="color", legend="types",
                source=data)
 
-    p.legend.location = legend_position
-    p.legend.label_text_font_size = '21pt'
-    p.legend.glyph_height = 45
-    p.legend.glyph_width = 45
+        p.legend.location = legend_position
+        p.legend.label_text_font_size = '21pt'
+        p.legend.glyph_height = 45
+        p.legend.glyph_width = 45
 
 
 def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
@@ -583,6 +583,7 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
            y=python3_line, color="black", line_width=6, line_dash='dashed')
 
     common_plot_cfg(p, legend=legend, color=color)
+    p.yaxis.formatter = BasicTickFormatter(use_scientific=False)
 
     show(p)
 
@@ -663,14 +664,9 @@ def size_complexity_subplot(p, vmin, vmax, index, color, legend):
                line_width=6,
                line_dash='dashed')
 
-    p.legend.location = "top_center"
-    p.legend.label_text_font_size = '21pt'
-    p.legend.glyph_height = 45
-    p.legend.glyph_width = 45
-
 
 def size_complexity_plot():
-    output_file(f"plot_size_complexity_all_scaled.html")
+    output_file(f"plot_time_complexity_all_scaled.html")
     p = figure(
         title="Time vs size for Python3. Log scale",
         x_axis_type="log",
@@ -694,6 +690,14 @@ def size_complexity_plot():
     p.yaxis.axis_label_text_font_size = '18pt'
     p.yaxis.major_label_text_font_size = '15pt'
     p.xaxis.major_label_text_font_size = '15pt'
+
+    p.xaxis.formatter = BasicTickFormatter(use_scientific=False)
+
+    p.legend.location = "top_center"
+    p.legend.label_text_font_size = '21pt'
+    p.legend.glyph_height = 45
+    p.legend.glyph_width = 45
+
 
     show(p)
 

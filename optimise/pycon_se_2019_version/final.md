@@ -19,7 +19,7 @@ Let's move on!
 
 ---
 
-## Problem definition.
+## Problem definition
 
 <div style="margin-left:-4rem" ><img src="./images/img_problem_definition.png" width="110%"/></div>
 
@@ -38,7 +38,7 @@ To simplify we will only consider N=2^20 at the beginning, but later we will ass
 
 ---
 
-## Solutions (first 48 samples).
+## Solutions (first 48 samples)
 
 <div style="margin-left:-4rem" ><img src="./images/img_solutions.py.png" width="95%"/></div>
 
@@ -55,11 +55,11 @@ Here one can see a pattern 4...8...4...8... but it gets more complicated after 4
 
 ---
 
-## Time measurements.
+## Time measurements
 #### Timing
 - Code is ran using python3.7 on a **2012 laptop**.
 - Best of **5 runs** for each algorithm and input.
-- Increase problem size until set takes **>600 seconds**.
+- Increase problem size until it takes **>600 seconds**.
 - Calculate **ETA using** time complexity estimation of **biggest 3 inputs**.
 - e.g. `if size*2 -> time*8 then complexity=O(n^3)` because (2^3 -> 8).
     - N=100, t=1min
@@ -95,7 +95,7 @@ optimise time, vs memory, a specific shared resource, etc.
 
 ---
 
-## How good are you at estimating speedups?.
+## How good are you at estimating speedups?
 ## https://tinyurl.com/pycon2019
 ### Results from the above form will be published in a few days.
 ### How fast code is compared to the previous version?
@@ -113,7 +113,7 @@ If you don't want to use the url above, even a piece of paper can be fun. But th
 
 ---
 
-## v0 Baseline.
+## v0 Baseline
 ### `ETA N=2^20:` 98 263 years `; ETA 100k*N<=2^20:` >1 Bn
 
 <div style="margin-left:-4rem" ><img src="./images/img_v00i.py.png" width="110%"/></div>
@@ -130,17 +130,24 @@ But before we evaluate how good/bad the code is... we need to see it all, right?
 
 ---
 
-## v0 Baseline.
+## v0 Baseline
 
 <div ><img src="./images/img_v00ii.py.png" height="100%"/></div>
 
 ???
-## Euclidean Algorithm
-The classic algorithm does the job. In this example we use the first version with a temporary variable, which is not as efficient the second, but good enough for our case.
+## Improved Euclidean Algorithm O(n^2)
+The classic algorithm does the job. In this example we use the first version with a temporary variable, which is not as efficient the second, but easier to come up and good enough for our case.
+
+## Binary GCD algorithm (Stein's algorithm) O(n^2)
+It replaces division with arithmetic shifts, comparisons, and subtraction. Somewhat faster but more complex. Still also quadratic cost.
+
+Other algorithms with better asymptotical cost are known, but are more useful for bigger integers.
+
+
 
 ---
 
-## v1 Don't reinvent the wheel.
+## v1 Don't reinvent the wheel
 ### V0 vs V0 speedup: 1.00x; &emsp; &emsp; V0 -> 98 263 years (N=2^20)
 
 <div ><img src="./images/img_v01.py.png" height="100%"/></div>
@@ -154,17 +161,17 @@ If the functionality needed can be found in a trusted library, it's a good idea 
 
 ---
 
-## v2 Peephole optimization/strength reduction.
+## v2 Peephole optimization/strength reduction
 ### V1 vs V0 speedup: 1.61x; &emsp; &emsp; V1 -> 60 943 years (N=2^20)
 
 <div style="margin-left:-4rem" ><img src="./images/img_v02i.py.png" width="110%"/></div>
 
 ???
-This technique is about replacing overly generic functions by more specific ones. For example in binary integer arithmetic, we know that multiplication by a power of 2 can be expressed as a simple "shift" operation. E.g. multiplication by 16 (2^4) means moving 4 bits to the left. For most architectures this is computed faster.
+This technique is about replacing overly generic functions by more specific ones. For example in binary integer arithmetic, we know that multiplication by a power of 2 can be expressed as a simple "shift" operation. E.g. **multiplication by 16 (2^4)** means moving 4 bits to the left. For most architectures this is computed faster.
 
 ---
 
-## v2 Peephole optimization/strength reduction.
+## v2 Peephole optimization/strength reduction
 
 <div ><img src="./images/img_v02ii.py.png" width="100%"/></div>
 
@@ -177,7 +184,7 @@ The affect code is highlighted:
 
 ---
 
-## v3 Short-circuit evaluation.
+## v3 Short-circuit evaluation
 ### V2 vs V1 speedup: 2.19x; &emsp; &emsp; V2 -> 27 714 years (N=2^20)
 
 <div style="margin-left:-4rem" ><img src="./images/img_v03i.py.png" width="110%"/></div>
@@ -191,7 +198,7 @@ Further references: https://docs.python.org/3/library/stdtypes.html#boolean-oper
 
 ---
 
-## v3 Short-circuit evaluation.
+## v3 Short-circuit evaluation
 
 <div style="margin-left:-4rem" ><img src="./images/img_v03ii.py.png" width="110%"/></div>
 
@@ -202,7 +209,7 @@ In our example we move the expensive gcd to the end and the cheap integer compar
 
 ---
 
-## v4 Search space reduction.
+## v4 Search space reduction
 ### V3 vs V2 speedup: 2.58x; &emsp; &emsp; V3 -> 10 717 years (N=2^20)
 
 <div style="margin-left:-4rem" ><img src="./images/img_v04i.py.png" width="110%"/></div>
@@ -213,7 +220,7 @@ A way to speed up code is to avoid checking conditions that we know beforehand a
 
 ---
 
-## v4 Search space reduction.
+## v4 Search space reduction
 
 <div style="margin-left:-4rem" ><img src="./images/img_v04ii.py.png" width="110%"/></div>
 
@@ -223,7 +230,7 @@ In our case we want Y > X and Z > Y. We can start the ranges with those initial 
 
 ---
 
-## v5 Code hoisting.
+## v5 Code hoisting
 ### V4 vs V3 speedup: 3.56x; &emsp; &emsp; V4 -> 3 012 years (N=2^20)
 
 <div style="margin-left:-4rem" ><img src="./images/img_v05i.py.png" width="110%"/></div>
@@ -233,7 +240,7 @@ Similar to previous optimisation, this one consists on moving calculations that 
 
 ---
 
-## v5 Code hoisting.
+## v5 Code hoisting
 
 <div style="margin-left:-4rem" ><img src="./images/img_v05ii.py.png" height="95%" width="95%"/></div>
 
@@ -243,7 +250,7 @@ As long as Y does not change, Y x Y won't change too. Same reasoning may be appl
 
 ---
 
-## v6 Function calls vs inline code.
+## v6 Function calls vs inline code
 ### V5 vs V4 speedup: 1.83x; &emsp; &emsp; V5 -> 1 647 years (N=2^20)
 
 <div style="margin-left:-4rem" ><img src="./images/img_v06i.py.png" height="100%" width="100%"/></div>
@@ -253,7 +260,7 @@ Programs are divided into scopes. Every time a function is called there is a con
 
 ---
 
-## v6 Function calls vs inline code.
+## v6 Function calls vs inline code
 
 <div style="margin-left:-4rem" ><img src="./images/img_v06ii.py.png" height="110%"/></div>
 
@@ -263,7 +270,7 @@ In our case the change is to make the calculation of N be a function instead of 
 
 ---
 
-## v6 Function calls vs inline code.
+## v6 Function calls vs inline code
 
 <div style="margin-left:-4rem" ><img src="./images/img_v06iii.py.png" width="110%"/></div>
 
@@ -340,7 +347,7 @@ That's also why v2 (vs v1, change exponentiation to multiplication) and v6 (vs v
 
 ---
 
-## v8 Paradigm shift.
+## v8 Paradigm shift
 
 ### V7 vs V0 speedup: 503x; &emsp; V0->98 263y; V7->195y (N=2^20)
 
@@ -348,7 +355,7 @@ That's also why v2 (vs v1, change exponentiation to multiplication) and v6 (vs v
 
 ???
 
-We saw Python3 went from 100k years to 200. A 500x speedup. Python v0 vs **PyPy v7 is >46000x speedup**, it would take 2.1 years.
+We saw Python3 went from 100k years to 200. A 500x speedup. Python v0 vs **PyPy v7 is >46000x speedup**, it would take **2.1 years**.
 
 People tend to get attached to code, and there is a limit on how one can improve an algorithm incrementally. There is this sunk cost fallacy which prevents people from discarding something and starting from scratch. That would be recognising "wasted effort" and that can be hard to accept.
 
@@ -358,7 +365,7 @@ Being so different also makes speedup estimation harder but try anyway, it's fun
 
 ---
 
-## v9 Early loop termination.
+## v9 Early loop termination
 
 ### V8 vs V7 speedup: 9 172 593 998x; &emsp; V8 -> 1.1 seconds (N=2^20)
 
@@ -373,7 +380,7 @@ How can we top that? Terminating a loop early, when we know a condition will not
 
 ---
 
-## v9 Early loop termination.
+## v9 Early loop termination
 ### V8 vs V7 speedup: 9 Bn; &emsp; &emsp; V8 -> 67 165 sec (100k N<=2^20)
 
 ### `(x*x) + (y*y) <= N`
@@ -388,7 +395,7 @@ We know that `(x*x) + (y*y)` must be smaller than N. Therefore making the number
 
 ---
 
-## v10 Expensive vs cheap ops.
+## v10 Expensive vs cheap ops
 ### V9 vs V8 speedup: 14.82x; &emsp; &emsp; V9 -> 4 531 sec (100k N<=2^20)
 
 <div style="margin-left:-4rem" ><img src="./images/img_v10i.py.png" width="100%"/></div>
@@ -401,7 +408,7 @@ Replacing an operation for another is not always obvious there will be a gain, l
 
 ---
 
-## v10 Expensive vs cheap ops.
+## v10 Expensive vs cheap ops
 
 <div style="margin-left:-4rem" ><img src="./images/img_v10ii.py.png" width="110%"/></div>
 
@@ -410,7 +417,7 @@ Here we combine code hoisting with strength reduction and replace a few SQRTs wh
 
 ---
 
-## v11 Mind types.
+## v11 Mind types
 ### V10 vs V9 speedup: 1.28x; &emsp; V10 -> 3 531 sec (100k N<=2^20)
 
 <div style="margin-left:-4rem" ><img src="./images/img_v11i.py.png" width="100%"/></div>
@@ -422,7 +429,7 @@ Python is known for duck typing. That means that 2 different types with a suitab
 
 ---
 
-## v11 Mind types.
+## v11 Mind types
 
 <div style="margin-left:-4rem" ><img src="./images/img_v11ii.py.png" width="110%"/></div>
 
@@ -481,7 +488,7 @@ In our case the profiled code becomes 50x slower. With N = 2^20 the code took 0.
 
 ---
 
-## v12 Memoisation (without r, no typo here).
+## v12 Memoisation (without r, no typo here)
 
 ### V11 vs V10 speedup: 1.01x &emsp; V11 -> 3 513 sec (100k N<=2^20)
 
@@ -492,7 +499,7 @@ Memoisation (without R) consists on storing the results of expensive computation
 
 ---
 
-## v12 Memoisation.
+## v12 Memoisation
 
 <div style="margin-left:-4rem" ><img src="./images/img_v12ii.py.png" height="110%"/></div>
 
@@ -503,7 +510,7 @@ In our case we know the input consists of 100k random numbers up to N=2^20. Ther
 
 ---
 
-## v13 Reuse results.
+## v13 Reuse results
 ### V12 vs V11 speedup: 0.81x; &emsp; V12 -> 4 297 sec (100k N<=2^20)
 
 <div style="margin-left:-4rem" ><img src="./images/img_v13i.py.png" width="100%"/></div>
@@ -533,7 +540,7 @@ Does this make sense? I hope so, because now I would ask you to estimate a speed
 
 ---
 
-## v14 Reduce memory footprint.
+## v14 Reduce memory footprint
 ### V13 vs V12 speedup: 3979x; &emsp; V13 -> 1.08 sec (100k N<=2^20)
 
 
@@ -548,7 +555,7 @@ Therefore we are going to focus on using less memory if possible. When the proce
 
 ---
 
-## v14 Reduce memory footprint.
+## v14 Reduce memory footprint
 
 <div style="margin-left:-4rem" ><img src="./images/img_v14ii.py.png" height="85%" width="85%"/></div>
 
@@ -594,7 +601,7 @@ Speedups for C++ v13-14 with O3
 - **v14 unordered_map   0.13s** (more similar to Python dicts)
 
 ---
-<embed style="margin-left:-2rem" src="plots/plot_size_complexity_all_scaled.html" width="110%" height="100%"></embed>
+<embed style="margin-left:-2rem" src="plots/plot_time_complexity_all_scaled.html" width="110%" height="100%"></embed>
 
 ???
 The computational-complexity is probably the most important factor when optimising problems with big inputs. Our implementations fall in 3 groups of similar gradients:
@@ -603,7 +610,7 @@ The computational-complexity is probably the most important factor when optimisi
 - MAGENTA ~CONSTANT. O(1). A problem 2x as big will take the same time.
 
 
-Here we show the size-cost of all versions. We should note that both axes have a logarithmic scale so we could fit all lines in a single chart. Furthermore, algorithms from v08 to v14 use the **amount of Ns** with values up to 1M instead of a single N, because the 9 Bnx speedup from v7 to v8 is too big otherwise. So you may imagine the real "size" of RED and MAGENTA groups being 1M times (or 10^6) bigger.
+Here we show the time-cost of all versions. We should note that both axes have a logarithmic scale so we could fit all lines in a single chart. Furthermore, algorithms from v08 to v14 use the **amount of Ns** with values up to 1M instead of a single N, because the 9 Bnx speedup from v7 to v8 is too big otherwise. So you may imagine the real "size" of RED and MAGENTA groups being 1M times (or 10^6) bigger.
 
 The cost of v13-14 is constant up to >10.000s of N<=10^6. After that point the cost of I/O starts being significant compared to that of calculations, and of course, adding more entries will take more time reading and writing the values.
 
@@ -633,7 +640,7 @@ So even when performance is critical, one must know that simply porting Python c
 ## v1337 The end is just another beginning
 
 - `v14.py` vs `1337.cpp`
-    -  0.6 sec vs  0.02 sec (`hello_world.py` is already 0.02 sec)
+    -  0.6 sec vs  0.02 sec (`hello_world.py` is already 0.02 sec!)
     -  0.6 Kib vs  15 Kib
     - 30 lines vs  140 lines
     - Readability, maintainability, portability... not easily measured.
@@ -695,7 +702,7 @@ If the code optimised takes only 1% of time, even if it's n^3 to n optimisation 
 code may change. Optimisations may not even apply after the refactored version with the correct logic is delivered. That's wasted effort/development time.
 
 #### Proper measurement:
-Timings should be taken several times to avoid outliers, also the machine load, specs and state should be as close as possible as the state that is compared with. Usage should be as close to production/reality as possible. That includes other programs running.
+Timings should be taken **several times to avoid outliers**, also the machine load, specs and state should be as close as possible as the state that is compared with. Usage should be as close to production/reality as possible. That includes other programs running.
 
 #### One may forget to be thorough on results
 ... just looking at time. Maybe some corner case fails and goes unnoticed.
@@ -704,10 +711,12 @@ Timings should be taken several times to avoid outliers, also the machine load, 
 Maybe one actually makes the code slower, but when put together is not noticeable.
 
 #### Knowing cache sizes to avoid misses (e.g. by accessing matrixes in bocks) can have a big impact on performance.
-On a higher level, handling slow resources (e.g. disk IO, HTTP requests) asyncronously (if possible). This can go undetected if only measuring CPU time too.
+On a higher level, handling slow resources (e.g. disk IO, HTTP requests) asyncronously (if possible). This can go **undetected if only measuring CPU time** too.
 
 #### Good enough is good enough.
 Performance requirements are important. E.g. if we only want numbers < 50 the code for v00.py is perfectly fine. In fact is faster than v13.py .
+
+Not knowing when to stop... and with that, I conclude the presentation.
 
 ---
 
