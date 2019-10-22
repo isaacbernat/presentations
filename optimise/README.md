@@ -1,7 +1,6 @@
 # From > 1 Billion years to < 1 second
 
-- "longer_version": a version similar to what I presented at Ivbar's lunch and learn. It took about 50 minutes going at a good pace.
-- "pycon_se_2019_version": the version that will be presented at PyCon Sweden 2019 the 1st of October. The least significant optimisation techniques are scrapped. It's more focused on Python3 (the comparison with PyPy and specially C++ is reduced). Plots are removed/rearranged to be less in number along with some other slides.
+The content of this repository is related to the presentation to take place the 1st of November of [2019 at PyCon Sweden](https://www.pycon.se/index.html#talks). Additional content, references and notes supporting the slides are found in `final.md`. More info in the section *How to run the presentation*
 
 ## Content
 ### Intro
@@ -12,17 +11,18 @@ The goal of this talk is to empower people with over a dozen optimisation techni
 
 I will present best practices, typical pitfalls and common tools, but the main focus will be on a practical approach. I will showcase a small problem and a naive solution, just a few lines of Python, so that it's easily understood. Iteratively I will apply each optimisation, explain the reasoning behind it and note how execution time is reduced. By the end of the talk, one will see how the code evolved from something that would take > 1 billion years to compute to < 1 second on a regular laptop.
 
-I will also compare running times between Python, PyPy and C++ implementations (one being just a few milliseconds), and show how the same techniques may achieve vastly different speedups from the python versions.
+I will also compare running times between Python, PyPy and C++ implementations (one being just a few milliseconds), and show how the same techniques may achieve vastly different speedups from the Python versions.
 
 ### Time estimates
 Attendants are encouraged to participate [in a survey and for each presented optimisation fill their estimated speedup](https://tinyurl.com/pycon2019). That's a good exercise to evaluate how good one is at estimating code performance (compared to reality and also to other fellows, so please don't cheat!).
 
 ## How to run the presentation
 ### If you don't care too much about the format
-[Click here](https://github.com/isaacbernat/presentations/blob/master/optimise/longer_version/final.md) (just open the markdown file for the "longer version")
+[Click here](https://github.com/isaacbernat/presentations/blob/master/optimise/final.md) (it opens the markdown file `final.md`)
 
 ### If you want it to look "good"
-- In a terminal with the same path as the directory of a presentation type `python3 -m http.server`.
+- Clone of download this repository.
+- In a terminal with the same path as this directory run `python3 -m http.server`.
 - Then open in a browser `http://localhost:8000`.
-- Use shift+F for full screen, shift+P for presentation mode. Up and Down to go through slides.
+- Use shift+F for full screen, shift+P for presentation mode. Up and Down arrows to go through slides.
 - For more info https://github.com/gnab/remark
