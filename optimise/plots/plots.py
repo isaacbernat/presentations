@@ -2,14 +2,7 @@ from bokeh.plotting import figure
 from bokeh.models import FactorRange, BasicTickFormatter
 from bokeh.io import show, output_file
 
-color_mapper = ["#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E",
-                "#E6AB02", "#A6761D", "#666666", "#FFFFFF"]
-
-langs = ["cO0", "cO3", "pypy", "python3"]
-colors_by_lang = [color_mapper[l] for _ in range(10)
-                  for l in range(len(langs))]
-
-# subset of data from timings.md (time_parser.py)
+# subset of data from timings.md (time_parser.py, times.csv)
 timing = {
     'v00': {'pypy': {1: {256: 3.64, 512: 28.87, 1024: 241.47},
                      'eta_MAXN': 311317829039.99,
@@ -522,7 +515,7 @@ ts_ratios = {
                               100000: 0.61}}}}
 
 
-def common_plot_cfg(p, legend=langs, legend_position="top_right", color=None):
+def common_plot_cfg(p, legend=None, legend_position="top_right", color=None):
     p.title.text_font_size = '21pt'
     p.y_range.start = 0
 
@@ -539,9 +532,7 @@ def common_plot_cfg(p, legend=langs, legend_position="top_right", color=None):
 
     if legend:
         data = dict(types=legend, values=range(len(legend)),
-                    color=colors_by_lang[:len(legend)])
-        if color:
-            data["color"] = color
+                    color=color)
         p.vbar(x="types", top="values", width=0, alpha=0.8,
                color="color", legend="types",
                source=data)
@@ -589,7 +580,7 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
 
 
 def speedup_prev_plot(vmin=1, vmax=7, init="v00", color=["red", "blue"],
-    legend=["pypy", "python3"]):
+                      legend=["pypy", "python3"]):
     output_file(f"plot_speedup{vmax}.html")
 
     speedup_subset = {k: v for k, v in speedup.items()
@@ -675,7 +666,7 @@ def size_complexity_plot():
     p.xaxis.axis_label = 'Elapsed time (seconds)'
     p.yaxis.axis_label = 'Problem size'
 
-    common_plot_cfg(p, legend=None)
+    common_plot_cfg(p)
     size_complexity_subplot(
         p, vmin=0, vmax=7, index=1,
         color="blue", legend="v0-v7 (size of N)")
@@ -697,7 +688,6 @@ def size_complexity_plot():
     p.legend.label_text_font_size = '21pt'
     p.legend.glyph_height = 45
     p.legend.glyph_width = 45
-
 
     show(p)
 
