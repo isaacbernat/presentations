@@ -11,6 +11,9 @@ std::map<int,int> RESULT;
 // In v1337.c struct unions are used to reduce memory footprint.
 // But in this example, to have an algorithm as comparable as possible to that
 // used in v14.py `map` is used as an analogous datatype do `dict`.
+// `unordered_map` is more similar to Python's `dict` and also faster for this
+// example. Check the implemenation 14b.cpp for that. 
+
 
 // N.b. memoisation is not used here, even if it provided a speedup, because it
 // is also discarded in the python version, and this way is more comparable.

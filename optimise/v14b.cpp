@@ -8,21 +8,8 @@
 #define MAX_ITERS 1024
 
 std::unordered_map<int,int> RESULT;
-// N.b. this is much slower than `int RESULT[MAXN];` used in v13.c
-// In v1337.c struct unions are used to reduce memory footprint.
-// But in this example, to have an algorithm as comparable as possible to that
-// used in v14.py `map` is used as an analogous datatype do `dict`.
-
-// N.b. memoisation is not used here, even if it provided a speedup, because it
-// is also discarded in the python version, and this way is more comparable.
-// int memGCD[MAXN -1][MAX_ITERS];
-
-// int gcd(int x, int y) {
-//     if (memGCD[x][y] == 0) {
-//         memGCD[x][y] = std::gcd(x, y);
-//     }
-//     return memGCD[x][y];
-// }
+// N.b. v14.cpp uses `map` instead of `unordered_map`. Check that file for a 
+// longer explanation on the implications of this change.
 
 void preprocess(int N){
     int combinations = 0;
