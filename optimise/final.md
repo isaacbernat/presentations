@@ -38,8 +38,6 @@ We could place a strict limit on the source size, but basically precalculating 1
 ## Size of input
 To simplify we will only consider N=2^20 at the beginning, but later we will assume the input to be 100k random numbers < 2^20.
 
-## TODO change image... instead of 50KiB just say is not allowed reading the results from a file and printing them.
-
 ---
 
 ## Solutions (first 48 samples)
@@ -303,8 +301,6 @@ The basic philosophy behind this is similar to code hoisting/strength reduction.
 ???
 One condition that must be fulfilled is that X, Y and Z must all be co-prime. That means that at most one number in any given triplet can be even (i.e. divisible by 2). This let's us increment loops by 2 instead of 1 each iteration in order to keep variables either always even or odd as required.
 
-## TODO fix screenshot match the code! It should be +2 not +1.
-
 ---
 
 ## Interlude: Compilers
@@ -335,6 +331,7 @@ PyPy is just one of many tools to speedup Python execution. This presentation is
 - Other obvious flags would be `march`, but I wanted to keep the changes with original Python implementation minimal so the comparison was as fair as possible.
 
 ---
+
 <embed style="margin-left:-2rem" src="plots/plot_eta7.html" width="110%" height="100%"></embed>
 
 ???
@@ -345,6 +342,7 @@ But, just running v0 with PyPy instead of Python3 we already get a **10x speedup
 BTW: we saw Python3 went from 100k years to 200. A 500x speedup. Python v0 vs **PyPy v7 is >46000x speedup**, it would take **2.1 years**.
 
 ---
+
 <embed style="margin-left:-2rem" src="plots/plot_speedup7.html" width="110%" height="100%"></embed>
 
 ???
@@ -443,6 +441,7 @@ Y, the results from range are integers. xxN, the result of a SQRT is a floating 
 If we make the conversion explicit and we hoist it outside of the loop we will be saving a conversion every iteration.
 
 Ok, how fast do we get now?
+
 ---
 
 ## Interlude: Profiling
@@ -584,6 +583,7 @@ One could also go on with incremental optimisations and try to reduce I/O costs 
 References: many other different ways exist to generate the results, check: https://en.wikipedia.org/wiki/Formulas_for_generating_Pythagorean_triples and https://en.wikipedia.org/wiki/Tree_of_primitive_Pythagorean_triples for examples.
 
 ---
+
 <embed style="margin-left:-2rem" src="plots/plot_eta14.html" width="110%" height="100%"></embed>
 
 ???
@@ -598,6 +598,7 @@ Here we introduce C++ ported versions, because it is relevant how faster a mere 
 We need to zoom out so much to see the last values under 1 second. I think the next one is easier to interpret.
 
 ---
+
 <embed style="margin-left:-2rem" src="plots/plot_speedup14.html" width="110%" height="100%"></embed>
 
 ???
@@ -611,6 +612,7 @@ Speedups for C++ v13-14 with O3
 - **v14 unordered_map   0.13s** (more similar to Python dicts)
 
 ---
+
 <embed style="margin-left:-2rem" src="plots/plot_time_complexity_all_scaled.html" width="110%" height="100%"></embed>
 
 ???
@@ -629,6 +631,7 @@ But even the **fastest constant algorithm is slower for very small Ns** than les
 But not only that. Was it really a **requirement** that it should take < 1s? Was maybe < 1 minute ok? If it's a **batch process** maybe is fine. Before knowing we can afford the price to pay, we first must know that it does not come for free!
 
 ---
+
 <embed style="margin-left:-2rem" src="plots/plot_speedup_vs14.html" width="110%" height="100%"></embed>
 
 ???
