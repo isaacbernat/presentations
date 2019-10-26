@@ -33,10 +33,12 @@ The input consists of positive integers up to 1.05M
 Emphasis on UNIQUE equation solutions.
 
 ## No precalculation
-There is a strict limit on the source size. Precalculating 1M results and simply printing them is not a valid "fast solution".
+We could place a strict limit on the source size, but basically precalculating 1M results and simply printing them is not a valid optimisation here.
 
 ## Size of input
 To simplify we will only consider N=2^20 at the beginning, but later we will assume the input to be 100k random numbers < 2^20.
+
+## TODO change image... instead of 50KiB just say is not allowed reading the results from a file and printing them.
 
 ---
 
@@ -67,6 +69,9 @@ Here one can see a pattern 4...8...4...8... but it gets more complicated after 4
     - N=100, t=1min
     - N=200, t=8min
     - N=400, t=64min
+    - ... 10 times `N *= 2` and `t *= 8` later ...
+    - N=409600, t=68719476736min (130 744 years)
+
 
 #### Sources
 - `github.com/isaacbernat/presentations/tree/master/optimise`
@@ -82,6 +87,8 @@ Here one can see a pattern 4...8...4...8... but it gets more complicated after 4
     - N=100, t=1min;
     - N=200, t=8min;
     - N=400, t=64min;
+    - ... 10 times `N *= 2` and `t *= 8` later ...
+    - N=409600, t=68719476736min (130 744 years)
 
 We could infer that N X 2 -> t X 8;. That would be a cubic complexity. It would be linear if N X 2 -> t X 2, but this case the relation is bigger than that. For each different version we calculate the progression and scale it up to N=2^20 and then 100k Ns
 
@@ -99,9 +106,9 @@ Other approaches: optimise time, vs memory, a specific shared resource, etc.
 
 ## How good are you at estimating speedups?
 ## https://tinyurl.com/pycon2019
-### Results from the above form will be published in a few days.
+#### Results from the above form will be published in a few days.
 ### How fast code is compared to the previous version?
-#### current_time / previous_time.
+### `current_time / previous_time`
 #### E.g. if the code now takes half the time it is 2x (1/0.5). If it takes 75% the original time it is 1.33x (1/0.75).
 ### Compare Python to Python but also PyPy to PyPy for extra fun!
 
@@ -296,6 +303,8 @@ The basic philosophy behind this is similar to code hoisting/strength reduction.
 ???
 One condition that must be fulfilled is that X, Y and Z must all be co-prime. That means that at most one number in any given triplet can be even (i.e. divisible by 2). This let's us increment loops by 2 instead of 1 each iteration in order to keep variables either always even or odd as required.
 
+## TODO fix screenshot match the code! It should be +2 not +1.
+
 ---
 
 ## Interlude: Compilers
@@ -333,6 +342,8 @@ These are the estimated times to compute N=2^20 for Python3 (blue) and PyPy (red
 
 But, just running v0 with PyPy instead of Python3 we already get a **10x speedup "for free"**. Still far from the 500x we achieved, but we have not changed a single line of code. This is because the compiler does optimisations without us having to tell. There is more **"magic" going on in v3** that makes PyPy bar "disappear" from the plot. Let's focus on that.
 
+BTW: we saw Python3 went from 100k years to 200. A 500x speedup. Python v0 vs **PyPy v7 is >46000x speedup**, it would take **2.1 years**.
+
 ---
 <embed style="margin-left:-2rem" src="plots/plot_speedup7.html" width="110%" height="100%"></embed>
 
@@ -352,7 +363,7 @@ That's also why v2 (vs v1, change **exponentiation to multiplication**) and v6 (
 ???
 We saw Python3 went from 100k years to 200. A 500x speedup. Python v0 vs **PyPy v7 is >46000x speedup**, it would take **2.1 years**.
 
-People tend to **get attached to existing code**, and there is a limit on how one can improve an algorithm incrementally. There is this **sunk cost fallacy** which prevents people from discarding something and starting from scratch. That would be recognising "wasted effort" and that can be hard to accept.
+People tend to **get attached to existing code**, and there is a limit on how one can improve an algorithm incrementally (in fact we could still apply some more incremental optimisations on the previous code). There is this **sunk cost fallacy** which prevents people from discarding something and starting from scratch. That would be recognising "wasted effort" and that can be hard to accept.
 
 "Paradigm shift" or "full rewrite" would both describe this approach. In our case this algorithm is based on Euclid's formula to generate primitive pythagorean triplets and is quite different (read formula out loud here).
 
@@ -378,7 +389,7 @@ How can we top that? Terminating a loop early, when we know a condition will not
 ## v9 Early loop termination
 ### V8 vs V7 speedup: 9 Bn; &emsp; &emsp; V8 -> 67 165 sec (100k N<=2^20)
 
-### `(x*x) + (y*y) <= N`
+### `(x*x) + (y*y) <= N` &emsp; &emsp; &emsp; N.b. we time 100k N now
 
 <div style="margin-left:-4rem" ><img src="./images/img_v09ii.py.png" width="110%"/></div>
 
@@ -440,7 +451,7 @@ Ok, how fast do we get now?
 #### Amdahl's law*
 - The non-optimised part sets an upper bound on speedup.
 - Fragments which take 1/3 of time will NEVER be faster than 1.5x.
-- Useful to choose where to focus on and the potential upside.
+- Useful to decide where to focus on and the potential upside.
 
 <div style="margin-left:-4rem" ><img src="./images/img_profilingi.png" height="100%"/></div>
 
@@ -550,10 +561,14 @@ Therefore we are going to **focus on using less memory** if possible. When the p
 
 <div style="margin-left:-4rem" ><img src="./images/img_v14ii.py.png" height="85%" width="85%"/></div>
 
+### All prime factors of `c` are Pythagorean primes -> `c` is 4n + 1.
+
 ???
-Ok, the theory on why we want to do that is clear, but... how do we actually achieve it? These **triplets have an interesting property**. If we recall when we checked the solution samples at the beginning, we noticed a pattern. A simple version of that pattern holds true, and that is that the number of triplets only can change every 4 increases of N. That is, possible number of combination changes are N=1,5,9,13,17,21...
+Ok, the theory on why we want to do that is clear, but... how do we actually achieve it? These **triplets have an interesting property**. If we recall when we checked the solution samples at the beginning, we noticed a pattern. In fact all prime factors of c are primes of the form 4n + 1 (Pythagorean primes). Therefore c is of the form 4n + 1. That is that the number of triplets only can change every 4 increases of N. That is, possible number of combination changes are N=1,5,9,13,17,21...
 
 With that information we can **save 75% of memory usage**. How much of that will that translate into speedup and saved time?
+
+References: https://en.wikipedia.org/wiki/Pythagorean_triple#General_properties
 
 ---
 
@@ -564,11 +579,15 @@ With that information we can **save 75% of memory usage**. How much of that will
 ???
 We've been going on for a while. This is how the code looks like now (minus blank spaces). So there was a **price to pay** to get faster runtimes after all. Apart from obvious **development time**... now the code is more brittle, **harder to maintain**, has more dependencies, etc.
 
+One could also go on with incremental optimisations and try to reduce I/O costs of reading N, converting a strings into integers and so on.
+
+References: many other different ways exist to generate the results, check: https://en.wikipedia.org/wiki/Formulas_for_generating_Pythagorean_triples and https://en.wikipedia.org/wiki/Tree_of_primitive_Pythagorean_triples for examples.
+
 ---
 <embed style="margin-left:-2rem" src="plots/plot_eta14.html" width="110%" height="100%"></embed>
 
 ???
-These are the updated timings. We are measuring 100k Ns, not just 1N like before.
+These are the updated timings. **N.b. We are measuring 100k Ns, not just 1N like before**.
 
 ### V14.py  ETA 100k N>=2^20: 0.61s <-python
 ### V14.py  ETA 100k N>=2^20: 0.49s <-pypy (N.b. PyPy has a more expensive start time than Python)
@@ -625,6 +644,8 @@ As the last plot, here we compare the runing times of Python3 vs PyPy and C++ O3
 So even when performance is critical, one must know that simply **porting Python code to C++ may not be the magical solution** to all their problems. The range of speedups may vary wildly and one must **always measure and consider alternatives**.
 
  N.b. we didn't show **CO0 and CO3**, different optimisation flags, but using one or another provides a speedup **between 1.5x and 6x** for these 14 versions. **PyPy** on some occasions is **faster than CO0**.
+
+ ## TODO write a small description (also in the charts?) to what optimisation each v corresponds to. Maybe also for other plots as well?
 
 ---
 
