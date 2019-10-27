@@ -692,12 +692,13 @@ def size_complexity_plot():
     show(p)
 
 
-ETA_plot()
+ETA_plot(legend=["PyPy (46420x)", "Python3 (503x)"])
 speedup_prev_plot()
 
 ETA_plot(vmin=8, vmax=14, eta="eta_MAX_iter",
          title_sufix="100k N<=2^20", unit="seconds",
-         color=["magenta", "red", "blue"], legend=["cO3", "pypy", "python3"])
+         color=["magenta", "red", "blue"],
+         legend=["C++ -O3 (0.05s)", "PyPy      (0.49s)", "Python3 (0.61s)"])
 speedup_prev_plot(
     vmin=9, vmax=14, init="v08",
     color=["magenta", "red", "blue"], legend=["cO3", "pypy", "python3"])
