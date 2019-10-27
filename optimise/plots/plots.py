@@ -515,7 +515,8 @@ ts_ratios = {
                               100000: 0.61}}}}
 
 
-def common_plot_cfg(p, legend=None, legend_position="top_right", color=None):
+def common_plot_cfg(p, legend=None, legend_position="top_right", color=None,
+                    legend_updates={}):
     p.title.text_font_size = '21pt'
     p.y_range.start = 0
 
@@ -580,7 +581,7 @@ def ETA_plot(vmin=0, vmax=7, eta="eta_MAXN_y", title_sufix="N=2^20",
 
 
 def speedup_prev_plot(vmin=1, vmax=7, init="v00", color=["red", "blue"],
-                      legend=["pypy", "python3"]):
+                      legend=["pypy", "python3"], rename_versions={}):
     output_file(f"plot_speedup{vmax}.html")
 
     speedup_subset = {k: v for k, v in speedup.items()
@@ -589,6 +590,7 @@ def speedup_prev_plot(vmin=1, vmax=7, init="v00", color=["red", "blue"],
     speedup_relative_X = [1] * len(legend)
 
     for version, info in speedup_subset.items():
+        version = rename_versions.get(version, version)
         speedup_factors += [(version, l) for l in legend]
         speedup_relative_X += [info[f"prev_{l}"] for l in legend]
 
@@ -696,7 +698,8 @@ def size_complexity_plot():
 
 
 ETA_plot(legend=["PyPy (46420x)", "Python3 (503x)"])
-speedup_prev_plot()
+speedup_prev_plot(rename_versions={
+    "v02": "v2 peephole", "v03": "v3 short-circuit", "v06": "v6 inlining"})
 
 ETA_plot(vmin=8, vmax=14, eta="eta_MAX_iter",
          title_sufix="100k N<=2^20", unit="seconds",
@@ -704,6 +707,8 @@ ETA_plot(vmin=8, vmax=14, eta="eta_MAX_iter",
          legend=["C++ -O3 (0.05s)", "PyPy      (0.49s)", "Python3 (0.61s)"])
 speedup_prev_plot(
     vmin=9, vmax=14, init="v08",
-    color=["magenta", "red", "blue"], legend=["cO3", "pypy", "python3"])
+    color=["magenta", "red", "blue"], legend=["cO3", "pypy", "python3"],
+    rename_versions={
+    "v12": "v12 memoisation", "v13": "v13 reuse", "v14": "v14 memory"})
 speedup_vs_plot()
 size_complexity_plot()

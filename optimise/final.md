@@ -320,7 +320,7 @@ One condition that must be fulfilled is that X, Y and Z must all be co-prime. Th
 ???
 The real speedup for v7 is quite close to the theoretical one. We saved 6/8 iterations and that means it would do 25% of the calculations. That would be 4x speedup.
 
-### Definition
+### Definition (Nobody expects compilers in Python! -- or do they?)
 Compilers are programs which translate code from a source language (e.g. Python) into another (e.g. cpython bytecode). They often apply non result-changing optimisations, analysing the whole program and how it behaves.
 
 PyPy is just one of many tools to speedup Python execution. This presentation is already quite long so we won't be covering them.
@@ -346,7 +346,7 @@ BTW: we saw Python3 went from 100k years to 200. A 500x speedup. Python v0 vs **
 <embed style="margin-left:-2rem" src="plots/plot_speedup7.html" width="110%" height="100%"></embed>
 
 ???
-Here instead of total time we have **speedup compared to previous version**. We see v3 (**shortcircuit evaluation) has a huge impact >110x** for PyPy, which dwarves the already nice **2.5x Python3** speedup. So much we need to **zoom in (to 6x)** to actually see it. Why the big difference? Well, because compilers are quite clever at optimising code and can take a bigger advantage of small changes like this.
+Here instead of total time we have **speedup compared to previous version**. We see v3 (**short-circuit evaluation) has a huge impact >110x** for PyPy, which dwarves the already nice **2.5x Python3** speedup. So much we need to **zoom in (to 6x)** to actually see it. Why the big difference? Well, because compilers are quite clever at optimising code and can take a bigger advantage of small changes like this.
 
 That's also why v2 (vs v1, change **exponentiation to multiplication**) and v6 (vs v5, **putting the code inside a function**) are big gains for CPython but make PyPy be even slower. The compilers were already doing similar optimisations and **we just got in their way!**
 
@@ -457,7 +457,7 @@ Ok, how fast do we get now?
 ???
 Previous speedup was... modest (<1%). Time measurement doesn't need to be a black box. We can determine the upper bound of an optimisation before actually coding and testing it. For that we will use profilers. They can be invaluable to find what to optimise next.
 
-### Amdahl's law
+### Amdahl's law (Everybody should expect profilers when optimising!)
 - The original Amdahl's quote is about parallellisable code, but the same principle can be applied here.
 
 - Won't mention Amdahl's law vs Gustafson's law, the presentation is already too long...
