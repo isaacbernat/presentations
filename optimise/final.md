@@ -636,13 +636,17 @@ But not only that. Was it really a **requirement** that it should take < 1s? Was
 
 ???
 As the last plot, here we compare the runing times of Python3 vs PyPy and C++ O3.
-### PyPy is always faster than Python.
+### **PyPy** is always faster than **Python**.
 - `>200x` (v4)
 - `1.25x` (v14)
 
-### C++ O3 is always faster than PyPy.
+### **C++ O3** is always faster than **PyPy**.
 - `>100x` (v12)
 - `1.4x` (v07)
+
+### **C++ O3 vs Python**
+- 2.77x (v14); 5.2 (v11x)
+- 799x (v3)
 
 So even when performance is critical, one must know that simply **porting Python code to C++ may not be the magical solution** to all their problems. The range of speedups may vary wildly and one must **always measure and consider alternatives**.
 

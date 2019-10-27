@@ -631,7 +631,10 @@ def speedup_vs_plot(vmin=0, vmax=14):
     p.vbar(x=speedup_factors, top=speedup_relative_X, width=1, alpha=0.8,
            color=["red", "blue"] * (vmax + 1))
 
-    common_plot_cfg(p, legend=["PyPy", "C++"], color=["red", "blue"])
+    common_plot_cfg(p,
+      legend=["PyPy: 1.25x(v14) ... 229x(v04)",
+              "C++:   2.77x(v14) ... 799x(v03)"],
+      color=["red", "blue"])
     p.xaxis.major_label_text_font_size = '0pt'
 
     show(p)
@@ -669,10 +672,10 @@ def size_complexity_plot():
     common_plot_cfg(p)
     size_complexity_subplot(
         p, vmin=0, vmax=7, index=1,
-        color="blue", legend="v0-v7 (size of N)")
+        color="blue", legend="v00-v07 (size of N)")
     size_complexity_subplot(
         p, vmin=8, vmax=12, index=1048576,
-        color="red", legend="v8-v12 (x*N<=10^6)")
+        color="red", legend="v08-v12 (x*N<=10^6)")
     size_complexity_subplot(
         p, vmin=13, vmax=14, index=1048576,
         color="magenta", legend="v13-v14 (x*N<=10^6)")
