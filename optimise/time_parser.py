@@ -142,6 +142,7 @@ for k, v in speedups.items():
         v["total_cO3"] = cO3_1st / cO3
         v["total_vs_python3_cO3"] = python_1st / cO3
         v["vs_cO3_cO0"] = cO0 / cO3
+        v["vs_python3_cO0"] = python / cO0
         v["vs_python3_cO3"] = python / cO3
 
     if python and cO0:

@@ -634,8 +634,9 @@ def speedup_vs_plot(vmin=0, vmax=14):
            color=["red", "blue"] * (vmax + 1))
 
     common_plot_cfg(p,
-      legend=["PyPy: 1.25x(v14) ... 229x(v04)",
-              "C++:   2.77x(v14) ... 799x(v03)"],
+      legend=["PyPy:      1.25x(v14) ... 229x(v04)",
+              "C++ -O3: 2.77x(v14) ... 799x(v03)",
+              "C++ -O0: 0.68x(v14) ... 196x(v04)",],
       color=["red", "blue"])
     p.xaxis.major_label_text_font_size = '0pt'
 

@@ -70,7 +70,6 @@ Here one can see a pattern 4...8...4...8... but it gets more complicated after 4
     - ... 10 times `N *= 2` and `t *= 8` later ...
     - N=409600, t=68719476736min (130 744 years)
 
-
 #### Sources
 - `github.com/isaacbernat/presentations/tree/master/optimise`
 - Specific timings at `times.csv`.
@@ -105,6 +104,7 @@ Other approaches: optimise time, vs memory, a specific shared resource, etc.
 ## How good are you at estimating speedups?
 ## https://tinyurl.com/pycon2019
 #### Results from the above form will be published in a few days.
+### What... is the run-speed(up) velocity on an unladen laptop?
 ### How fast code is compared to the previous version?
 ### `current_time / previous_time`
 #### E.g. if the code now takes half the time it is 2x (1/0.5). If it takes 75% the original time it is 1.33x (1/0.75).
@@ -651,8 +651,6 @@ As the last plot, here we compare the runing times of Python3 vs PyPy and C++ O3
 So even when performance is critical, one must know that simply **porting Python code to C++ may not be the magical solution** to all their problems. The range of speedups may vary wildly and one must **always measure and consider alternatives**.
 
  N.b. we didn't show **CO0 and CO3**, different optimisation flags, but using one or another provides a speedup **between 1.5x and 6x** for these 14 versions. **PyPy** on some occasions is **faster than CO0**.
-
- ## TODO write a small description (also in the charts?) to what optimisation each v corresponds to. Maybe also for other plots as well?
 
 ---
 
