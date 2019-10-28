@@ -116,6 +116,10 @@ for k_file, v_file in summary_dict.items():
             small, big = tee(sorted(v_runner.get(MAXN, {}).values()))
             next(big)
             time_size_ratio = [b / s for s, b in zip(small, big)]
+            if not time_size_ratio:
+                v_runner["ts_ratio"] = 0
+                v_runner["eta_MAX_iter"] = 0
+                continue
             v_runner["ts_ratio"] = sum(time_size_ratio) / len(time_size_ratio)
             v_runner["eta_MAX_iter"] = (MAX_ITERS / maxN_lt_MAX_k[-1])\
                 ** log(v_runner["ts_ratio"], 10)\
