@@ -361,9 +361,9 @@ That's also why v2 (vs v1, change **exponentiation to multiplication**) and v6 (
 ???
 We saw Python3 went from 100k years to 200. A 500x speedup. Python v0 vs **PyPy v7 is >46000x speedup**, it would take **2.1 years**.
 
-People tend to **get attached to existing code**, and there is a limit on how one can improve an algorithm incrementally (in fact we could still apply some more incremental optimisations on the previous code). There is this **sunk cost fallacy** which prevents people from discarding something and starting from scratch. That would be recognising "wasted effort" and that can be hard to accept.
+People tend to **get attached to existing code**, and there is a limit on how much one can improve an algorithm **incrementally** (in fact we could still apply more incremental optimisations on the previous code). There is also this **sunk cost fallacy** which prevents people from discarding something and starting from scratch. That would be recognising "wasted effort" and that can be hard to accept.
 
-"Paradigm shift" or "full rewrite" would both describe this approach. In our case this algorithm is based on Euclid's formula to generate primitive pythagorean triplets and is quite different (read formula out loud here).
+"Paradigm shift" or "full rewrite" would both describe this approach, which may be used to avoid getting stuck in a **local optima**. In our case this algorithm is based on Euclid's formula to generate **primitive pythagorean triplets** and is quite different (read formula out loud here).
 
 Being so different also makes speedup estimation harder but try anyway, it's fun ;D
 
@@ -728,7 +728,7 @@ Maybe one change actually makes the code slower, but when put together the slowd
 On a higher level, handling slow resources (e.g. disk IO, HTTP requests) asyncronously (if possible). This can go **undetected if only measuring CPU time** too.
 
 #### Good enough is good enough.
-Performance requirements are important. E.g. if we only want numbers < 50 the code for v00.py is perfectly fine. In fact is faster than v13.py .
+Performance **requirements** are important. E.g. if we only want numbers < 50 the code for v00.py is perfectly fine. In fact is faster than v13.py . Also if the program is part of a nightly **batch process**, does it matter if it takes 1 second or 1 minute? (if not mentioned already on algorithmic complexity chart)
 
 Not knowing when to stop... and with that, I conclude the presentation.
 
