@@ -127,7 +127,7 @@ void* calculate(void* id) {
 
 int main() {
     pthread_t thread;
-    auto start = std::chrono::steady_clock::now();
+    // auto start = std::chrono::steady_clock::now();
     pthread_create(&thread, NULL, calculate, NULL);
 
     do {
@@ -140,7 +140,7 @@ int main() {
     } while (++lines_read2 < READLINES);
 
     pthread_join(thread, NULL);
-    auto end = std::chrono::steady_clock::now();
+    // auto end = std::chrono::steady_clock::now();
 
-    fprintf(stderr, "%lld\n", std::chrono::duration_cast<std::chrono::microseconds>(end - start).count());
+    // fprintf(stderr, "%lld\n", std::chrono::duration_cast<std::chrono::microseconds>(end - start).count());
 }
