@@ -61,7 +61,7 @@ Here one can see a pattern 4...8...4...8... but it gets more complicated after 4
 
 ## Time measurements
 #### Timing
-- Code is ran using python3.7 on a **2012 laptop**.
+- Code is ran using python3.7 on a **[2012 laptop](https://github.com/isaacbernat/presentations/blob/master/optimise/timings.md#hardware)**.
 - Best of **5 runs** for each algorithm and input.
 - Increase problem size until it takes **>600 seconds**.
 - Calculate **ETA using** time complexity estimation of **biggest 3 inputs**.
@@ -106,11 +106,11 @@ Other approaches: optimise time, vs memory, a specific shared resource, etc.
 ## How good are you at estimating speedups?
 ## https://tinyurl.com/pycon2019
 #### Results from the above form will be published in a few days.
-### What... is the run-speed(up) velocity on an unladen laptop?
+### What... is the run-speed(up) velocity on an unladen python?
+### Version 2 or version 3? Version 3, but also prev PyPy vs current PyPy!
 ### How fast code is compared to the previous version?
 ### `current_time / previous_time`
 #### E.g. if the code now takes half the time it is 2x (1/0.5). If it takes 75% the original time it is 1.33x (1/0.75).
-### Compare Python to Python but also PyPy to PyPy for extra fun!
 
 ???
 Before we start reading code, to make it a better learning experience, I'd suggest you to either go to that URL and fill the form as we go or to take a piece of paper and write down notes. I'd like you to estimate the magnitude of the speedup for each optimisation introduced relative to the previous code. You can assume we are using the latest Python and/or PyPy.
@@ -702,13 +702,15 @@ Many other interesting techniques that could potentially be further applied
 ---
 
 ## Typical pitfalls
-#### Not considering Amdahl's law*
+#### Not considering Amdahl's law*.
 #### Optimising code still in development.
 #### Not measuring time/resources properly.
 #### Not checking result correctness.
 #### Including more than 1 optimisation at once.
-#### Ignoring usage constraints (e.g. cache size, IO).
+#### Ignoring usage constraints (e.g. cache size, load).
 #### Not knowing when to stop.
+
+<div style="margin-left:0rem" ><img src="./images/img_pitfall_small.png" width="85%"/></div>
 
 ???
 #### Amdahl:
@@ -727,12 +729,14 @@ Timings should be taken **several times to avoid outliers**, also the machine lo
 Maybe one change actually makes the code slower, but when put together the slowdown is concealed.
 
 #### Knowing cache sizes to avoid misses (e.g. by accessing matrixes in blocks) can have a big impact on performance.
-On a higher level, handling slow resources (e.g. disk IO, HTTP requests) asyncronously (if possible). This can go **undetected if only measuring CPU time** too.
+On a higher level, handling slow resources (e.g. disk IO, HTTP requests) asyncronously (if possible). This can go **undetected if only measuring CPU time** too. Again (like in measurement), if machine specs deviate from production specs then they won't be accurate.
 
 #### Good enough is good enough.
 Performance **requirements** are important. E.g. if we only want numbers < 50 the code for v00.py is perfectly fine. In fact is faster than v13.py . Also if the program is part of a nightly **batch process**, does it matter if it takes 1 second or 1 minute? (if not mentioned already on algorithmic complexity chart)
 
 Not knowing when to stop... and with that, I conclude the presentation.
+
+N.b. image from https://en.wikipedia.org/wiki/Pitfall!
 
 ---
 
