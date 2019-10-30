@@ -681,7 +681,7 @@ def size_complexity_plot():
         color="red", legend="v08-v12 (x*N<=10^6)")
     size_complexity_subplot(
         p, vmin=13, vmax=14, index=1048576,
-        color="magenta", legend="v13-v14 (x*N<=10^6)")
+        color="dimgrey", legend="v13-v14 (x*N<=10^6)")
 
     p.xaxis.axis_label_text_font_size = '18pt'
     p.yaxis.axis_label_text_font_size = '18pt'
@@ -704,11 +704,11 @@ speedup_prev_plot(rename_versions={
 
 ETA_plot(vmin=8, vmax=14, eta="eta_MAX_iter",
          title_sufix="100k N<=2^20", unit="seconds",
-         color=["magenta", "red", "blue"],
+         color=["dimgrey", "red", "blue"],
          legend=["C++ -O3 (0.05s)", "PyPy      (0.49s)", "Python3 (0.61s)"])
 speedup_prev_plot(
     vmin=9, vmax=14, init="v08",
-    color=["magenta", "red", "blue"], legend=["cO3", "pypy", "python3"],
+    color=["dimgrey", "red", "blue"], legend=["cO3", "pypy", "python3"],
     rename_versions={
     "v12": "v12 memoisation", "v13": "v13 reuse", "v14": "v14 memory"})
 speedup_vs_plot()

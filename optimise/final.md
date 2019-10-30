@@ -19,6 +19,8 @@ But rather than just describing them in abstract, I am going to apply them incre
 
 Let's move on!
 
+N.b. Image taken from wikipedia: https://en.wikipedia.org/wiki/Chronology_of_the_universe and/or https://en.wikipedia.org/wiki/Timeline_of_epochs_in_cosmology
+
 ---
 
 ## Problem definition
