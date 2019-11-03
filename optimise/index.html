@@ -4,9 +4,53 @@
     <title>From 1 > billion years to < 1 second: optimisation</title>
     <meta charset="utf-8">
     <style>
-      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
-      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
-      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      @font-face {
+        font-family: 'Yanone Kaffeesatz';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Yanone Kaffeesatz Regular'), local('YanoneKaffeesatz-Regular'), url(./remarkjs/YanoneKaffeesatz-Regular.latin.woff2) format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Droid Serif';
+        font-style: italic;
+        font-weight: 400;
+        src: local('Droid Serif Italic'), local('DroidSerif-Italic'), url(./remarkjs/DroidSerif-Italic.woff2) format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Droid Serif';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Droid Serif Regular'), local('DroidSerif-Regular'), url(./remarkjs/DroidSerif-Regular.woff2) format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Droid Serif';
+        font-style: normal;
+        font-weight: 700;
+        src: local('Droid Serif Bold'), local('DroidSerif-Bold'), url(./remarkjs/DroidSerif-Bold.woff2) format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Ubuntu Mono';
+        font-style: italic;
+        font-weight: 400;
+        src: local('Ubuntu Mono Italic'), local('UbuntuMono-Italic'), url(./remarkjs/UbuntuMono-Italic.latin.woff2) format('woff2');
+      }
+      @font-face {
+        font-family: 'Ubuntu Mono';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(./remarkjs/UbuntuMono-Regular.latin.woff2) format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Ubuntu Mono';
+        font-style: normal;
+        font-weight: 700;
+        src: local('Ubuntu Mono Bold'), local('UbuntuMono-Bold'), url(./remarkjs/UbuntuMono-Bold.latin.woff2) format('woff2');
+      }
 
       body { font-family: 'Droid Serif'; }
       h1, h2, h3 {
@@ -22,7 +66,7 @@
 class: center, middle
 
     </textarea>
-    <script src="./remark-latest.min.js">
+    <script src="./remarkjs/remark-latest.min.js">
     </script>
     <script>
       var slideshow = remark.create({

@@ -65,7 +65,7 @@ Here one can see a pattern 4...8...4...8... but it gets more complicated after 4
 - Best of **5 runs** for each algorithm and input.
 - Increase problem size until it takes **>600 seconds**.
 - Calculate **ETA using** time complexity estimation of **biggest 3 inputs**.
-- e.g. `if size*2 -> time*8 then complexity=O(n^3)` because (2^3 -> 8).
+- e.g. `if size*2 -> time*8 then complexity=O(n^3)` because `(2^3 -> 8)`.
     - N=100, t=1min
     - N=200, t=8min
     - N=400, t=64min
@@ -74,8 +74,8 @@ Here one can see a pattern 4...8...4...8... but it gets more complicated after 4
 
 #### Sources
 - `github.com/isaacbernat/presentations/tree/master/optimise`
-- Specific timings at `times.csv`.
-- Summary, ratios and more at `timings.md`.
+- Specific timings at [times.csv](https://github.com/isaacbernat/presentations/blob/master/optimise/times.csv).
+- Summary, ratios and more at [timings.md](https://github.com/isaacbernat/presentations/blob/master/optimise/timings.md).
 
 ???
 ## Specs and details on github
@@ -447,7 +447,7 @@ Ok, how fast do we get now?
 ---
 
 ## Interlude: Profiling
-### V11 vs V10 speedup: 1.01x &emsp; V11 -> 3 513 sec (100k N<=2^20)
+### V11 vs V10 speedup: 1.01x; &emsp; V11 -> 3 513 sec (100k N<=2^20)
 
 #### Amdahl's law*
 - The non-optimised part sets an upper bound on speedup.
@@ -494,7 +494,7 @@ In our case the profiled code becomes 50x slower. With N = 2^20 the code took 0.
 
 ## v12 Memoisation (without r, no typo here)
 
-### V11 vs V10 speedup: 1.01x &emsp; V11 -> 3 513 sec (100k N<=2^20)
+### V11 vs V10 speedup: 1.01x; &emsp; V11 -> 3 513 sec (100k N<=2^20)
 
 <div style="margin-left:-4rem" ><img src="./images/img_v12i.py.png" width="100%"/></div>
 
@@ -659,21 +659,21 @@ So even when performance is critical, one must know that simply **porting Python
 ## v1337 The end is just another beginning
 
 - `v14.py` vs `1337.cpp`
-    -  0.6 sec vs  0.02 sec (`hello_world.py` is already 0.02 sec!)
-    -  0.6 Kib vs  15 Kib
-    - 30 lines vs  140 lines
+    -  0.6 sec vs  0.02 sec (`hello_world.py` is already 0.02 sec!).
+    -  0.6 Kib vs  15 Kib.
+    - 30 lines vs  140 lines.
     - Readability, maintainability, portability... not easily measured.
 
 ### Noteworthy C++ optimisations used:
-- vectorisation (via SIMD (Single-instruction multiple-data))
-- memoisation of `GCD` (already 43x on v12)
-- smaller memory footprint (e.g. `chars` for `gcd(m, n) == 1`)
+- Vectorisation (via SIMD (Single-instruction multiple-data)).
+- Memoisation of `GCD` (already 43x on v12).
+- Smaller memory footprint (e.g. `chars` for `gcd(m, n) == 1`).
     - bithacks and masks has even smaller footprint!
 - `struct union` to reuse all memory allocated for `GCD == 1` for results, even when they have different data types.
     - 4 `char` -> 1 `int`, so it fits!
-- read input entries while calculating the results in parallel (using threads).
-- do so in bulk (128 entries at a time)
-- reading/writing on a shared memory buffer simultaneously for a smaller memory footprint.
+- Read input entries while calculating the results in parallel (using threads).
+- Do so in bulk (128 entries at a time).
+- Reading/writing on a shared memory buffer simultaneously for a smaller memory footprint.
 
 ???
 Just for fun I created a "13 plus" version (named 1337), which is the code for 13.cpp with more optimisations, to see how far it went. Well, it goes **from 0.05 seconds to 0.02** . But is really "no code faster than no code"? hello_world.py is already 0.02s! Many of the optimisations I wrote are not applicable in Python... and really the obtained final speedup is not that big, so at this point one can think... is it really worth it? To name a few, these are the optimisations (see list above).
