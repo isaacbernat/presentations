@@ -1,13 +1,15 @@
 # Prisoner's behaviour, an economic dilemma
+This presentation defines the classic "prisoner's dilemma" payoff matrix and explains enough game theory concepts to go through multiple reasonable strategies. It points out the conceptual differences for infinitely iterated PD and how this affects outcomes and tactics. Near the end, a special mention is made for superrational players.
 
 ## How to run the presentation
 ### If you don't care too much about the format
 [Click here](https://github.com/isaacbernat/presentations/blob/master/prisoner/final.md) (just open the markdown file)
 
 ### If you want it to look "good"
+- Clone or download this repository.
 - In a terminal with the same path as this directory type `python3 -m http.server`.
-- Then open in a browser `http://localhost:8000`.
-- Use shift+F for full screen, shift+P for presentation mode. Up and Down to go through slides.
+- Open in a browser `http://localhost:8000`.
+- Press shift+F for full screen, shift+P for presentation mode (with notes). Up and Down arrows to go through slides.
 - For more info https://github.com/gnab/remark
 
 ## Survey results

@@ -18,8 +18,8 @@ I will also compare running times between Python, PyPy and C++ implementations (
 [Click here](https://github.com/isaacbernat/presentations/blob/master/optimise/final_github_viewer.md) (the charts are not interactive).
 
 ### If you want it to look "good"
-- Clone of download this repository.
+- Clone or download this repository.
 - In a terminal with the same path as this directory run `python3 -m http.server`.
-- Then open in a browser `http://localhost:8000`.
-- Use shift+F for full screen, shift+P for presentation mode (with notes). Up and Down arrows to go through slides.
+- Open in a browser `http://localhost:8000`.
+- Press shift+F for full screen, shift+P for presentation mode (with notes). Up and Down arrows to go through slides.
 - For more info https://github.com/gnab/remark

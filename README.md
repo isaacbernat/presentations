@@ -19,4 +19,4 @@ This presentation explores the elements that define rhythm (i.e. relative/absolu
 
 It continues from written symbols which describe rhythms to media that are actual representations of physical events and can reproduce sounds with great consistency and precision (e.g. metronomes, piano rolls, barrel organs, etc.).
 
-Finally, it concludes showcasing a novel real-time rhythm representation. A system based on polar coordinates projected to a screen, taking full advantage of a versatility that a static sheet or disc simply can't offer.
+Finally, it concludes showcasing [a novel real-time rhythm representation](https://github.com/isaacbernat/rhythm-radar). A system based on polar coordinates projected to a screen, taking full advantage of a versatility that a static sheet or disc simply can't offer.
