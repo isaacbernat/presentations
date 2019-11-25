@@ -1,5 +1,5 @@
 # Prisoner's behaviour, an economic dilemma
-This presentation defines the classic "prisoner's dilemma" payoff matrix and explains enough game theory concepts to go through multiple reasonable strategies. It points out the conceptual differences for infinitely iterated PD and how this affects outcomes and tactics. Near the end, a special mention is made for superrational players.
+This presentation defines the classic "prisoner's dilemma" payoff matrix and explains enough game theory concepts to go through multiple reasonable strategies. It points out the conceptual differences for infinitely iterated PD and how this affects outcomes and tactics. Near the end, a special mention is made about superrational players.
 
 ## How to run the presentation
 ### If you don't care too much about the format
