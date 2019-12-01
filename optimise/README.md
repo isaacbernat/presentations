@@ -1,6 +1,6 @@
 # From > 1 Billion years to < 1 second
 
-The content of this repository is related to a presentation that took place at [PyCon Sweden 2019](https://www.pycon.se/index.html#talks). A link to YouTube will be provided as soon as the video is uploaded. Additional content, references and notes supporting the slides are found in `final.md`. More info in the section *How to run the presentation* below.
+Presentation on the topic of code optimisation given at PyCon Sweden. Learn 10+ techniques applicable in a wide variety of situations and see how Python performance compares to C++. [The video is available on YouTube](https://youtu.be/asZ0SDTKqvM). Additional content, references and notes supporting the slides are found in `final.md`. More info in the section *How to run the presentation* below.
 
 ## Content
 ### Abstract (50-word version)

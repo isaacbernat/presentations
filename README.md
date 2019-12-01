@@ -5,7 +5,7 @@ Check each directory for more details.
 ## optimise
 ### [From > 1 Billion years to < 1 second](https://github.com/isaacbernat/presentations/tree/master/optimise)
 
-Adding resources to speed up processes isn't always feasible. This talk presents a simple problem and how to achieve >10^18x speedups on a regular laptop. Be warned, as overall time is reduced, minuscule overheads become gigantic. Nevertheless, most techniques can still be effective in more general contexts.
+Presentation on the topic of code optimisation given at PyCon Sweden. Learn 10+ techniques applicable in a wide variety of situations and see how Python performance compares to C++. [The video is available on YouTube](https://youtu.be/asZ0SDTKqvM).
 
 ## prisoner
 ### [Prisoner's behaviour, an economic dilemma](https://github.com/isaacbernat/presentations/tree/master/prisoner)
