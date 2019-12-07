@@ -5,7 +5,8 @@ Check each directory for more details.
 ## optimise
 ### [From > 1 Billion years to < 1 second](https://github.com/isaacbernat/presentations/tree/master/optimise)
 
-Presentation on the topic of code optimisation given at PyCon Sweden. Learn 10+ techniques applicable in a wide variety of situations and see how Python performance compares to C++. [The video is available on YouTube](https://youtu.be/asZ0SDTKqvM).
+Presentation on the topic of code optimisation given at PyCon Sweden. Learn 10+ techniques applicable in a wide variety of situations and see how Python performance compares to C++.
+[![YouTube link to the talk](https://raw.githubusercontent.com/isaacbernat/presentations/master/optimise/images/video_preview_with_play_button.png "YouTube link to the talk")](https://youtu.be/asZ0SDTKqvM)
 
 ## prisoner
 ### [Prisoner's behaviour, an economic dilemma](https://github.com/isaacbernat/presentations/tree/master/prisoner)
