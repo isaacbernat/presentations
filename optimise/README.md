@@ -1,7 +1,7 @@
 # From > 1 Billion years to < 1 second
 
 Presentation on the topic of code optimisation given at PyCon Sweden. Learn 10+ techniques applicable in a wide variety of situations and see how Python performance compares to C++.
-[![YouTube link to the talk](https://github.com/isaacbernat/presentations/blob/master/optimise/video_preview.png)](https://youtu.be/asZ0SDTKqvM)
+[![YouTube link to the talk](https://raw.githubusercontent.com/isaacbernat/presentations/master/optimise/images/video_preview_with_play_button.png "YouTube link to the talk")](https://youtu.be/asZ0SDTKqvM)
 
 Additional content, references and notes supporting the slides are found in `final.md`. More info in the section *How to run the presentation* below.
 
