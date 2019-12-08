@@ -630,7 +630,7 @@ But not only that. Was it really a **requirement** that it should take < 1s? Was
 
 ---
 
-<div style="margin-left:-2rem" ><img src="plots/plot_speedup_vs14.html" width="110%" height="100%"/></div>
+<div style="margin-left:-2rem" ><img src="plots/plot_speedup_vs14.png" width="110%" height="100%"/></div>
 
 # Slide 44 Notes:
 As the last plot, here we compare the runing times of Python3 vs PyPy and C++ O3.
