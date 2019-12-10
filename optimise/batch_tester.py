@@ -12,7 +12,7 @@ for py in sorted(glob.glob("v*.py")):
     subprocess.run(params + ["-p", "pypy3"])
 
 for file in sorted(glob.glob("v*.cpp")):
-    # ignore variants and 1337.c which should run under tester_100k.py
+    # ignore variants and 1337.cpp which should run under tester_100k.py
     if len(py) != 7:
         continue
 

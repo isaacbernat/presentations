@@ -16,6 +16,29 @@ I will present best practices, typical pitfalls and common tools, but the main f
 
 I will also compare running times between Python, PyPy and C++ implementations (one being just a few milliseconds), and show how the same techniques may achieve vastly different speedups from the Python versions.
 
+### File structure
+#### batch_tester.py
+Just a few lines of code, but here goes a description: Runs all Python files in batches of increasing input sizes using CPython and using PyPy. For each combination of version + interpreter + input size it will try to run it 5 times (but will stop and increase size if that already took more than 600 seconds). The same happens for C++, it is compiled with and without -O3 optimisation flag and run.
+It exhaustively verifies that the output of each run is correct and records runtimes on `times.csv`.
+
+#### tester.py
+A simple CLI to test individual versions for speed and correctness. Used by `batch_tester.py` but may be called individually (e.g. `python3 tester.py -f v08.py -t 5 -o times.csv -i 5 -e 3 -p pypy3`, type `python3 tester.py --help` for argument explanation).
+
+#### tester_100k.py
+A less versatile version of `tester.py` adapted to run `v1337.cpp` which is more optimised and less generic/robust than other versions (e.g. `g++ v1337.cpp -O3 -o v1337.cO3 -std=c++17` and `python3 tester_100k.py -f v1337.cO3 -i 5 -c 1`). It runs other versions too (e.g. `python3 tester_100k.py -f v13.py -i 5 -p pypy3`).
+
+#### time_parser.py
+It reads `times.csv` and generates a summary of results, using the best of each run type (interpreter + input size + version of code). Used as raw data generate presentation plots. For more info about plots look into that directory.
+
+#### times.csv
+Where runtime information from `batch_tester.py` is stored.
+
+#### timings.md
+Summary of `times.csv` as generatd by `time_parser.py`.
+
+#### triplets.txt
+All possible combinations that fullfill the problem description up to N=2 000 000. Used for result verification.
+
 ## How to run the presentation
 ### If you don't care too much about the format
 [Click here](https://github.com/isaacbernat/presentations/blob/master/optimise/final_github_viewer.md) (the charts are not interactive).
