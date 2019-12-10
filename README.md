@@ -13,6 +13,11 @@ Presentation on the topic of code optimisation given at PyCon Sweden. Learn 10+ 
 
 This presentation defines the classic "prisoner's dilemma" payoff matrix and explains enough game theory concepts to go through multiple reasonable strategies. It points out the conceptual differences for infinitely iterated PD and how this affects outcomes and tactics. Near the end, a special mention is made about superrational players.
 
+## pycrastinate
+### [TODO less, DO more](https://github.com/isaacbernat/presentations/tree/master/pycrastinate)
+
+Presentation given at PyCon Sweden 2014 about a language-agnostic tool to handle TODOs. Its purpose is to list, process, filter, sort and report TODOs from repositories. E.g. automatically create and send a report of >60 days old FIXMEs by git commiter for critical repositories on branch master, so one may act on them.
+
 ## rhythm
 ### [Patterns beyond time and sound: visualising rhythm](https://github.com/isaacbernat/presentations/tree/master/rhythm)
 
