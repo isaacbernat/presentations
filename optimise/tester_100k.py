@@ -33,9 +33,10 @@ def main():
     parser.add_argument("-a", "--all", type=int, default=0,
                         help="generate and verify *all* from 1 to 2^20.")
 
-    # python3 tester_100k.py -f v13.py -i 5 -p pypy3
-    # python3 tester_100k.py -f v1337.cO3 -i 5 -c 1
-    # python3 tester_100k.py -f v1337.cO3 -a 1 -c 1
+    # python3 tester_100k.py -f code/v13.py -i 5 -p pypy3
+    # g++ code/v1337.cpp -O3 -o code/v1337.cO3 -std=c++17
+    # python3 tester_100k.py -f code/v1337.cO3 -i 5 -c 1
+    # python3 tester_100k.py -f code/v1337.cO3 -a 1 -c 1
     a = parser.parse_args()
 
     random.seed(a.seed)
