@@ -26,3 +26,7 @@ This presentation explores the elements that define rhythm (i.e. relative/absolu
 It continues from written symbols which describe rhythms to media that are actual representations of physical events and can reproduce sounds with great consistency and precision (e.g. metronomes, piano rolls, barrel organs, etc.).
 
 Finally, it concludes showcasing [a novel real-time rhythm representation](https://github.com/isaacbernat/rhythm-radar). A system based on polar coordinates projected to a screen, taking full advantage of a versatility that a static sheet or disc simply can't offer.
+
+## self
+### [Note from self](https://github.com/isaacbernat/presentations/tree/master/self)
+Short and informal self-introduction I gave as a new recruit at Preply in April 2020.
