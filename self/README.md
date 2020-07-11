@@ -4,7 +4,7 @@ Short and informal self-introduction I gave as a new recruit at Preply in April 
 ![First slide shows my name](https://github.com/isaacbernat/presentations/blob/master/self/images/00-1N7A9307.jpg)
 
 ## How to run the presentation
-Open [presentation_24Apr2020.pdf](https://github.com/isaacbernat/presentations/master/self/presentation_24Apr2020.pdf) in presentation mode.
+Preview [the presentation online](https://github.com/isaacbernat/presentations/blob/master/self/presentation_24Apr2020.pdf) or [download the PDF](https://github.com/isaacbernat/presentations/raw/master/self/presentation_24Apr2020.pdf) and open it in presentation mode.
 
 ## Additional notes
 ### Intro of and intro
@@ -19,7 +19,7 @@ Open [presentation_24Apr2020.pdf](https://github.com/isaacbernat/presentations/m
 
 ### Background: Python
 - My professional Python experience comes mostly from working in 2 Stockholm startups (2012-2016 and 2018-2020).
-- My experience presenting Python-related topics comes mainly from Sweden too. You may check [the latest one in YouTube on optimisation](https://www.youtube.com/watch?v=asZ0SDTKqvM) or [its companion repository: From >1 Billion years to <1 second](https://github.com/isaacbernat/presentations/tree/master/optimise)
+- My experience presenting Python-related topics comes mainly from Sweden too. You may check [the latest one in PyCon Sweden YouTube channel on optimisation](https://www.youtube.com/watch?v=asZ0SDTKqvM) or [its companion repository: From >1 Billion years to <1 second](https://github.com/isaacbernat/presentations/tree/master/optimise)
 - Other places I worked at haven't been focussed on Python. [Check my resume for that](https://github.com/isaacbernat/cv) or [my LinkedIn](https://www.linkedin.com/in/isaacbernat/) to know more.
 
 ### Hobbies: games
@@ -29,6 +29,6 @@ Open [presentation_24Apr2020.pdf](https://github.com/isaacbernat/presentations/m
 ### Hobbies: piano
 I started to learn piano playing almost 2 years ago. These pictures are from my times in Stockholm.
 - **Top left**: New York Steinway model C from 1896 at Hallwylska museum (with custom casing).
-- **Top right**: Nystrom piano designed by Sigurd Lewerentz in the 1930s at Nationalmuseum
-- **Bottom left**: Wittmayer revival harpsichord from 1968. Sold to return to Barcelona. Glen Gould's favourite brand.
+- **Top right**: Nyström piano designed by Sigurd Lewerentz in the 1930s at Nationalmuseum
+- **Bottom left**: Wittmayer revival harpsichord from 1968. Sold to return to Barcelona. Glenn Gould's favourite brand.
 - **Bottom right**: Kawai VPC1. The digital piano controller I still use nowadays via USB.
