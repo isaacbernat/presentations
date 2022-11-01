@@ -1,4 +1,4 @@
-# Note from self
+# The other side up
 
 Double-sided informal visit card(s).
 
@@ -14,3 +14,7 @@ Double-sided informal visit card(s).
 
 ### Side B
 - TODO
+
+### Technical details
+- The printed resolution is 300 dpi.
+- The size 86x55mm doesn't correspond to the physical card. It includes "safety margins" required by the printer.
