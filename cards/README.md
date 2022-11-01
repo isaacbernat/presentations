@@ -3,7 +3,7 @@
 Double-sided informal visit card(s).
 
 ## Side A
-![Side A](https://github.com/isaacbernat/presentations/blob/master/self/images/00_sideA_86x55.png)
+![Side A](https://github.com/isaacbernat/presentations/blob/master/self/images/01_sideA_86x55.png)
 
 ## Side B
 ![Side B](https://github.com/isaacbernat/presentations/blob/master/self/images/01_sideB_86x55.png)
