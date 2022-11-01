@@ -2,6 +2,11 @@
 
 Check each directory for more details.
 
+## cards
+### [The other side up](https://github.com/isaacbernat/presentations/tree/master/cards)
+
+Double-sided informal visit card(s).
+
 ## optimise
 ### [From > 1 Billion years to < 1 second](https://github.com/isaacbernat/presentations/tree/master/optimise)
 
@@ -29,4 +34,5 @@ Finally, it concludes showcasing [a novel real-time rhythm representation](https
 
 ## self
 ### [Note from self](https://github.com/isaacbernat/presentations/tree/master/self)
+
 Short and informal self-introduction I gave as a new recruit at Preply in April 2020.
