@@ -11,6 +11,7 @@ Double-sided informal visit card(s).
 ## Additional notes
 ### Side A
 ![Side A notes reference](https://github.com/isaacbernat/presentations/blob/master/cards/images/01_sideA_notes.png)
+![Side A notes reference](https://github.com/isaacbernat/presentations/blob/cards/cards/images/01_sideA_notes.png)
 
 #### 0-3 Screen
 ##### 0 Frame:
@@ -28,21 +29,36 @@ This is how git repositories are represented in my zsh terminal. `RepositoryName
 ##### 5 Brightness:
 The image was postprocessed so that `IsaacBernat` colour was white. This increases the perceived brightness on print. I wanted no ink to be used on paper, so the natural background colour would apparently be shinier. The effect is subtle. It highlights the most important part on a card (which is the name/contact information) while remaining not too obvious. The path appears twice to reinforce the message.
 ##### 6 Branch:
-The default `master` branch name is used here. Also as a pun, implying that Isaac's skill level on "git" is that of mastery ^_^ .
+The default `master` branch name is used here. Pun intended, as it implies that Isaac's skill level on "git" is that of mastery ^_^ .
 
-
-#### 7-C Command TODO below
-##### 7 name:
-##### 8 argument:
-##### 9 parameter:
-##### A ascii chars:
-##### B ascii people:
-##### C cow:
+#### 7-C Command
+##### 7 Name:
+`cowsay` is a 1999 perl program that generates ASCII art of a cow and a text message using a [speech balloon](https://en.wikipedia.org/wiki/Speech_balloon).
+##### 8 Arguments:
+`-d` represents a dead cow. It uses `X` for eyes. Also used `-fsmall`, to have a smaller version suitable for a card, but didn't add it here, as it took too much space.
+##### 9 Parameter:
+`0xDEADBEEF` a 32-bit hexadecimal number (equivalent to 3735928559). It can also be read as "dead beef", which would be a pun on the "dead cow" represented below in ASCII art. The number [originally had other meanings](https://stackoverflow.com/questions/2907262/what-does-dead-beef-mean), and was used in systems like classic Mac OS as a [magic debug value](https://en.wikipedia.org/wiki/Magic_number_(programming)#Debug_values).
+##### A Bang bang!‼:
+`‼` takes the space of one character, but it looks like two `!!`. I thought it was fun :D .
+##### B ASCII people:
+Using [ascii characters](https://ss64.com/ascii.html) like ☻ or ☺, there's the image of a person giving a card to another. That could be me and you B-) .
+##### C Recursion:
+The command is somewhat self-referential. By typing `cowsay -fsmall -d cowsay -d 0xDEADBEEF‼` one gets the result shown below, which is similar to the text in the speech baloon `cowsay -d 0xDEADBEEF‼`.
+```
+ _________________________
+< cowsay -d 0xDEADBEEF‼ >
+ -------------------------
+       \   ,__,
+        \  (xx)____
+           (__)    )\
+            U ||--|| *
+```
 
 #### D-F Content TODO below
 ##### D font:
 ##### E scale:
-##### F illumination:
+##### F Special thanks:
+illumination:
 
 ### Side B
 - TODO
