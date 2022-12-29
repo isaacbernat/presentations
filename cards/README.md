@@ -10,6 +10,7 @@ Double-sided informal visit card(s).
 
 ## Additional notes
 ### Side A
+![Side A notes reference](https://github.com/isaacbernat/presentations/blob/master/cards/images/01_sideA_notes.png)
 
 #### 0-3 Screen
 ##### 0 Frame:
