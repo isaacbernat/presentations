@@ -54,11 +54,14 @@ The command is somewhat self-referential. By typing `cowsay -fsmall -d cowsay -d
             U ||--|| *
 ```
 
-#### D-F Content TODO below
-##### D font:
+#### D-F Content
+##### D font selection:
+Used `IBM CGAthin`, [available here among many others](https://int10h.org/oldschool-pc-fonts/fontlist/font?ibm_cgathin). The font selected was a thin one because the pictures were taken in a dark environment (to reduce the glass reflection of the camera taking the picture). Therefore, white pixels were so bright that would take over surrounding areas too (a clear example are the size of the eyes or mouth of these 2 heads ☻ vs ☺). Reducing the exposure time to diminish the glow effect was not viable either, since the raster pattern/scan lines were too obvious and the rows lightning uneven at the 60hz screen refresh rate. An acceptable compromise was achieved with this font.
 ##### E scale:
+The size of each pixel was enlarged (ie one original pixel would use several pixels). This was because taking the picture in it's original size, the result would display individual RGB subpixel colours and their shadow mask patterns. The result did not properly display white colour, but instead red, green and blue circles, which was not the desired effect. The bigger scale also makes the curvature more apparent.
 ##### F Special thanks:
-illumination:
+To [Nicolau Suárez Olalla](https://nsuarez.com/), for photography and post-processing.
+
 
 ### Side B
 - TODO
