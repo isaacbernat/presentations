@@ -5,7 +5,7 @@ Check each directory for more details.
 ## cards
 ### [The other side up](https://github.com/isaacbernat/presentations/tree/master/cards)
 
-Double-sided informal visit card(s).
+Double-sided informal visiting card(s).
 
 ## optimise
 ### [From > 1 Billion years to < 1 second](https://github.com/isaacbernat/presentations/tree/master/optimise)
