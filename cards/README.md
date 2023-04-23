@@ -63,7 +63,26 @@ To [Nicolau Suárez Olalla](https://nsuarez.com/), for photography and post-proc
 
 
 ### Side B
-- TODO
+![Side B notes reference](https://github.com/isaacbernat/presentations/blob/master/cards/images/01_sideB_notes.png)
+
+#### 0-7 WIP
+##### 0 Support:
+3.5 inch [floppy disk](https://en.wikipedia.org/wiki/Floppy_disk#3%C2%BD-inch_disk) (aka diskette). Durable and re-usable, have always one ready to share!
+##### 1 Source:
+Image taken from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Floppy_disk_300_dpi.jpg). Part of [Wikimedia Foundation](https://en.wikipedia.org/wiki/Wikimedia_Foundation) a project I support and you should too!
+##### 2 Dimensions:
+I wanted the representation of the disk to be 1:1, as close as possible to the real size. Even if that meant cropping the borders, because the card dimensions are smaller. The image source resolution is 300 dpi, the same as the print, so no image re-scaling or quality loss here.
+##### 3 HD
+todo
+##### 4 Arrow
+todo
+##### 5 Sticker... is upside down! "index", etc.
+todo
+##### 6 The other side up ... front vs back
+todo
+##### 7 Metal
+todo
+
 
 ### Technical details
 - The printed resolution is 300 dpi.
