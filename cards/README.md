@@ -73,13 +73,13 @@ Image taken from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Flo
 ##### 2 Dimensions:
 I wanted the representation of the disk to be 1:1, as close as possible to the real size. Even if that meant cropping the borders, because the card dimensions are smaller. The image source resolution is 300 dpi, the same as the print, so no image re-scaling or quality loss here.
 ##### 3 HD
-todo
+1.44 MB is not enough for (m)any HD videos... but it doesn't stand for [High Definition](https://en.wikipedia.org/wiki/High-definition_video). It means High-Density (even [Ultra High-Density in 1986](https://books.google.es/books?id=rDwEAAAAMBAJ&pg=PA19&redir_esc=y#v=onepage&q&f=false yet it wouldn't hold a single second of a 8k UHD video). Marketed as "1.44 MB" it really holds 1440 KiB. So that should be 1.47 MB decimal megabyte (MB) or 1.41 MiB binary mebibyte (MiB), but marketing teams know how to compromise irreconciliable positions :D
 ##### 4 Arrow
-todo
+This way in.
 ##### 5 Sticker... is upside down! "index", etc.
 todo
 ##### 6 The other side up ... front vs back
-todo
+"This side up" is only helpful when one is already holding the correct side... but since floppy drives are not common anymore... better turn it around to read the contact information ^_^
 ##### 7 Metal
 todo
 
