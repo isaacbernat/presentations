@@ -67,22 +67,28 @@ To [Nicolau Suárez Olalla](https://nsuarez.com/), for photography and post-proc
 
 #### 0-7 WIP
 ##### 0 Support:
-3.5 inch [floppy disk](https://en.wikipedia.org/wiki/Floppy_disk#3%C2%BD-inch_disk) (aka diskette). Durable and re-usable, have always one ready to share!
+3½-inch [floppy disk](https://en.wikipedia.org/wiki/Floppy_disk#3%C2%BD-inch_disk) (aka _Micro diskette_, _Micro disk_, or even _Micro floppy_). Not a fancy render of a save icon ^_^U
 ##### 1 Source:
 Image taken from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Floppy_disk_300_dpi.jpg). Part of [Wikimedia Foundation](https://en.wikipedia.org/wiki/Wikimedia_Foundation) a project I support and you should too!
 ##### 2 Dimensions:
-I wanted the representation of the disk to be 1:1, as close as possible to the real size. Even if that meant cropping the borders, because the card dimensions are smaller. The image source resolution is 300 dpi, the same as the print, so no image re-scaling or quality loss here.
+I wanted the representation of the disk to be 1:1, as close as possible to the real size (90mm × 94mm). Even if that meant cropping the borders (card dimensions are smaller). The image source resolution is 300 dpi, the same as the print, so no image re-scaling or quality loss here.
 ##### 3 HD
-1.44 MB is not enough for (m)any HD videos... but it doesn't stand for [High Definition](https://en.wikipedia.org/wiki/High-definition_video). It means High-Density (even [Ultra High-Density in 1986](https://books.google.es/books?id=rDwEAAAAMBAJ&pg=PA19&redir_esc=y#v=onepage&q&f=false yet it wouldn't hold a single second of a 8k UHD video). Marketed as "1.44 MB" it really holds 1440 KiB. So that should be 1.47 MB decimal megabyte (MB) or 1.41 MiB binary mebibyte (MiB), but marketing teams know how to compromise irreconciliable positions :D
+Not the best medium for HD videos... but it doesn't stand for [High Definition](https://en.wikipedia.org/wiki/High-definition_video). It means High-Density (even [Ultra High-Density in 1986](https://books.google.es/books?id=rDwEAAAAMBAJ&pg=PA19&redir_esc=y#v=onepage&q&f=false) yet it wouldn't hold a single second of a 8k UHD video). Marketed as "1.44 MB" it really holds 1440 KiB. So that should be 1.47 MB decimal megabyte (MB) or 1.41 MiB binary mebibyte (MiB), but marketing teams know how to compromise irreconciliable positions :D
 ##### 4 Arrow
-This way in.
-##### 5 Sticker... is upside down! "index", etc.
-todo
-##### 6 The other side up ... front vs back
-"This side up" is only helpful when one is already holding the correct side... but since floppy drives are not common anymore... better turn it around to read the contact information ^_^
-##### 7 Metal
-todo
+This way in ↑.
 
+<div><img align="left" src="https://web.archive.org/web/20220728035111im_/https://pbs.twimg.com/media/FDQ9SQ6XMAAcuF3?format=png&name=small"/></div>
+
+##### 5 Label
+Or rather ¿ʃǝqɐ⅂? If "INDEX" is to be used as a one-line title/summary for its contents, it makes more sense to store the diskettes with the metallic part facing the bottom of the containter/box. This way, the visible border already contains the text to be searched for (not the metallic part), making it more easily acessible, requiring less space and movement to shuffle through floppies. But since these labels are stickers, if it fits... that's often as much thought anybody would give... could've benefited from a _"the other side up"_ note :D
+
+← A good example of practicality is the archiver on the left, image courtesy of [archive.org](https://archive.org/), another cool project to support ^_^
+
+
+##### 6 The other side up
+What's the front and what's the back? _"This side up"_ would only be helpful when one is already holding the correct side... a bit ironic, not when that information is needed the most. Since information here is written and this is not to be inserted into a floppy drive, the other side holds more important information. Better turn it around to read the contact name ^_^
+##### 7 Metal!
+Including a shutter in its design, meant the smallest possible size was no longer square. This had the advantage that one could not introduce the disk sideways by mistake. So it served more uses than just protection. An intuitive design always trumps text labels as showcased in [The Design of Everyday Things](https://en.wikipedia.org/wiki/The_Design_of_Everyday_Things) in greater detail. But most importantly, the shutter was fun to pull and watch it return to the original position :D
 
 ### Technical details
 - The printed resolution is 300 dpi.
