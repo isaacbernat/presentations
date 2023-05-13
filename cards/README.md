@@ -1,17 +1,10 @@
 # The other side up
 
-Double-sided informal [visiting card(s)](https://en.wikipedia.org/wiki/Visiting_card).
+Double-sided informal [visiting card(s)](https://en.wikipedia.org/wiki/Visiting_card). Full-size [images below](https://github.com/isaacbernat/presentations/tree/master/cards#full-size-images).
 
 ## Side A
-![Side A](https://github.com/isaacbernat/presentations/blob/master/cards/images/01_sideA_86x55.png)
-
-## Side B
-![Side B](https://github.com/isaacbernat/presentations/blob/master/cards/images/01_sideB_86x55.png)
-
-## Additional notes
-### Side A
 ![Side A notes reference](https://github.com/isaacbernat/presentations/blob/master/cards/images/01_sideA_notes.png)
-
+### Element description
 #### 0-3 Screen
 ##### 0 Frame:
 Original plastic colour from an [SVGA](https://en.wikipedia.org/wiki/Super_VGA) monitor (the first one I ever owned!).
@@ -62,10 +55,9 @@ The size of each [logical pixel](https://en.wikipedia.org/wiki/Pixel#Logical_pix
 To [Nicolau Suárez Olalla](https://nsuarez.com/), for photography and post-processing.
 
 
-### Side B
+## Side B
 ![Side B notes reference](https://github.com/isaacbernat/presentations/blob/master/cards/images/01_sideB_notes.png)
-
-#### 0-7 WIP
+### Element description
 ##### 0 Support:
 3½-inch [floppy disk](https://en.wikipedia.org/wiki/Floppy_disk#3%C2%BD-inch_disk) (aka _Micro diskette_, _Micro disk_, or even _Micro floppy_). Not a fancy render of a save icon ^_^U
 ##### 1 Source:
@@ -84,11 +76,17 @@ Or rather ¿ʃǝqɐ⅂? If "INDEX" is to be used as a one-line title/summary for
 
 ← A good example of practicality is the archiver on the left, image courtesy of [archive.org](https://archive.org/), another cool project to support ^_^
 
-
 ##### 6 The other side up
 What's the front and what's the back? _"This side up"_ would only be helpful when one is already holding the correct side... a bit ironic, not when that information is needed the most. Since information here is written and this is not to be inserted into a floppy drive, the other side holds more important information. Better turn it around to read the contact name ^_^
 ##### 7 Metal!
 Including a shutter in its design, meant the smallest possible size was no longer square. This had the advantage that one could not introduce the disk sideways by mistake. So it served more uses than just protection. An intuitive design always trumps text labels as showcased in [The Design of Everyday Things](https://en.wikipedia.org/wiki/The_Design_of_Everyday_Things) in greater detail. But most importantly, the shutter was fun to pull and watch it return to the original position :D
+
+## Full-size images
+### Side A
+![Side A](https://github.com/isaacbernat/presentations/blob/master/cards/images/01_sideA_86x55.png)
+
+### Side B
+![Side B](https://github.com/isaacbernat/presentations/blob/master/cards/images/01_sideB_86x55.png)
 
 ### Technical details
 - The printed resolution is 300 dpi.
