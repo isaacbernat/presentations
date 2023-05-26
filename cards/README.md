@@ -2,6 +2,8 @@
 
 Double-sided informal [visiting card(s)](https://en.wikipedia.org/wiki/Visiting_card). Full-size [images below](https://github.com/isaacbernat/presentations/tree/master/cards#full-size-images).
 
+![Printed card picture](https://github.com/isaacbernat/presentations/blob/master/cards/images/01_printed.jpg)
+
 ## Side A
 ![Side A notes reference](https://github.com/isaacbernat/presentations/blob/master/cards/images/01_sideA_notes.png)
 ### Element description
