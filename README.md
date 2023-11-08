@@ -6,6 +6,7 @@ Check each directory for more details.
 ### [The other side up](https://github.com/isaacbernat/presentations/tree/master/cards)
 
 Double-sided informal visiting card(s).
+[![Printed card picture](https://github.com/isaacbernat/presentations/blob/master/cards/images/01_printed.jpg)](https://github.com/isaacbernat/presentations/tree/master/cards#full-size-images)
 
 ## optimise
 ### [From > 1 Billion years to < 1 second](https://github.com/isaacbernat/presentations/tree/master/optimise)
