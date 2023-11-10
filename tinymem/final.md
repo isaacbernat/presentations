@@ -21,7 +21,7 @@
 
 ???
 
-- On the **left side** we can see Thumby
+- On the **left side** we can see a **Thumby** I backed on **Kickstarter**
 - A small video console system based on **Raspberry Pi Pico**
 - As you may see, has **6 buttons** (4 are D pad) and a screen (with different brightness levels)
 - And as you **can't** see it has **audio** and other capabilities we'll showcase :D
@@ -52,6 +52,7 @@
 # Code pt1: imports, constants and game loop
 
 <img src="./code01.png" width="110%" />
+## moar info?! \o/ -> github.com/isaacbernat/tinymem
 
 ???
 - Part 1: 1: **imports**, libraries we'll use that makes our life easier, don't reinvent the wheel
@@ -104,7 +105,9 @@
 
 # Code pt3: turn
 
-<img src="./code03.png" width="110%" />
+<img src="./code03.png" width="120%" />
+ 
+## tinymem is here too ^_^ -> code.thumby.us
 
 ???
 - Part 1: 2-4: **show sequence**
@@ -124,18 +127,31 @@
 	- 14: Tell how many **chars remain** this turn.
 	- 15: **Increase** current position and **ask again (line 6)**
 - Part 5: 16: **you did well!** let's increase 1 max position and repeat!
+
 ---
 
-# GAME OVER
+## **GAME OVER:** Thanks for playing. Now check Preply🍕!
+<img src="./winner_is_you.png" width="110%" />
 
-TODO
+???
+
+- You've made it to the end of the **last presentation! Congratulations!**
+- **Thanks**
+	- **PyDayBCN** for the event organisation and the opportunity to present.
+	- **Preply** for being a cool company and sponsor this.
+	- **Audience**, for your attention.
+	- **All unnamed heros** who don't get individual praise, but are kind, gracious and deserve it anyway.
+
+---
+
+# emulator + IDE: code.thumby.us
+
+<video width="110%" controls>
+  <source src="./how_to_run_tinymem_in_thumby_web_emulator.mp4 " type="video/mp4">
+</video>
 
 ???
 
---- 
-
-# BONUS: IDE
-
-TODO
-
-???
+- **Bonus slide:** on this site you can try different Thumby games.
+- You can **run/debug** games by other people using microPython code.
+- If you have a **physical device**, you can load games there too.
