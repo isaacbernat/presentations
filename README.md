@@ -6,6 +6,7 @@ Check each directory for more details.
 ### [The other side up](https://github.com/isaacbernat/presentations/tree/master/cards)
 
 Double-sided informal visiting card(s).
+[![Printed card picture](https://github.com/isaacbernat/presentations/blob/master/cards/images/01_printed.jpg)](https://github.com/isaacbernat/presentations/tree/master/cards#full-size-images)
 
 ## optimise
 ### [From > 1 Billion years to < 1 second](https://github.com/isaacbernat/presentations/tree/master/optimise)
@@ -36,3 +37,9 @@ Finally, it concludes showcasing [a novel real-time rhythm representation](https
 ### [Note from self](https://github.com/isaacbernat/presentations/tree/master/self)
 
 Short and informal self-introduction I gave as a new recruit at Preply in April 2020.
+
+## tinymem
+### [Tinymem: a game under 40 lines and under 30mm](https://github.com/isaacbernat/presentations/tree/master/tinymem)
+
+Lightning talk given at PyDayBCN about a game with menus, audio, sprites, text, button inputs... programmed in under 40 MicroPython lines.
+The game runs in Thumby, a Raspberry Pi Pico based console which is less than 30mm in its largest dimension.
